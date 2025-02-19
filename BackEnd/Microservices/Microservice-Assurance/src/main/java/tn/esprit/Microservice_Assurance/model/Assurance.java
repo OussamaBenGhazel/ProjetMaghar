@@ -20,7 +20,7 @@ public class Assurance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+///    test assurance
     // Nom du produit d'assurance (ex: "Assurance Auto Premium")
     @Column(nullable = false, length = 100)
     private String nom;
