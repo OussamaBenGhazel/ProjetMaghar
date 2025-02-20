@@ -15,6 +15,7 @@
             font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
+            min-height: 100vh;
         }
 
         /* 🔹 NAVBAR STYLÉE */
@@ -29,6 +30,7 @@
             z-index: 1000;
             padding: 10px 20px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            height: 56px;
         }
 
         .navbar-brand {
@@ -54,7 +56,8 @@
             box-shadow: 4px 0 10px rgba(0, 0, 0, 0.3);
             padding-top: 20px;
             transition: width 0.3s ease-in-out;
-            overflow: hidden;
+            overflow-y: auto;
+            z-index: 999;
         }
 
         .sidebar:hover {
@@ -78,14 +81,24 @@
 
         .sidebar i {
             margin-right: 10px;
+            min-width: 25px;
         }
 
         /* 🔹 CONTENU PRINCIPAL */
-        .content {
+        .main-content {
             margin-left: 250px;
             margin-top: 56px;
-            padding: 20px;
+            padding: 30px;
+            min-height: calc(100vh - 56px);
             transition: margin-left 0.3s ease-in-out;
+        }
+
+        .router-outlet-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+            min-height: calc(100vh - 120px);
         }
 
         /* 🌟 RESPONSIVE DESIGN */
@@ -98,8 +111,17 @@
                 width: 220px;
             }
 
-            .content {
+            .main-content {
                 margin-left: 60px;
+                padding: 15px;
+            }
+
+            .sidebar a span {
+                display: none;
+            }
+
+            .sidebar:hover a span {
+                display: inline;
             }
         }
     </style>
@@ -117,29 +139,24 @@
 
 <!-- Sidebar -->
 <div class="sidebar">
-  <a href="#"><i class="fas fa-home"></i> Partenaire-Service</a>
-  <a href="#"><i class="fas fa-home"></i> Assurance</a>
-  <a href="#"><i class="fas fa-home"></i> Sinistre</a>
-  <a href="#"><i class="fas fa-home"></i> Recrutement</a>
-  <a href="#"><i class="fas fa-home"></i> User</a>
-  <a href="#"><i class="fas fa-home"></i> Avis</a>
-  <a href="#"><i class="fas fa-home"></i> Reclamations</a>
-  <a href="#"><i class="fas fa-home"></i> RDV</a>
-
-  <a routerLink="/admin/partenaire-form" class="nav-link">
-    <i class="fas fa-plus-circle"></i> Ajouter Partenaire
-  </a>
-
-
-
-    <a href="#"><i class="fas fa-home"></i> Accueil</a>
-    <a href="#"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+    <a routerLink="/admin/partenaire-service"><i class="fas fa-handshake"></i><span>Partenaire-Service</span></a>
+    <a routerLink="/admin/listassurance"><i class="fas fa-plus-circle"></i><span>Assurance Service</span></a>
+    <a routerLink="/admin/sinistre"><i class="fas fa-exclamation-triangle"></i><span>Sinistre</span></a>
+    <a routerLink="/admin/recrutement"><i class="fas fa-briefcase"></i><span>Recrutement</span></a>
+    <a routerLink="/admin/users"><i class="fas fa-users"></i><span>Utilisateurs</span></a>
+    <a routerLink="/admin/avis"><i class="fas fa-comments"></i><span>Avis</span></a>
+    <a routerLink="/admin/reclamations"><i class="fas fa-exclamation-circle"></i><span>Réclamations</span></a>
+    <a routerLink="/admin/rdv"><i class="fas fa-calendar-alt"></i><span>RDV</span></a>
+    <a routerLink="/admin/partenaire-form"><i class="fas fa-plus"></i><span>Ajouter Partenaire</span></a>
+    <a routerLink="/dashboard"><i class="fas fa-home"></i><span>Accueil</span></a>
+    <a href="#"><i class="fas fa-sign-out-alt"></i><span>Déconnexion</span></a>
 </div>
 
-<!-- Contenu -->
-<div class="content">
-    <h1>Bienvenue</h1>
-    <p>Votre tableau de bord est prêt ! 🎉</p>
+<!-- Contenu principal -->
+<div class="main-content">
+    <div class="router-outlet-container">
+        <router-outlet></router-outlet>
+    </div>
 </div>
 
 <!-- Bootstrap JS -->

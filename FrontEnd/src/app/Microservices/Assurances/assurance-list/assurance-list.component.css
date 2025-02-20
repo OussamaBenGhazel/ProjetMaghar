@@ -1,0 +1,42 @@
+.assurance-card {
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .assurance-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  }
+  
+  .assurance-card .card-header {
+    background: linear-gradient(135deg, #ff3c00, #d44d0e);
+    padding: 15px;
+  }
+  
+  .assurance-card .card-title {
+    color: #ffffff;
+    font-weight: bold;
+  }
+  
+  .assurance-card .card-body p {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .assurance-card .card-footer {
+    background: #f8f9fa;
+    padding: 10px;
+  }
+  
+  .btn {
+    border-radius: 5px;
+    transition: 0.3s;
+  }
+  
+  .btn:hover {
+    opacity: 0.85;
+  }
+  

@@ -1,0 +1,28 @@
+/* Style simplifié */
+.menu-group {
+    position: relative;
+}
+
+.submenu {
+    display: none;
+    padding-left: 15px;
+}
+
+.menu-group:hover .submenu {
+    display: block;
+}
+
+.submenu-item {
+    padding: 10px;
+    font-size: 14px;
+    color: #ccc;
+    display: block;
+}
+
+.submenu-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.main-menu-item {
+    background: rgba(255, 255, 255, 0.1);
+}
