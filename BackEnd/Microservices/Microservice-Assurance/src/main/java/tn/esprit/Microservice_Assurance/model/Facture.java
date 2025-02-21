@@ -1,157 +1,87 @@
-package tn.esprit.Microservice_Assurance.model;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+package tn.esprit.Microservice_Assurance.service;
 
-import java.math.BigDecimal;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import tn.esprit.Microservice_Assurance.model.Contrat;
+import tn.esprit.Microservice_Assurance.model.Facture;
+import tn.esprit.Microservice_Assurance.model.StatutFacture;
+import tn.esprit.Microservice_Assurance.repository.ContratRepository;
+import tn.esprit.Microservice_Assurance.repository.FactureRepository;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
-@Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Table(name = "factures")
-public class Facture {
+@Service
+public class FactureServiceImpl implements FactureService {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Autowired
+    private FactureRepository factureRepository;
 
-    // Référence unique de la facture
-    @Column(name = "numero_facture", nullable = false, unique = true)
-    private String numeroFacture;
+    @Autowired
+    private ContratRepository contratRepository;
 
-
-
-    // Référence vers le client
-    @Column(name = "UserId", nullable = false)
-    private Long UserId;
-
-    // Date d'émission et date d'échéance de la facture
-    @Column(name = "date_emission")
-    private LocalDate dateEmission;
-
-    @Column(name = "date_echeance")
-    private LocalDate dateEcheance;
-
-    // Montant total à payer
-    @Column(name = "montant_total")
-    private BigDecimal montantTotal;
-
-    // Statut de la facture (PENDING, PAID, OVERDUE)
-    @Enumerated(EnumType.STRING)
-    private StatutFacture statut;
-
-    // Date effective de paiement (nullable)
-    @Column(name = "date_paiement")
-    private LocalDate datePaiement;
-
-    // Dates d'audit
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
-
-    // les jointure
-
-    // La facture est générée pour un contrat précis (relation One-to-One)
-    @OneToOne
-    @JoinColumn(name = "contrat_id", nullable = false)
-    private Contrat contrat;
-
-
-    //  les  getter  and  setter
-
-
-    public Long getId() {
-        return id;
+    @Override
+    public Facture createFacture(Facture facture) {
+        return factureRepository.save(facture);
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public Facture createFactureFromContrat(Long contratId) {
+        // Récupérer le contrat avec l'ID
+        Contrat contrat = contratRepository.findById(contratId)
+                .orElseThrow(() -> new RuntimeException("Contrat not found with id " + contratId));
+
+        // Créer une nouvelle facture associée au contrat
+        Facture facture = new Facture();
+        facture.setNumeroFacture(generateFactureNumber());
+        facture.setUserId(contrat.getUserId());
+        facture.setDateEmission(LocalDate.now());
+        facture.setDateEcheance(contrat.getDateFin());
+        facture.setMontantTotal(contrat.getMontantAssure());  // Utiliser le montant du contrat
+        facture.setStatut(StatutFacture.PENDING);  // Statut initial de la facture
+        facture.setCreatedAt(LocalDateTime.now());
+        facture.setUpdatedAt(LocalDateTime.now());
+        facture.setContrat(contrat);
+
+        // Sauvegarder la facture
+        return factureRepository.save(facture);
     }
 
-    public String getNumeroFacture() {
-        return numeroFacture;
+    @Override
+    public Optional<Facture> getFactureById(Long id) {
+        return factureRepository.findById(id);
     }
 
-    public void setNumeroFacture(String numeroFacture) {
-        this.numeroFacture = numeroFacture;
+    @Override
+    public List<Facture> getAllFactures() {
+        return factureRepository.findAll();
     }
 
-    public Long getUserId() {
-        return UserId;
+    @Override
+    public Facture updateFacture(Long id, Facture facture) {
+        if (factureRepository.existsById(id)) {
+            facture.setId(id);
+            return factureRepository.save(facture);
+        } else {
+            throw new RuntimeException("Facture not found with id " + id);
+        }
     }
 
-    public void setUserId(Long userId) {
-        UserId = userId;
+    @Override
+    public void deleteFacture(Long id) {
+        if (factureRepository.existsById(id)) {
+            factureRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Facture not found with id " + id);
+        }
     }
 
-    public LocalDate getDateEmission() {
-        return dateEmission;
-    }
-
-    public void setDateEmission(LocalDate dateEmission) {
-        this.dateEmission = dateEmission;
-    }
-
-    public LocalDate getDateEcheance() {
-        return dateEcheance;
-    }
-
-    public void setDateEcheance(LocalDate dateEcheance) {
-        this.dateEcheance = dateEcheance;
-    }
-
-    public BigDecimal getMontantTotal() {
-        return montantTotal;
-    }
-
-    public void setMontantTotal(BigDecimal montantTotal) {
-        this.montantTotal = montantTotal;
-    }
-
-    public StatutFacture getStatut() {
-        return statut;
-    }
-
-    public void setStatut(StatutFacture statut) {
-        this.statut = statut;
-    }
-
-    public LocalDate getDatePaiement() {
-        return datePaiement;
-    }
-
-    public void setDatePaiement(LocalDate datePaiement) {
-        this.datePaiement = datePaiement;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public Contrat getContrat() {
-        return contrat;
-    }
-
-    public void setContrat(Contrat contrat) {
-        this.contrat = contrat;
+    private String generateFactureNumber() {
+        // Vous pouvez utiliser une logique de génération de numéro unique ici.
+        return "FAC-" + System.currentTimeMillis();
     }
 }
-
