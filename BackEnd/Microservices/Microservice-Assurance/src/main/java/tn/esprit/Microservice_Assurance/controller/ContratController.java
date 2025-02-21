@@ -21,7 +21,7 @@ public class ContratController {
     public ResponseEntity<Contrat> createContrat(@RequestBody Contrat contrat) {
         Contrat createdContrat = contratService.createContrat(contrat);
         return ResponseEntity.ok(createdContrat);
-    }
+    }sdvsdv
 
     // Mettre à jour un contrat
     @PutMapping("/{id}")
