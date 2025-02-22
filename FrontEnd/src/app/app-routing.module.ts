@@ -7,7 +7,10 @@ import { PartenaireListComponent } from './Microservices/Partenaires/partenaire-
 import { AssuranceListComponent } from './Microservices/Assurances/assurance-list/assurance-list.component';
 import { AddassuranceComponent } from './Microservices/Assurances/addassurance/addassurance.component';
 import { ListassuranceclientComponent } from './Microservices/Assurances/listassuranceclient/listassuranceclient.component';
-import { CreateContratComponent } from './Microservices/Assurances/create-contrat/create-contrat.component';
+import { ContratFormComponent } from './Microservices/Assurances/contrat-form/contrat-form.component';
+import { UserListComponent } from './Microservices/Assurances/user-list/user-list.component';
+import { ListcontratclientComponent } from './Microservices/Assurances/listcontratclient/listcontratclient.component';
+import { ListContratAdminComponent } from './Microservices/Assurances/list-contrat-admin/list-contrat-admin.component';
 
 const routes: Routes = [
   { path: 'admin', component: AdminComponent, children: [
@@ -15,17 +18,19 @@ const routes: Routes = [
     { path: 'partenaire-form', component: PartenaireFormComponent },
     { path: 'assurance-form', component: AddassuranceComponent },
     { path: 'listassurance', component: AssuranceListComponent },
+    { path: 'listcontrat', component: ListContratAdminComponent },
     { path: 'assurance-form/:id', component: AddassuranceComponent },
     { path: '', component: AddassuranceComponent },
 
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
   ]},
 
-  { path: 'packages', component: PartenaireListComponent },
-  
- 
-  { path: 'contrat-form/:id', component: CreateContratComponent },  // Modification ici
+  { path: 'packages', component:  UserListComponent},
+  { path: 'confirmation', component:  ListcontratclientComponent},
+
+  { path: 'contrat-form/:assuranceId', component: ContratFormComponent },
   { path: 'assurances', component: ListassuranceclientComponent },
+
 
 
 

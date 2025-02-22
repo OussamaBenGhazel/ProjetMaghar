@@ -1,4 +1,4 @@
-import { EnvironmentInjector, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Contrat } from 'src/app/core/models/Contrat.model';
@@ -8,43 +8,49 @@ import { Contrat } from 'src/app/core/models/Contrat.model';
 })
 export class ContratService {
 
-  private apiUrl = ' http://localhost:8081/api/contrats'; // URI de l'API
+  private apiUrl = 'http://localhost:8081/contrats'; // L'URL de votre API
 
   constructor(private http: HttpClient) { }
 
+  // Créer un contrat à partir d'une assurance
+  createContratFromAssurance(assuranceId: number, userId: number, contrat: Contrat): Observable<Contrat> {
+    return this.http.post<Contrat>(`${this.apiUrl}/create-from-assurance/${assuranceId}/${userId}`, contrat);
+  }
+
   // Créer un contrat
   createContrat(contrat: Contrat): Observable<Contrat> {
-    return this.http.post<Contrat>(this.apiUrl, contrat);
+    return this.http.post<Contrat>(`${this.apiUrl}/create`, contrat);
   }
 
   // Mettre à jour un contrat
   updateContrat(id: number, contrat: Contrat): Observable<Contrat> {
-    return this.http.put<Contrat>(`${this.apiUrl}/${id}`, contrat);
+    return this.http.put<Contrat>(`${this.apiUrl}/update/${id}`, contrat);
   }
 
   // Supprimer un contrat
   deleteContrat(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/delete/${id}`);
   }
 
-  // Obtenir tous les contrats
+  // Récupérer tous les contrats
   getAllContrats(): Observable<Contrat[]> {
-    return this.http.get<Contrat[]>(this.apiUrl);
+    return this.http.get<Contrat[]>(`${this.apiUrl}/all`);
   }
 
-  // Obtenir un contrat par son ID
+  // Récupérer un contrat par son ID
   getContratById(id: number): Observable<Contrat> {
     return this.http.get<Contrat>(`${this.apiUrl}/${id}`);
   }
 
-  // Créer un contrat à partir d'une assurance
-  createContratFromAssurance(assuranceId: number, contrat: Contrat): Observable<Contrat> {
-    return this.http.post<Contrat>(`${this.apiUrl}/from-assurance/${assuranceId}`, contrat);
+  // Affecter un contrat à un utilisateur
+  affecterContratAUtilisateur(contratId: number, userId: number): Observable<Contrat> {
+    return this.http.put<Contrat>(`${this.apiUrl}/assign/${contratId}/${userId}`, {});
   }
 
-  // Créer un contrat à partir d'un devis
-  createContratFromDevis(devisId: number, contrat: Contrat): Observable<Contrat> {
-    return this.http.post<Contrat>(`${this.apiUrl}/from-devis/${devisId}`, contrat);
+  // Signer un contrat
+  signerContrat(id: number, signatureBase64: string): Observable<Contrat> {
+    const params = new URLSearchParams();
+    params.set('signatureBase64', signatureBase64);
+    return this.http.put<Contrat>(`${this.apiUrl}/sign/${id}?${params.toString()}`, {});
   }
 }
-

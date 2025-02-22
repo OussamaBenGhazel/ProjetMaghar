@@ -14,8 +14,11 @@ import { FormsModule } from '@angular/forms';
 import { PartenaireListComponent } from './Microservices/Partenaires/partenaire-list/partenaire-list.component';  // Importer FormsModule ici
 import { AssuranceListComponent } from './Microservices/Assurances/assurance-list/assurance-list.component';
 import { AddassuranceComponent } from './Microservices/Assurances/addassurance/addassurance.component';
+import { ContratFormComponent } from './Microservices/Assurances/contrat-form/contrat-form.component';
+import { UserListComponent } from './Microservices/Assurances/user-list/user-list.component';
+import { ListcontratclientComponent } from './Microservices/Assurances/listcontratclient/listcontratclient.component';
+import { ListContratAdminComponent } from './Microservices/Assurances/list-contrat-admin/list-contrat-admin.component';
 import { ListassuranceclientComponent } from './Microservices/Assurances/listassuranceclient/listassuranceclient.component';
-import { CreateContratComponent } from './Microservices/Assurances/create-contrat/create-contrat.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { CreateContratComponent } from './Microservices/Assurances/create-contra
     AssuranceListComponent,
     AddassuranceComponent,
     ListassuranceclientComponent,
-    CreateContratComponent,
+    ContratFormComponent,
+    ListcontratclientComponent,
+    ListContratAdminComponent
+  
     
     
     

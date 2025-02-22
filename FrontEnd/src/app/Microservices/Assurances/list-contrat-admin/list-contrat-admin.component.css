@@ -1,0 +1,21 @@
+.table {
+    margin-top: 20px;
+  }
+  
+  .badge {
+    font-size: 0.9rem;
+    padding: 5px 10px;
+  }
+  
+  .badge-success {
+    background-color: #28a745;
+  }
+  
+  .badge-warning {
+    background-color: #ffc107;
+  }
+  
+  .badge-danger {
+    background-color: #dc3545;
+  }
+  

@@ -13,6 +13,7 @@ export class Assurance {
   statut: string;
   createdAt?: string;
   updatedAt?: string;
+  userId: any;
 
   constructor(data: Partial<Assurance> = {}) {
     this.id = data.id;
