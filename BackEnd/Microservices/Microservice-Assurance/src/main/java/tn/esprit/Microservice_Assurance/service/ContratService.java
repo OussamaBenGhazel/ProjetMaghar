@@ -12,9 +12,7 @@ public interface ContratService {
     List<Contrat> getAllContrats();
     Optional<Contrat> getContratById(Long id);
 
-    Contrat createContratFromAssurance(Long assuranceId, Contrat contrat);
-
-    Contrat createContratFromDevis(Long devisId, Contrat contrat);
-
-    // Méthode pour affecter un contrat à un utilisateur
+    Contrat createContratFromAssurance(Long assuranceId, Long userId, Contrat contrat);
+    Contrat affecterContratAUtilisateur(Long contratId, Long userId);
+    Contrat signerContrat(Long idContrat, String signatureBase64);
 }

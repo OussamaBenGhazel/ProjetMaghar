@@ -1,8 +1,6 @@
 package tn.esprit.Microservice_Assurance.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -13,8 +11,6 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "devis")
 public class Devis {
 
@@ -27,8 +23,8 @@ public class Devis {
     private String numeroDevis;
 
     // Référence vers le client (géré dans le microservice Gestion User)
-    @Column(name = "UserId", nullable = false)
-    private Long UserId;
+    @Column(name = "client_id", nullable = false)
+    private Long clientId;
 
 
     // Estimation globale de la prime
@@ -93,12 +89,12 @@ public class Devis {
         this.numeroDevis = numeroDevis;
     }
 
-    public Long getUserId() {
-        return UserId;
+    public Long getClientId() {
+        return clientId;
     }
 
-    public void setUserId(Long userId) {
-        UserId = userId;
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
     }
 
     public BigDecimal getPrimeEstimee() {
