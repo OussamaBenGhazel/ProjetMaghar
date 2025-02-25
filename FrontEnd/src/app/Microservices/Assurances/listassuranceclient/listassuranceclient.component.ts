@@ -11,7 +11,7 @@ import { AssuranceService } from 'src/app/services/Assurance-service/assurance.s
 export class ListassuranceclientComponent implements OnInit {
 
   assurances: Assurance[] = [];
-
+hhhhhhh
   constructor(private assuranceService: AssuranceService, private router: Router) { }
 
   ngOnInit(): void {
