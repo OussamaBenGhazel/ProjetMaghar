@@ -55,9 +55,18 @@
                     </li>
                   </ul>
                 </li>
-                <li class="nav-item @@project">
-                  <a class="nav-link" [routerLink]="'/assurances'">Assurances</a>
-                </li>               
+                <li class="nav-item dropdown @@project">
+                  <a class="nav-link dropdown-toggle" href="#" id="assurancesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Assurances
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="assurancesDropdown">
+                    <a class="dropdown-item" [routerLink]="['/assurances']">Toutes les assurances</a>
+                    <a class="dropdown-item" [routerLink]="['/assurances']" [queryParams]="{type: 'SANTE'}">SANTE</a>
+                    <a class="dropdown-item" [routerLink]="['/assurances']" [queryParams]="{type: 'AUTOMOBILE'}">AUTOMOBILE</a>
+                    <a class="dropdown-item" [routerLink]="['/assurances']" [queryParams]="{type: 'VOYAGE'}">VOYAGE</a>
+                    <a class="dropdown-item" [routerLink]="['/assurances']" [queryParams]="{type: 'HABITATION'}">HABITATION</a>
+                  </div>
+                </li>
                  <li class="nav-item @@project">
                   
                   <a class="nav-link" [routerLink]="'/packages'">Packages</a>

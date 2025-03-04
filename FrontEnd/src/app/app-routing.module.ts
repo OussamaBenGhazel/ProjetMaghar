@@ -4,13 +4,14 @@ import { AdminComponent } from './admin/admin.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { PartenaireFormComponent } from './Microservices/Partenaires/partenaire-form/partenaire-form.component';
 import { PartenaireListComponent } from './Microservices/Partenaires/partenaire-list/partenaire-list.component';
-import { AssuranceListComponent } from './Microservices/Assurances/assurance-list/assurance-list.component';
-import { AddassuranceComponent } from './Microservices/Assurances/addassurance/addassurance.component';
-import { ListassuranceclientComponent } from './Microservices/Assurances/listassuranceclient/listassuranceclient.component';
-import { ContratFormComponent } from './Microservices/Assurances/contrat-form/contrat-form.component';
+import { AssuranceListComponent } from './Microservices/Assurances/ComponentsAdmin/assurance-list/assurance-list.component';
+import { AddassuranceComponent } from './Microservices/Assurances/ComponentsAdmin/addassurance/addassurance.component';
+import { ListassuranceclientComponent } from './Microservices/Assurances/ComponentsClient/listassuranceclient/listassuranceclient.component';
+import { ContratFormComponent } from './Microservices/Assurances/ComponentsClient/contrat-form/contrat-form.component';
 import { UserListComponent } from './Microservices/Assurances/user-list/user-list.component';
-import { ListcontratclientComponent } from './Microservices/Assurances/listcontratclient/listcontratclient.component';
-import { ListContratAdminComponent } from './Microservices/Assurances/list-contrat-admin/list-contrat-admin.component';
+import { ListContratAdminComponent } from './Microservices/Assurances/ComponentsAdmin/list-contrat-admin/list-contrat-admin.component';
+import { FactureclientComponent } from './Microservices/Assurances/ComponentsClient/factureclient/factureclient.component';
+import { ListcontratclientComponent } from './Microservices/Assurances/ComponentsClient/listcontratclient/listcontratclient.component';
 
 const routes: Routes = [
   { path: 'admin', component: AdminComponent, children: [
@@ -25,10 +26,11 @@ const routes: Routes = [
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
   ]},
 
-  { path: 'packages', component:  UserListComponent},
-  { path: 'confirmation', component:  ListcontratclientComponent},
-
+  { path: 'packages', component:  ListcontratclientComponent},
+  { path: 'confirmation', component: ListcontratclientComponent }, //  { path: 'factureclient/:contratId', component: FactureclientComponent },
+  { path: 'contrat-form', component: ContratFormComponent },
   { path: 'contrat-form/:assuranceId', component: ContratFormComponent },
+  { path: 'factureclient/:contratId', component: FactureclientComponent },
   { path: 'assurances', component: ListassuranceclientComponent },
 
 

@@ -1,0 +1,75 @@
+<div class="container mt-4">
+  <!-- Boutons de filtrage par type -->
+  <div class="filter-section mb-4">
+    <h5 class="filter-title mb-2">Filtrer par type d'assurance:</h5>
+    <div class="btn-group" role="group">
+      <button 
+        class="btn" 
+        [ngClass]="{'btn-primary': selectedType === 'SANTE', 'btn-outline-primary': selectedType !== 'SANTE'}"
+        (click)="filterByType('SANTE')">
+        <i class="fas fa-heartbeat"></i> Santé
+      </button>
+      <button 
+        class="btn" 
+        [ngClass]="{'btn-primary': selectedType === 'AUTOMOBILE', 'btn-outline-primary': selectedType !== 'AUTOMOBILE'}"
+        (click)="filterByType('AUTOMOBILE')">
+        <i class="fas fa-car"></i> Automobile
+      </button>
+      <button 
+        class="btn" 
+        [ngClass]="{'btn-primary': selectedType === 'HABITATION', 'btn-outline-primary': selectedType !== 'HABITATION'}"
+        (click)="filterByType('HABITATION')">
+        <i class="fas fa-home"></i> Habitation
+      </button>
+      <button 
+        class="btn" 
+        [ngClass]="{'btn-primary': selectedType === 'VOYAGE', 'btn-outline-primary': selectedType !== 'VOYAGE'}"
+        (click)="filterByType('VOYAGE')">
+        <i class="fas fa-plane"></i> Voyage
+      </button>
+      <button 
+        class="btn btn-secondary" 
+        *ngIf="selectedType"
+        (click)="resetFilter()">
+        <i class="fas fa-times"></i> Réinitialiser
+      </button>
+    </div>
+  </div>
+
+  <!-- Bouton Ajouter en haut à droite -->
+  <div class="d-flex justify-content-end mb-4">
+    <button class="btn btn-success btn-sm" (click)="navigateToAddAssurance()">
+      <i class="fas fa-plus-circle"></i> Ajouter une Assurance
+    </button>
+  </div>
+  
+  <div *ngIf="filteredAssurances.length === 0" class="alert alert-warning text-center">
+    Aucune assurance trouvée.
+  </div>
+  
+  <div class="row" *ngIf="filteredAssurances.length > 0">
+    <div class="col-lg-4 col-md-6 mb-4" *ngFor="let assurance of filteredAssurances">
+      <div class="card assurance-card">
+        <div class="card-header text-white">
+          <h5 class="card-title mb-0">{{ assurance.nom }}</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text"><i class="fas fa-info-circle"></i> <strong>Description:</strong> {{ assurance.description }}</p>
+          <p class="card-text"><i class="fas fa-shield-alt"></i> <strong>Type:</strong> {{ assurance.type }}</p>
+          <p class="card-text"><i class="fas fa-euro-sign"></i> <strong>Montant assuré:</strong> {{ assurance.montantAssure }} €</p>
+          <p class="card-text"><i class="fas fa-money-bill-wave"></i> <strong>Prime:</strong> {{ assurance.prime }} €</p>
+        </div>
+        <div class="card-footer text-center">
+          <!-- Bouton Modifier -->
+          <button class="btn btn-primary btn-sm" (click)="assurance.id !== undefined && editAssurance(assurance.id)">
+            <i class="fas fa-edit"></i> Modifier
+          </button>
+          <!-- Bouton Supprimer -->
+          <button class="btn btn-danger btn-sm" (click)="assurance.id !== undefined && deleteAssurance(assurance.id)">
+            <i class="fas fa-trash"></i> Supprimer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

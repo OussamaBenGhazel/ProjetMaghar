@@ -18,6 +18,7 @@ export class Contrat {
   assurance?: Assurance;
   devis?: Devis;
   facture?: Facture;
+  
 
   constructor(data: Partial<Contrat> = {}) {
     this.id = data.id || 0;
@@ -29,7 +30,7 @@ export class Contrat {
     this.prime = data.prime || 0;
     this.montantAssure = data.montantAssure || 0;
     this.conditionsGenerales = data.conditionsGenerales || '';
-    this.statut = data.statut || StatutContrat.ACTIVE;
+    this.statut = data.statut || StatutContrat.InProgress;
     this.signature = data.signature || '';
     this.createdAt = data.createdAt ? new Date(data.createdAt) : new Date();
     this.updatedAt = data.updatedAt ? new Date(data.updatedAt) : new Date();
@@ -40,6 +41,7 @@ export class Contrat {
 }
 
 export enum StatutContrat {
+  InProgress = "InProgress",
   ACTIVE = "ACTIVE",
   EXPIRE = "EXPIRE",
   SUSPENDU = "SUSPENDU"

@@ -1,0 +1,89 @@
+<div class="container mt-4">
+  <!-- Section de filtre -->
+  <div class="card mb-4 filter-card">
+    <div class="card-body">
+      <h5 class="card-title">Filtrer les contrats</h5>
+      
+      <!-- Filtre par date -->
+      <div class="row mb-3">
+        <div class="col-md-4 mb-3">
+          <label for="filterDateDebut" class="form-label">Date de début :</label>
+          <input type="date" id="filterDateDebut" class="form-control" 
+                 [(ngModel)]="filterDateDebut" (ngModelChange)="filterContrats()">
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="filterDateFin" class="form-label">Date de fin :</label>
+          <input type="date" id="filterDateFin" class="form-control" 
+                 [(ngModel)]="filterDateFin" (ngModelChange)="filterContrats()">
+        </div>
+        <div class="col-md-4 d-flex align-items-end">
+          <button class="btn btn-reset w-100" (click)="resetFilters()">
+            Réinitialiser
+          </button>
+        </div>
+      </div>
+
+      <!-- Filtre par statut (boutons innovants) -->
+      <div class="statut-filter">
+        <button class="btn statut-btn" 
+                [ngClass]="{'active': filterStatut === ''}" 
+                (click)="setFilterStatut('')">
+          Tous
+        </button>
+        <button *ngFor="let statut of statuts" 
+                class="btn statut-btn" 
+                [ngClass]="{'active': filterStatut === statut, 
+                           'active-btn': statut === 'ACTIVE', 
+                           'expired-btn': statut === 'EXPIRE', 
+                           'suspended-btn': statut === 'SUSPENDU', 
+                           'inprogress-btn': statut === 'InProgress'}"
+                (click)="setFilterStatut(statut)">
+          {{ statut }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="filteredContrats.length === 0" class="alert alert-warning text-center">
+    Aucun contrat trouvé pour cette période ou ce statut.
+  </div>
+
+  <div class="row" *ngIf="filteredContrats.length > 0">
+    <div class="col-lg-4 col-md-6 mb-4" *ngFor="let contrat of filteredContrats">
+      <div class="card contrat-card">
+        <div class="card-header text-white">
+          <h5 class="card-title mb-0">Contrat #{{ contrat.numeroContrat }}</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text"><i class="fas fa-calendar-alt"></i> <strong>Début:</strong> {{ contrat.dateDebut | date:'dd/MM/yyyy' }}</p>
+          <p class="card-text"><i class="fas fa-calendar-check"></i> <strong>Fin:</strong> {{ contrat.dateFin | date:'dd/MM/yyyy' }}</p>
+          <p class="card-text"><i class="fas fa-coins"></i> <strong>Prime:</strong> {{ contrat.prime | currency }}</p>
+          <p class="card-text"><i class="fas fa-wallet"></i> <strong>Montant Assuré:</strong> {{ contrat.montantAssure | currency }}</p>
+          <p class="card-text">
+            <i class="fas fa-exclamation-circle"></i>
+            <strong>Statut:</strong> 
+            <span class="badge" [ngClass]="{
+              'bg-success': contrat.statut === 'ACTIVE',
+              'bg-danger': contrat.statut === 'EXPIRE',
+              'bg-warning': contrat.statut === 'SUSPENDU',
+              'bg-info': contrat.statut === 'InProgress'
+            }">
+              {{ contrat.statut }}
+            </span>
+          </p>
+        </div>
+        <div class="card-footer text-center">
+          <button class="btn btn-primary btn-sm" (click)="editContrat(contrat.id!)">
+            <i class="fas fa-edit"></i> Modifier
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="openDeletePopup(contrat)">
+            <i class="fas fa-trash"></i> Supprimer
+          </button>
+          <button class="btn btn-warning btn-sm mt-2 w-100" (click)="payContrat(contrat.id!)">
+            <i class="fas fa-money-bill-wave"></i> Payer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

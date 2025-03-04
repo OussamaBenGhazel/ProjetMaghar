@@ -30,6 +30,13 @@ export class AddassuranceComponent implements OnInit {
   }
 
   private initializeForm(): void {
+    const today = new Date();
+    const oneYearLater = new Date(today);
+    oneYearLater.setFullYear(today.getFullYear() + 1);
+
+    // Formater les dates au format yyyy-MM-dd pour <input type="date>
+    const formatDate = (date: Date): string => date.toISOString().split('T')[0];
+
     this.assuranceForm = this.fb.group({
       nom: ['', Validators.required],
       description: [''],
@@ -39,8 +46,8 @@ export class AddassuranceComponent implements OnInit {
       deductible: [0, [Validators.min(0)]],
       type: ['', Validators.required],
       conditionsGenerales: [''],
-      dateEffective: ['', Validators.required],
-      dateExpiration: ['', Validators.required],
+      dateEffective: [formatDate(today), Validators.required], // Aujourd'hui par défaut
+      dateExpiration: [formatDate(oneYearLater), Validators.required], // Un an plus tard par défaut
       statut: ['', Validators.required]
     });
   }

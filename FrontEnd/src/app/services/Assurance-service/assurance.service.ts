@@ -35,4 +35,7 @@ export class AssuranceService {
   deleteAssurance(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
+  getAssurancesByType(type: string): Observable<Assurance[]> {
+    return this.http.get<Assurance[]>(`${this.baseUrl}/type/${type}`);
+  }
 }

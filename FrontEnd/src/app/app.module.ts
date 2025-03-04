@@ -12,13 +12,14 @@ import { PartenaireFormComponent } from './Microservices/Partenaires/partenaire-
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { PartenaireListComponent } from './Microservices/Partenaires/partenaire-list/partenaire-list.component';  // Importer FormsModule ici
-import { AssuranceListComponent } from './Microservices/Assurances/assurance-list/assurance-list.component';
-import { AddassuranceComponent } from './Microservices/Assurances/addassurance/addassurance.component';
-import { ContratFormComponent } from './Microservices/Assurances/contrat-form/contrat-form.component';
+import { AssuranceListComponent } from './Microservices/Assurances/ComponentsAdmin/assurance-list/assurance-list.component';
+import { AddassuranceComponent } from './Microservices/Assurances/ComponentsAdmin/addassurance/addassurance.component';
+import { ContratFormComponent } from './Microservices/Assurances/ComponentsClient/contrat-form/contrat-form.component';
 import { UserListComponent } from './Microservices/Assurances/user-list/user-list.component';
-import { ListcontratclientComponent } from './Microservices/Assurances/listcontratclient/listcontratclient.component';
-import { ListContratAdminComponent } from './Microservices/Assurances/list-contrat-admin/list-contrat-admin.component';
-import { ListassuranceclientComponent } from './Microservices/Assurances/listassuranceclient/listassuranceclient.component';
+import { ListcontratclientComponent } from './Microservices/Assurances/ComponentsClient/listcontratclient/listcontratclient.component';
+import { ListContratAdminComponent } from './Microservices/Assurances/ComponentsAdmin/list-contrat-admin/list-contrat-admin.component';
+import { ListassuranceclientComponent } from './Microservices/Assurances/ComponentsClient/listassuranceclient/listassuranceclient.component';
+import { FactureclientComponent } from './Microservices/Assurances/ComponentsClient/factureclient/factureclient.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,9 @@ import { ListassuranceclientComponent } from './Microservices/Assurances/listass
     ListassuranceclientComponent,
     ContratFormComponent,
     ListcontratclientComponent,
-    ListContratAdminComponent
+    ListContratAdminComponent,
+    FactureclientComponent,
+    
   
     
     
@@ -47,7 +50,8 @@ import { ListassuranceclientComponent } from './Microservices/Assurances/listass
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule, // Add ReactiveFormsModule to imports
+    ReactiveFormsModule,
+     // Add ReactiveFormsModule to imports
 
   ],
   providers: [],

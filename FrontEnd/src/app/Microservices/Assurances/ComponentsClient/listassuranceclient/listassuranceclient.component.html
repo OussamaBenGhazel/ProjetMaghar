@@ -1,13 +1,16 @@
 <div class="container mt-4">
-  <!-- Bouton Ajouter en haut à droite -->
-  <div class="d-flex justify-content-end mb-4">
-    <button class="btn btn-success btn-sm" (click)="navigateToAddAssurance()">
-      <i class="fas fa-plus-circle"></i> Ajouter une Assurance
-    </button>
+  <div class="d-flex justify-content-between mb-4">
+    <!-- Indicateur de filtre -->
+    <div *ngIf="typeFiltre" class="alert alert-info mb-0 py-1">
+      Filtrage par type: <strong>{{ typeFiltre }}</strong>
+      <button class="btn btn-sm btn-link" [routerLink]="['/assurances']">Voir tout</button>
+    </div>
+    
+    
   </div>
 
   <div *ngIf="assurances.length === 0" class="alert alert-warning text-center">
-    Aucune assurance trouvée.
+    Aucune assurance {{ typeFiltre ? 'de type ' + typeFiltre : '' }} trouvée.
   </div>
 
   <div class="row" *ngIf="assurances.length > 0">
@@ -23,13 +26,9 @@
           <p class="card-text"><i class="fas fa-money-bill-wave"></i> <strong>Prime:</strong> {{ assurance.prime }} €</p>
         </div>
         <div class="card-footer text-center">
-          <!-- Bouton Modifier -->
-          <button class="btn btn-primary btn-sm" (click)="assurance.id !== undefined && editAssurance(assurance.id)">
-            <i class="fas fa-edit"></i> Modifier
-          </button>
-          <!-- Bouton Supprimer -->
-          <button class="btn btn-danger btn-sm" (click)="assurance.id !== undefined && deleteAssurance(assurance.id)">
-            <i class="fas fa-trash"></i> Supprimer
+          <!-- Bouton Souscrire -->
+          <button class="btn btn-primary btn-sm" (click)="assurance.id && subscribeToAssurance(assurance.id)">
+            <i class="fas fa-edit"></i> Souscrire
           </button>
         </div>
       </div>
