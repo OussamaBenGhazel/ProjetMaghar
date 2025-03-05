@@ -27,6 +27,7 @@ export class AddassuranceComponent implements OnInit {
   ngOnInit(): void {
     this.initializeForm();
     this.checkEditMode();
+    this.setupDateExpirationListener();
   }
 
   private initializeForm(): void {
@@ -34,7 +35,6 @@ export class AddassuranceComponent implements OnInit {
     const oneYearLater = new Date(today);
     oneYearLater.setFullYear(today.getFullYear() + 1);
 
-    // Formater les dates au format yyyy-MM-dd pour <input type="date>
     const formatDate = (date: Date): string => date.toISOString().split('T')[0];
 
     this.assuranceForm = this.fb.group({
@@ -46,9 +46,22 @@ export class AddassuranceComponent implements OnInit {
       deductible: [0, [Validators.min(0)]],
       type: ['', Validators.required],
       conditionsGenerales: [''],
-      dateEffective: [formatDate(today), Validators.required], // Aujourd'hui par défaut
-      dateExpiration: [formatDate(oneYearLater), Validators.required], // Un an plus tard par défaut
+      dateEffective: [formatDate(today), Validators.required],
+      dateExpiration: [formatDate(oneYearLater), Validators.required],
       statut: ['', Validators.required]
+    });
+  }
+
+  private setupDateExpirationListener(): void {
+    this.assuranceForm.get('dateEffective')?.valueChanges.subscribe((dateEffective: string) => {
+      if (dateEffective) {
+        const effectiveDate = new Date(dateEffective);
+        const expirationDate = new Date(effectiveDate);
+        expirationDate.setFullYear(effectiveDate.getFullYear() + 1);
+        
+        const formatDate = (date: Date): string => date.toISOString().split('T')[0];
+        this.assuranceForm.get('dateExpiration')?.setValue(formatDate(expirationDate), { emitEvent: false });
+      }
     });
   }
 
@@ -101,7 +114,7 @@ export class AddassuranceComponent implements OnInit {
 
   private handleSuccess(action: string): void {
     alert(`Assurance ${action} avec succès !`);
-    this.router.navigate(['/admin/assurancesadmin']);
+    this.router.navigate(['/admin/listassurance']);
   }
 
   private handleError(error: any): void {

@@ -31,7 +31,7 @@
 
             ],
             "scripts": [
-              "node_modules/admin-lte/dist/js/adminlte.min.js",
+              "node_modules/admin-lte/dist/js/adminlte.min.js"
 
             ]
           },

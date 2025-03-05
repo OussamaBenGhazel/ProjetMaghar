@@ -30,6 +30,8 @@ const routes: Routes = [
   { path: 'confirmation', component: ListcontratclientComponent }, //  { path: 'factureclient/:contratId', component: FactureclientComponent },
   { path: 'contrat-form', component: ContratFormComponent },
   { path: 'contrat-form/:assuranceId', component: ContratFormComponent },
+  { path: 'contrat-form2/:contratId', component: ContratFormComponent },
+
   { path: 'factureclient/:contratId', component: FactureclientComponent },
   { path: 'assurances', component: ListassuranceclientComponent },
 

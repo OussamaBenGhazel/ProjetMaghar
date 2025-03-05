@@ -1,10 +1,10 @@
 <div *ngIf="facture">
-    <h3>Détails de la Facture</h3>
-    <p><strong>Numéro de Facture :</strong> {{ facture.numeroFactur}</p>
-    <p><strong>Montant Total :</strong> {{ facture.montantTotal }}</p>
-    <p><strong>Date d'Émission :</strong> {{ facture.dateEmission | date }}</p>
-    <p><strong>Date d'Échéance :</strong> {{ facture.dateEcheanc/p>
-    
-    <!-- Si la facture n'est pas encore payée -->
-  </div>
-  
+  <h3>Détails de la Facture</h3>
+  <p><strong>Numéro de Facture :</strong> {{ facture.numeroFactur }}</p>
+  <p><strong>Montant Total :</strong> {{ facture.montantTotal }}</p>
+  <p><strong>Date d'Émission :</strong> {{ facture.dateEmission | date }}</p>
+  <p><strong>Date d'Échéance :</strong> {{ facture.dateEcheanc  }}</p>
+
+  <!-- Bouton de téléchargement -->
+  <button (click)="downloadFacture()">Télécharger la Facture</button>
+</div>

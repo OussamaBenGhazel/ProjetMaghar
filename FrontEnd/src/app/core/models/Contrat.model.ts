@@ -1,3 +1,5 @@
+// src/app/core/models/Contrat.model.ts
+import { Assurance } from "./assurance.model"; // Importez la version complète avec 'type'
 import { Devis } from "./Devis .model";
 import { Facture } from "./Facture .model";
 
@@ -15,10 +17,9 @@ export class Contrat {
   signature?: string;
   createdAt?: Date;
   updatedAt?: Date;
-  assurance?: Assurance;
+  assurance?: Assurance; // Doit être la version avec 'type'
   devis?: Devis;
   facture?: Facture;
-  
 
   constructor(data: Partial<Contrat> = {}) {
     this.id = data.id || 0;
@@ -44,26 +45,17 @@ export enum StatutContrat {
   InProgress = "InProgress",
   ACTIVE = "ACTIVE",
   EXPIRE = "EXPIRE",
+  PaymentPending = "PaymentPending",
   SUSPENDU = "SUSPENDU"
-}
-
-export class Assurance {
-  id: number;
-  nom: string;
-
-  constructor(data?: Partial<Assurance>) {
-    this.id = data?.id || 0;
-    this.nom = data?.nom || '';
-  }
 }
 
 export class devis {
   id: number;
   montant: number;
 
-  constructor(data?: Partial<Devis>) {
-    this.id = data?.id || 0;
-    this.montant = data?.montantAssureTotal || 0;
+  constructor(data: Partial<Devis> = {}) {
+    this.id = data.id || 0;
+    this.montant = data.montantAssureTotal || 0;
   }
 }
 
@@ -71,9 +63,8 @@ export class facture {
   id: number;
   montant: number;
 
-  constructor(data?: Partial<Facture>) {
-    this.id = data?.id || 0;
-    this.montant = data?.montantTotal || 0;
+  constructor(data: Partial<Facture> = {}) {
+    this.id = data.id || 0;
+    this.montant = data.montantTotal || 0;
   }
 }
-// Removed duplicate enum definition

@@ -9,8 +9,9 @@ import { FactureService } from 'src/app/services/Assurance-service/facture.servi
   styleUrls: ['./factureclient.component.css']
 })
 export class FactureclientComponent implements OnInit {
-  facture: Facture | null = null;  // La facture sera soit null, soit un objet Facture
-  factureNotFound: boolean = false;  // Indicateur pour savoir si la facture existe ou non
+  facture: Facture | null = null;
+  factureNotFound: boolean = false;
+  contratId: number | null = null;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -19,22 +20,20 @@ export class FactureclientComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Récupérer l'ID du contrat depuis l'URL
     this.activatedRoute.params.subscribe(params => {
-      const contratId = +params['contratId']; // Le + pour convertir en number
-      this.loadFacture(contratId);
+      this.contratId = +params['contratId'];
+      this.loadFacture(this.contratId);
     });
   }
 
-  // Fonction pour charger la facture depuis le service
   loadFacture(contratId: number): void {
     this.factureService.createFactureFromContrat(contratId).subscribe(
       (facture) => {
         if (facture) {
-          this.facture = facture;  // Si une facture est trouvée, on l'affiche
-          this.factureNotFound = false;  // Facture trouvée
+          this.facture = facture;
+          this.factureNotFound = false;
         } else {
-          this.factureNotFound = true;  // Facture non trouvée
+          this.factureNotFound = true;
         }
       },
       (error) => {
@@ -43,10 +42,23 @@ export class FactureclientComponent implements OnInit {
       }
     );
   }
-
-  // Fonction pour payer la facture
-  payFacture(factureId: number): void {
-    console.log('Paiement en cours pour la facture ID:', factureId);
-    this.router.navigate(['/confirmation', factureId]);
+  downloadFacture(): void {
+    if (this.facture && this.facture.id) {
+      this.factureService.downloadFacture(this.facture.id).subscribe(
+        (file) => {
+          const blob = new Blob([file], { type: 'application/pdf' });
+          const link = document.createElement('a');
+          link.href = window.URL.createObjectURL(blob);
+          link.download = `Facture_${this.facture!.id}.pdf`; // Ajout de "!"
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        },
+        (error) => {
+          console.error('Erreur lors du téléchargement de la facture:', error);
+          alert('Erreur lors du téléchargement de la facture.');
+        }
+      );
+    }
   }
-}
+} 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Contrat } from 'src/app/core/models/Contrat.model';
+import { Contrat, StatutContrat } from 'src/app/core/models/Contrat.model';
 import { ContratService } from 'src/app/services/Assurance-service/contrat.service';
 
 @Component({
@@ -8,13 +8,11 @@ import { ContratService } from 'src/app/services/Assurance-service/contrat.servi
   styleUrls: ['./list-contrat-admin.component.css']
 })
 export class ListContratAdminComponent implements OnInit {
-viewDetails(arg0: number|undefined) {
-throw new Error('Method not implemented.');
-}
-  
   contrats: Contrat[] = [];
   isLoading: boolean = true;
   errorMessage: string = '';
+  contratToDelete: Contrat | null = null;
+  showPopup: boolean = false;
 
   constructor(private contratService: ContratService) {}
 
@@ -22,11 +20,14 @@ throw new Error('Method not implemented.');
     this.loadContrats();
   }
 
-  // Charger la liste des contrats
   loadContrats(): void {
     this.contratService.getAllContrats().subscribe(
       (data: Contrat[]) => {
-        this.contrats = data;
+        this.contrats = data.map(c => ({
+          ...c,
+          dateDebut: new Date(c.dateDebut),
+          dateFin: new Date(c.dateFin)
+        }));
         this.isLoading = false;
       },
       error => {
@@ -37,15 +38,45 @@ throw new Error('Method not implemented.');
     );
   }
 
-  // Supprimer un contrat
-  deleteContrat(id: number): void {
-    if (confirm("Voulez-vous vraiment supprimer ce contrat ?")) {
-      this.contratService.deleteContrat(id).subscribe(() => {
-        this.contrats = this.contrats.filter(c => c.id !== id);
-        console.log(`✅ Contrat ${id} supprimé`);
-      }, error => {
-        console.error('❌ Erreur lors de la suppression du contrat:', error);
-      });
+  viewDetails(id: number | undefined): void {
+    if (id !== undefined) {
+      console.log(`Voir les détails du contrat ${id}`);
+      // Par exemple : this.router.navigate(['/contrat', id]);
     }
+  }
+
+  openDeletePopup(contrat: Contrat): void {
+    this.contratToDelete = contrat;
+    this.showPopup = true;
+  }
+
+  closePopup(): void {
+    this.showPopup = false;
+    this.contratToDelete = null;
+  }
+
+  deleteContrat(): void {
+    if (this.contratToDelete && this.contratToDelete.id) {
+      this.contratService.deleteContrat(this.contratToDelete.id).subscribe(
+        () => {
+          this.contrats = this.contrats.filter(c => c.id !== this.contratToDelete!.id);
+          console.log(`✅ Contrat ${this.contratToDelete!.id} supprimé`);
+          this.closePopup();
+        },
+        error => {
+          console.error('❌ Erreur lors de la suppression du contrat:', error);
+          this.closePopup();
+        }
+      );
+    }
+  }
+
+  // Méthode pour obtenir les étapes de la timeline
+  getTimelineSteps(contrat: Contrat): { label: string; completed: boolean; active: boolean }[] {
+    return [
+      { label: 'En cours', completed: true, active: contrat.statut === 'InProgress' },
+      { label: 'Paiement', completed: contrat.statut === 'PaymentPending' || contrat.statut === 'ACTIVE', active: contrat.statut === 'PaymentPending' },
+      { label: 'Actif', completed: contrat.statut === 'ACTIVE', active: contrat.statut === 'ACTIVE' }
+    ];
   }
 }

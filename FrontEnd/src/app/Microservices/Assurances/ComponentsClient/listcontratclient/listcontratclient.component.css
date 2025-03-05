@@ -1,164 +1,161 @@
-/* Styles pour les cartes */
-.contrat-card {
-  border-radius: 10px;
-  overflow: hidden;
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  border: none;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Amélioration générale du style */
+.card.contrat-card {
+  border-radius: 8px;
+  transition: transform 0.2s ease-in-out;
+  border: 1px solid #ddd;
 }
-
-.contrat-card:hover {
+.card.contrat-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
-
-.contrat-card .card-header {
-  background: linear-gradient(135deg, #007bff, #0056b3); /* Bleu */
+.card-header {
+  border-radius: 8px 8px 0 0;
   padding: 15px;
+  background-color: rgb(34, 35, 40); /* Changement de #000000 à rgb(34, 35, 40) */
+  color: #fff; /* Texte blanc pour lisibilité */
+}
+.contract-info p {
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  color: #333;
+}
+.contract-info i {
+  color: #6c757d;
 }
 
-.contrat-card .card-title {
-  color: #ffffff;
+/* Statut filter buttons */
+.filter-card {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+.statut-filter .btn {
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #ddd;
+}
+.statut-filter .btn.active {
+  font-weight: bold;
+  background-color: rgb(34, 35, 40); /* Changement de #000 à rgb(34, 35, 40) */
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.statut-filter .btn:hover {
+  background-color: #e9ecef;
+}
+
+/* Timeline professionnelle */
+.timeline {
+  margin: 20px 0;
+  padding: 0 10px;
+}
+.timeline-container {
+  position: relative;
+  padding: 20px 0;
+}
+.timeline-progress {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 4px;
+  background: #ff3c00; /* Couleur inchangée */
+  z-index: 0;
+  transition: width 0.5s ease-in-out;
+}
+.timeline-steps {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+}
+.timeline-step {
+  text-align: center;
+  flex: 1;
+}
+.step-circle {
+  width: 30px;
+  height: 30px;
+  background: #e9ecef;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 5px;
+  font-size: 1rem;
+  color: #6c757d;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.timeline-step.completed .step-circle {
+  background: #ff3c00; /* Couleur inchangée */
+  color: #fff;
+}
+.timeline-step.active .step-circle {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.step-label {
+  display: block;
+  font-size: 0.8rem;
+  color: #6c757d;
+  font-weight: 500;
+}
+.timeline-step.completed .step-label {
+  color: #ff3c00; /* Couleur inchangée */
+}
+.timeline-step.active .step-label {
   font-weight: bold;
 }
 
-.contrat-card .card-body p {
-  font-size: 14px;
-  color: #555;
-}
-
-.contrat-card .card-footer {
-  background: #f8f9fa;
-  padding: 10px;
-}
-
-.btn {
-  border-radius: 5px;
-  transition: 0.3s;
-}
-
-.btn-warning {
-  background: linear-gradient(135deg, #ff8c00, #ff4500); /* Orange */
-  border: none;
-  color: white;
-}
-
-.btn-warning:hover {
-  opacity: 0.85;
-}
-
-/* Styles pour la section de filtre */
-.filter-card {
-  border-radius: 12px;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-  padding: 20px;
-}
-
-.filter-card .card-title {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 15px;
-  text-align: center;
-}
-
-.filter-card .form-label {
+/* Boutons dans le footer */
+.btn-group .btn {
+  margin: 0 5px;
+  padding: 8px 15px;
   font-size: 0.9rem;
-  font-weight: 500;
-  color: #374151;
-}
-
-.filter-card .form-control {
-  border-radius: 6px;
-  border: 1px solid #d1d5db;
-  padding: 8px 12px;
-  font-size: 0.9rem;
-  transition: border-color 0.3s ease;
-}
-
-.filter-card .form-control:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
-}
-
-/* Bouton Réinitialiser */
-.btn-reset {
-  background: #6b7280;
-  border: none;
-  color: #ffffff;
-  padding: 10px;
-  transition: background 0.3s ease;
-}
-
-.btn-reset:hover {
-  background: #4b5563;
-}
-
-/* Filtre par statut (design innovant) */
-.statut-filter {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-}
-
-.statut-btn {
-  border-radius: 20px;
-  padding: 8px 16px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  border: 2px solid transparent;
-  background: #e5e7eb;
-  color: #374151;
+  border-radius: 4px;
   transition: all 0.3s ease;
 }
-
-.statut-btn:hover {
+.btn-group .btn:hover {
+  opacity: 0.9;
   transform: scale(1.05);
 }
-
-.statut-btn.active {
-  border: 2px solid #3b82f6;
-  background: #dbeafe;
-  color: #1f2937;
+.btn-group .btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
-/* Styles spécifiques par statut */
-.statut-btn.active-btn {
-  background: #d1fae5;
-  border-color: #10b981;
-  color: #065f46;
+/* Popup */
+.modal-content {
+  border-radius: 8px;
 }
-
-.statut-btn.expired-btn {
-  background: #fef3c7;
-  border-color: #f59e0b;
-  color: #92400e;
+.modal-header {
+  border-radius: 8px 8px 0 0;
+  background-color: rgb(34, 35, 40); /* Changement pour le popup */
 }
-
-.statut-btn.suspended-btn {
-  background: #fee2e2;
-  border-color: #ef4444;
-  color: #991b1b;
-}
-
-.statut-btn.inprogress-btn {
-  background: #e0f2fe;
-  border-color: #0ea5e9;
-  color: #1e40af;
+.card-body {
+  padding: 20px;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .statut-filter {
-    gap: 8px;
+  .row-cols-md-3 {
+    row: cols -1px;
   }
-
-  .statut-btn {
-    padding: 6px 12px;
-    font-size: 0.8rem;
+  .timeline-steps {
+    flex-direction: column;
+    align-items: center;
+  }
+  .timeline-progress {
+    display: none;
+  }
+  .timeline-step {
+    margin-bottom: 15px;
+  }
+  .btn-group .btn {
+    width: 100%;
+    margin-bottom: 5px;
   }
 }

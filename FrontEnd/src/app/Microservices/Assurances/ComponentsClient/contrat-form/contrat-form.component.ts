@@ -5,6 +5,7 @@ import { Contrat, StatutContrat } from 'src/app/core/models/Contrat.model';
 import { AssuranceService } from 'src/app/services/Assurance-service/assurance.service';
 import { ContratService } from 'src/app/services/Assurance-service/contrat.service';
 import { UserService } from 'src/app/services/Assurance-service/user-service.service';
+import SignaturePad from 'signature_pad';
 
 @Component({
   selector: 'app-contrat-form',
@@ -18,18 +19,20 @@ export class ContratFormComponent implements OnInit, AfterViewInit {
   user = { id: 1, nom: '', email: '' };
   contrat: Contrat = {
     numeroContrat: '',
-    dateDebut: new Date(), // Valeur par défaut initiale, sera mise à jour
-    dateFin: new Date(),   // Valeur par défaut initiale, sera mise à jour
+    dateDebut: new Date(),
+    dateFin: new Date(),
     prime: 0,
     montantAssure: 0,
     conditionsGenerales: '',
-    statut: '' as StatutContrat,
+    statut: 'InProgress' as StatutContrat, // Statut par défaut défini comme InProgress
     signature: '',
     userId: 0,
     assuranceId: 0
   };
   selectedAssurance: Assurance | null = null;
   assuranceId: number | null = null;
+  contratId: number | null = null;
+  isEditMode = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -42,16 +45,22 @@ export class ContratFormComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const assuranceId = params.get('assuranceId');
-      if (assuranceId !== null) {
+      const contratId = params.get('contratId');
+
+      if (contratId) {
+        this.contratId = parseInt(contratId, 10);
+        this.isEditMode = true;
+        this.loadContrat(this.contratId);
+      } else if (assuranceId) {
         this.assuranceId = parseInt(assuranceId, 10);
         this.loadAssuranceData(this.assuranceId);
+        this.generateContractNumber();
       } else {
-        console.error('❌ Aucun assuranceId trouvé dans l’URL');
+        console.error('❌ Aucun ID fourni dans l’URL');
       }
     });
 
     this.loadUserData();
-    this.generateContractNumber();
   }
 
   ngAfterViewInit(): void {
@@ -61,13 +70,16 @@ export class ContratFormComponent implements OnInit, AfterViewInit {
       backgroundColor: 'white',
       penColor: 'black'
     });
+    if (this.isEditMode && this.contrat.signature) {
+      this.signaturePad.fromDataURL(this.contrat.signature);
+      console.log('📌 Signature initiale chargée dans le canvas');
+    }
   }
 
   private generateContractNumber(): void {
     const timestamp = Date.now().toString().slice(-6);
     const randomNum = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
     this.contrat.numeroContrat = `CTR-${timestamp}-${randomNum}`;
-    console.log('📌 Numéro de contrat généré :', this.contrat.numeroContrat);
   }
 
   loadAssuranceData(assuranceId: number): void {
@@ -77,71 +89,91 @@ export class ContratFormComponent implements OnInit, AfterViewInit {
         this.contrat.prime = assurance.prime;
         this.contrat.montantAssure = assurance.montantAssure ?? 0;
         this.contrat.conditionsGenerales = assurance.conditionsGenerales ?? '';
-        // Mise à jour des dates du contrat avec celles de l'assurance
-        if (assurance.dateEffective) { // Correction ici : ajout de ')'
-          this.contrat.dateDebut = new Date(assurance.dateEffective); // Assurez-vous que c'est une Date valide
-        }
-        if (assurance.dateExpiration) { // Correction ici : ajout de ')'
-          this.contrat.dateFin = new Date(assurance.dateExpiration); // Assurez-vous que c'est une Date valide
-        }
-        console.log('📌 Dates mises à jour :', {
-          dateDebut: this.contrat.dateDebut,
-          dateFin: this.contrat.dateFin
-        });
+        this.contrat.assuranceId = assurance.id!;
+        this.contrat.dateDebut = new Date(assurance.dateEffective);
+        this.contrat.dateFin = new Date(assurance.dateExpiration);
       },
-      error => {
-        console.error('❌ Erreur lors du chargement de l’assurance :', error);
-      }
+      error => console.error('❌ Erreur lors du chargement de l’assurance :', error)
+    );
+  }
+
+  loadContrat(contratId: number): void {
+    this.contratService.getContratById(contratId).subscribe(
+      (contrat: Contrat) => {
+        this.contrat = {
+          ...contrat,
+          dateDebut: new Date(contrat.dateDebut),
+          dateFin: new Date(contrat.dateFin)
+        };
+        this.assuranceId = contrat.assuranceId;
+        this.loadAssuranceData(this.assuranceId!);
+        console.log('📌 Contrat chargé :', this.contrat);
+      },
+      error => console.error('❌ Erreur lors du chargement du contrat :', error)
     );
   }
 
   loadUserData(): void {
-    const userId = this.user.id;
-    this.userService.getUserById(userId).subscribe(
-      (user) => {
-        this.user = user;
-      },
-      error => {
-        console.error('❌ Erreur lors du chargement de l’utilisateur :', error);
-      }
+    this.userService.getUserById(this.user.id).subscribe(
+      (user) => this.user = user,
+      error => console.error('❌ Erreur lors du chargement de l’utilisateur :', error)
     );
   }
 
-  submitContratForm(): void {
-    if (this.assuranceId === null) {
-      console.error('❌ Erreur: ID de l’assurance manquant.');
-      return;
-    }
+  async submitContratForm(): Promise<void> {
+    this.saveSignature();
+    this.contrat.userId = this.user.id;
+    console.log('📌 Contrat avant envoi au backend :', JSON.stringify(this.contrat, null, 2));
+    console.log('📌 Signature envoyée :', this.contrat.signature ? this.contrat.signature.substring(0, 50) + '...' : 'Vide');
 
-    this.saveSignature().then(() => {
-      this.contrat.userId = this.user.id;
-      this.contrat.assuranceId = this.assuranceId!;
-      this.contratService.createContratFromAssurance(this.assuranceId!, this.user.id, this.contrat).subscribe(
-        (newContrat) => {
-          console.log('✅ Contrat créé avec succès :', newContrat);
+    if (this.isEditMode && this.contratId) {
+      this.contratService.updateContrat(this.contratId, this.contrat).subscribe(
+        (updatedContrat) => {
+          console.log('✅ Contrat mis à jour (réponse backend) :', updatedContrat);
           this.router.navigate(['/confirmation']);
         },
-        error => {
-          console.error('❌ Erreur lors de la création du contrat :', error);
-        }
+        error => console.error('❌ Erreur lors de la mise à jour du contrat :', error)
       );
-    }).catch(error => {
-      console.error('❌ Erreur lors de la sauvegarde de la signature :', error);
-    });
+    } else if (this.assuranceId) {
+      this.contrat.assuranceId = this.assuranceId;
+      this.contratService.createContratFromAssurance(this.assuranceId, this.user.id, this.contrat).subscribe(
+        (newContrat) => {
+          console.log('✅ Contrat créé :', newContrat);
+          this.router.navigate(['/confirmation']);
+        },
+        error => console.error('❌ Erreur lors de la création du contrat :', error)
+      );
+    }
   }
 
-  async saveSignature(): Promise<void> {
-    if (!this.signaturePad.isEmpty()) {
-      const signatureBase64 = this.signaturePad.toDataURL();
-      this.contrat.signature = signatureBase64;
-      console.log('📌 Signature capturée :', signatureBase64);
+  saveSignature(): void {
+    if (this.signaturePad && !this.signaturePad.isEmpty()) {
+      const newSignature = this.signaturePad.toDataURL();
+      this.contrat.signature = newSignature;
+      console.log('📌 Nouvelle signature capturée :', this.contrat.signature.substring(0, 50) + '...');
     } else {
-      console.warn('❌ Signature vide');
+      this.contrat.signature = '';
+      console.log('📌 Signature effacée ou canvas vide');
     }
   }
 
   clearSignature(): void {
-    this.signaturePad.clear();
-    this.contrat.signature = '';
+    if (this.signaturePad) {
+      this.signaturePad.clear();
+      this.contrat.signature = '';
+      console.log('📌 Signature effacée manuellement');
+    }
+  }
+
+  isSignatureEmpty(): boolean {
+    return this.signaturePad?.isEmpty() ?? true;
+  }
+
+  updateDateDebut(event: string): void {
+    this.contrat.dateDebut = new Date(event);
+  }
+
+  updateDateFin(event: string): void {
+    this.contrat.dateFin = new Date(event);
   }
 }

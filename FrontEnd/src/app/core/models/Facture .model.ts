@@ -1,4 +1,5 @@
 export class Facture {
+  [x: string]: any;
   id?: number;
   numeroFactur?: string;
   montantTotal?: number;

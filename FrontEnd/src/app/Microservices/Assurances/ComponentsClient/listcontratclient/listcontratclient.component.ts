@@ -15,9 +15,9 @@ export class ListcontratclientComponent implements OnInit {
   showPopup: boolean = false;
   filterDateDebut: string = '';
   filterDateFin: string = '';
-  filterStatut: StatutContrat | '' = ''; // Filtre par statut ('' pour tous les statuts)
+  filterStatut: StatutContrat | '' = ''; 
 
-  readonly statuts = Object.values(StatutContrat); // Liste des statuts possibles depuis l'enum
+  readonly statuts = Object.values(StatutContrat);
 
   constructor(private contratService: ContratService, private router: Router) {}
 
@@ -30,7 +30,11 @@ export class ListcontratclientComponent implements OnInit {
       (response: any) => {
         console.log('Réponse brute reçue :', response);
         try {
-          this.contrats = response;
+          this.contrats = response.map((c: Contrat) => ({
+            ...c,
+            dateDebut: new Date(c.dateDebut),
+            dateFin: new Date(c.dateFin)
+          }));
           this.filteredContrats = [...this.contrats];
         } catch (error) {
           console.error("Erreur de parsing JSON :", error);
@@ -45,7 +49,6 @@ export class ListcontratclientComponent implements OnInit {
   filterContrats(): void {
     let filtered = [...this.contrats];
 
-    // Filtre par date
     const debut = this.filterDateDebut ? new Date(this.filterDateDebut) : null;
     const fin = this.filterDateFin ? new Date(this.filterDateFin) : null;
 
@@ -59,7 +62,6 @@ export class ListcontratclientComponent implements OnInit {
       return isAfterDebut && isBeforeFin;
     });
 
-    // Filtre par statut
     if (this.filterStatut) {
       filtered = filtered.filter(contrat => contrat.statut === this.filterStatut);
     }
@@ -86,37 +88,71 @@ export class ListcontratclientComponent implements OnInit {
 
   closePopup(): void {
     this.showPopup = false;
+    this.contratToDelete = null;
   }
 
-  confirmDelete(): void {
-    if (this.contratToDelete) {
-      this.contratService.deleteContrat(this.contratToDelete.id!).subscribe(
+  deleteContrat(): void {
+    if (this.contratToDelete && this.contratToDelete.id) {
+      this.contratService.deleteContrat(this.contratToDelete.id).subscribe(
         () => {
-          console.log('Contrat supprimé avec succès');
-          this.contrats = this.contrats.filter(c => c.id !== this.contratToDelete?.id);
-          this.filterContrats();
+          this.contrats = this.contrats.filter(c => c.id !== this.contratToDelete!.id);
+          this.filteredContrats = this.filteredContrats.filter(c => c.id !== this.contratToDelete!.id);
+          console.log(`✅ Contrat ${this.contratToDelete!.id} supprimé`);
           this.closePopup();
         },
         error => {
-          console.error('Erreur lors de la suppression du contrat:', error);
+          console.error('❌ Erreur lors de la suppression du contrat:', error);
+          this.closePopup();
         }
       );
     }
   }
-
   payContrat(contratId: number): void {
+    const contrat = this.contrats.find(c => c.id === contratId);
+    
+    if (contrat && (contrat.statut === 'InProgress' || contrat.statut === 'PaymentPending')) {
+      // Si le statut est InProgress, on le met à jour avant la redirection
+      if (contrat.statut === 'InProgress') {
+        contrat.statut = StatutContrat.PaymentPending;
+        this.contratService.updateContrat(contratId, contrat).subscribe(
+          () => {
+            console.log(`✅ Statut du contrat ${contratId} mis à jour à PaymentPending`);
+            this.redirectToFacture(contratId);
+          },
+          error => {
+            console.error('❌ Erreur lors de la mise à jour du statut:', error);
+          }
+        );
+      } else {
+        // Si le statut est déjà PaymentPending, on redirige immédiatement
+        this.redirectToFacture(contratId);
+      }
+    } else {
+      console.warn('Le contrat doit être en statut InProgress ou PaymentPending');
+    }
+  }
+  
+  private redirectToFacture(contratId: number): void {
     this.router.navigate(['/factureclient', contratId]);
   }
-
   viewContrat(contratId: number): void {
     this.router.navigate([`/contrat/${contratId}`]);
   }
 
   editContrat(id: number | undefined): void {
     if (id !== undefined) {
-      this.router.navigate(['/contrat-form', id]);
+      this.router.navigate(['/contrat-form2', id]);
     } else {
       console.error('Contrat ID is undefined');
     }
+  }
+
+  // Méthode pour obtenir les étapes de la timeline
+  getTimelineSteps(contrat: Contrat): { label: string; completed: boolean; active: boolean }[] {
+    return [
+      { label: 'En cours', completed: contrat.statut === 'InProgress' || contrat.statut === 'PaymentPending' || contrat.statut === 'ACTIVE', active: contrat.statut === 'InProgress' },
+      { label: 'Paiement', completed: contrat.statut === 'PaymentPending' || contrat.statut === 'ACTIVE', active: contrat.statut === 'PaymentPending' },
+      { label: 'Actif', completed: contrat.statut === 'ACTIVE', active: contrat.statut === 'ACTIVE' }
+    ];
   }
 }

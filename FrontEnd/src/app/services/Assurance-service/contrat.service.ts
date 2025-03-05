@@ -22,11 +22,11 @@ export class ContratService {
     return this.http.post<Contrat>(`${this.apiUrl}/create`, contrat);
   }
 
-  // Mettre à jour un contrat
   updateContrat(id: number, contrat: Contrat): Observable<Contrat> {
     return this.http.put<Contrat>(`${this.apiUrl}/update/${id}`, contrat);
   }
-
+  
+  
   // Supprimer un contrat
   deleteContrat(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/delete/${id}`);

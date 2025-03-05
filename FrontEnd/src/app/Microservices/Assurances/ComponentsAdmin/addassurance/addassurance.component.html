@@ -21,12 +21,12 @@
         </div>
       
         <div class="mb-3">
-          <label class="form-label fw-bold">Prime  :</label>
+          <label class="form-label fw-bold">Prime :</label>
           <input type="number" formControlName="prime" class="form-control" required />
         </div>
       
         <div class="mb-3">
-          <label class="form-label fw-bold">Montant Assuré  :</label>
+          <label class="form-label fw-bold">Montant Assuré :</label>
           <input type="number" formControlName="montantAssure" class="form-control" />
         </div>
       
@@ -54,7 +54,7 @@
 
         <div class="mb-3">
           <label class="form-label fw-bold">Date d'Expiration :</label>
-          <input type="date" formControlName="dateExpiration" class="form-control" required />
+          <input type="date" formControlName="dateExpiration" class="form-control" required [readonly]="true" />
         </div>
 
         <div class="mb-3">
