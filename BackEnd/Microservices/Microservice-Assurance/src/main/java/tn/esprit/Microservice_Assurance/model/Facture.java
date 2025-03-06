@@ -1,6 +1,7 @@
 package tn.esprit.Microservice_Assurance.model;
 
 import jakarta.persistence.*;
+import lombok.NonNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,34 +15,60 @@ public class Facture {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+    // Référence vers le client (géré dans le microservice Gestion User)
+    @Column(name = "UserId")
+    private Long UserId;
+
+
     // Référence unique de la facture
-    @Column(name = "numero_facture", nullable = false, unique = true)
+    @Column(name = "numero_facture")
     private String numeroFacture;
 
+    // Relation One-to-One avec Contrat
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "contrat_id" )
+    private Contrat contrat;
 
-
-    // Référence vers le client
-    @Column(name = "client_id", nullable = false)
-    private Long clientId;
-
-    // Date d'émission et date d'échéance de la facture
+    // Date d'émission de la facture
     @Column(name = "date_emission")
     private LocalDate dateEmission;
+
+
+
+    // Date d'échéance de la factur@NonNull
 
     @Column(name = "date_echeance")
     private LocalDate dateEcheance;
 
-    // Montant total à payer
-    @Column(name = "montant_total")
+    // Montant total de la facture (typiquement le montant de la prime)
+    @Column(name = "montant_total", nullable = false)
     private BigDecimal montantTotal;
 
-    // Statut de la facture (PENDING, PAID, OVERDUE)
+    // Montant des taxes (TVA) si applicable
+    @Column(name = "montant_taxes")
+    private BigDecimal montantTaxes;
+
+    // Taux de taxe appliqué (en pourcentage)
+    @Column(name = "taux_taxe")
+    private BigDecimal tauxTaxe;
+
+    // Statut de la facture
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private StatutFacture statut;
 
-    // Date effective de paiement (nullable)
-    @Column(name = "date_paiement")
-    private LocalDate datePaiement;
+    // Référence du paiement Stripe lorsque payée
+    @Column(name = "reference_paiement")
+    private String referencePaiement;
+
+    // URL de redirection pour le paiement Stripe
+    @Column(name = "url_paiement")
+    private String urlPaiement;
+
+    // Commentaires ou notes additionnels
+    @Column(length = 1000)
+    private String commentaires;
 
     // Dates d'audit
     @Column(name = "created_at")
@@ -51,16 +78,11 @@ public class Facture {
     private LocalDateTime updatedAt;
 
 
-    // les jointure
 
-    // La facture est générée pour un contrat précis (relation One-to-One)
-    @OneToOne
-    @JoinColumn(name = "contrat_id", nullable = false)
-    private Contrat contrat;
-
-
-    //  les  getter  and  setter
-
+    // Constructeurs, getters et setters
+    public Facture() {
+        // Constructeur par défaut
+    }
 
     public Long getId() {
         return id;
@@ -78,12 +100,12 @@ public class Facture {
         this.numeroFacture = numeroFacture;
     }
 
-    public Long getClientId() {
-        return clientId;
+    public Contrat getContrat() {
+        return contrat;
     }
 
-    public void setClientId(Long clientId) {
-        this.clientId = clientId;
+    public void setContrat(Contrat contrat) {
+        this.contrat = contrat;
     }
 
     public LocalDate getDateEmission() {
@@ -110,6 +132,22 @@ public class Facture {
         this.montantTotal = montantTotal;
     }
 
+    public BigDecimal getMontantTaxes() {
+        return montantTaxes;
+    }
+
+    public void setMontantTaxes(BigDecimal montantTaxes) {
+        this.montantTaxes = montantTaxes;
+    }
+
+    public BigDecimal getTauxTaxe() {
+        return tauxTaxe;
+    }
+
+    public void setTauxTaxe(BigDecimal tauxTaxe) {
+        this.tauxTaxe = tauxTaxe;
+    }
+
     public StatutFacture getStatut() {
         return statut;
     }
@@ -118,12 +156,28 @@ public class Facture {
         this.statut = statut;
     }
 
-    public LocalDate getDatePaiement() {
-        return datePaiement;
+    public String getReferencePaiement() {
+        return referencePaiement;
     }
 
-    public void setDatePaiement(LocalDate datePaiement) {
-        this.datePaiement = datePaiement;
+    public void setReferencePaiement(String referencePaiement) {
+        this.referencePaiement = referencePaiement;
+    }
+
+    public String getUrlPaiement() {
+        return urlPaiement;
+    }
+
+    public void setUrlPaiement(String urlPaiement) {
+        this.urlPaiement = urlPaiement;
+    }
+
+    public String getCommentaires() {
+        return commentaires;
+    }
+
+    public void setCommentaires(String commentaires) {
+        this.commentaires = commentaires;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -142,12 +196,11 @@ public class Facture {
         this.updatedAt = updatedAt;
     }
 
-    public Contrat getContrat() {
-        return contrat;
+    public Long getUserId() {
+        return UserId;
     }
 
-    public void setContrat(Contrat contrat) {
-        this.contrat = contrat;
+    public void setUserId(Long userId) {
+        UserId = userId;
     }
 }
-

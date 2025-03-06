@@ -1,5 +1,6 @@
 package tn.esprit.Microservice_Assurance.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -67,16 +68,19 @@ public class Contrat {
     // Le produit d'assurance associé au contrat (relation Many-to-One)
     @ManyToOne
     @JoinColumn(name = "assurance_id", nullable = false)
+    @JsonIgnore
     private Assurance assurance;
 
 
     // Optionnel : le devis qui a permis la création du contrat
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "devis_id")
+    @JsonIgnore
     private Devis devis;
 
     // Relation One-to-One avec Facture
     @OneToOne(mappedBy = "contrat", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private Facture facture;
 
 

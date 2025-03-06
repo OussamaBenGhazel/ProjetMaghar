@@ -23,7 +23,7 @@ public class ContratServiceImpl implements ContratService {
     private AssuranceRepository assuranceRepository;
 
     @Autowired
-    private UserFeignClient userFeignClient;  // Injection du Feign Client pour accéder aux utilisateurs
+    private UserFeignClient userFeignClient;
 
     @Override
     public Contrat createContrat(Contrat contrat) {
@@ -34,12 +34,26 @@ public class ContratServiceImpl implements ContratService {
 
     @Override
     public Contrat updateContrat(Long id, Contrat contrat) {
-        if (contratRepository.existsById(id)) {
-            contrat.setId(id);
-            contrat.setUpdatedAt(LocalDateTime.now());
-            return contratRepository.save(contrat);
+        Contrat existingContrat = contratRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Contrat not found with id " + id));
+
+        // Mettre à jour les champs avec les nouvelles valeurs, si présentes
+        if (contrat.getNumeroContrat() != null) existingContrat.setNumeroContrat(contrat.getNumeroContrat());
+        if (contrat.getDateDebut() != null) existingContrat.setDateDebut(contrat.getDateDebut());
+        if (contrat.getDateFin() != null) existingContrat.setDateFin(contrat.getDateFin());
+        if (contrat.getPrime() != null) existingContrat.setPrime(contrat.getPrime());
+        if (contrat.getMontantAssure() != null) existingContrat.setMontantAssure(contrat.getMontantAssure());
+        if (contrat.getStatut() != null) existingContrat.setStatut(contrat.getStatut());
+        if (contrat.getSignature() != null) existingContrat.setSignature(contrat.getSignature()); // Ajout de la mise à jour pour signature
+        if (contrat.getAssurance() != null && contrat.getAssurance().getId() != null) {
+            Assurance assurance = assuranceRepository.findById(contrat.getAssurance().getId())
+                    .orElseThrow(() -> new IllegalArgumentException("Assurance non trouvée"));
+            existingContrat.setAssurance(assurance);
         }
-        throw new RuntimeException("Contrat not found with id " + id);
+        existingContrat.setUpdatedAt(LocalDateTime.now());
+
+        System.out.println("📌 Contrat mis à jour avant sauvegarde : " + existingContrat); // Log pour débogage
+        return contratRepository.save(existingContrat);
     }
 
     @Override
@@ -57,74 +71,54 @@ public class ContratServiceImpl implements ContratService {
         return contratRepository.findById(id);
     }
 
-    /**
-     * Créer un contrat pour un utilisateur à partir d'une assurance.
-     */
     @Override
     public Contrat createContratFromAssurance(Long assuranceId, Long userId, Contrat contrat) {
-        // Utilisation du Feign Client pour récupérer les informations sur l'utilisateur
-        UserDTO user = userFeignClient.getUserById(userId);  // Appel au microservice User
-
-        // Vérifier si l'utilisateur existe
+        UserDTO user = userFeignClient.getUserById(userId);
         if (user == null) {
             throw new IllegalArgumentException("Utilisateur non trouvé");
         }
 
-        // Récupérer l'assurance à partir de l'ID
         Assurance assurance = assuranceRepository.findById(assuranceId)
                 .orElseThrow(() -> new IllegalArgumentException("Assurance non trouvée"));
 
-        // Associer l'assurance et l'utilisateur au contrat
         contrat.setAssurance(assurance);
-        contrat.setUserId(userId);  // Associer l'utilisateur au contrat
+        contrat.setUserId(userId);
         contrat.setCreatedAt(LocalDateTime.now());
         contrat.setUpdatedAt(LocalDateTime.now());
-
-        // Définir les valeurs par défaut basées sur l'assurance
         contrat.setPrime(assurance.getPrime());
         contrat.setMontantAssure(assurance.getMontantAssure());
 
-        // Sauvegarder le contrat
         return contratRepository.save(contrat);
     }
 
-    /**
-     * Affecter un contrat à un utilisateur existant.
-     */
     @Override
     public Contrat affecterContratAUtilisateur(Long contratId, Long userId) {
-        // Utilisation du Feign Client pour récupérer les informations sur l'utilisateur
-        UserDTO user = userFeignClient.getUserById(userId);  // Appel au microservice User
-
-        // Vérifier si l'utilisateur existe
+        UserDTO user = userFeignClient.getUserById(userId);
         if (user == null) {
             throw new IllegalArgumentException("Utilisateur non trouvé");
         }
 
-        // Trouver le contrat à partir de l'ID
         Contrat contrat = contratRepository.findById(contratId)
                 .orElseThrow(() -> new IllegalArgumentException("Contrat non trouvé"));
 
-        // Assigner l'utilisateur au contrat
         contrat.setUserId(userId);
         contrat.setUpdatedAt(LocalDateTime.now());
 
-        // Sauvegarder le contrat mis à jour
         return contratRepository.save(contrat);
     }
 
-    /**
-     * Signer un contrat en stockant une signature (Base64).
-     */
+    @Override
     public Contrat signerContrat(Long idContrat, String signatureBase64) {
+        if (signatureBase64 == null || signatureBase64.isEmpty()) {
+            throw new IllegalArgumentException("Signature invalide");
+        }
+
         Contrat contrat = contratRepository.findById(idContrat)
                 .orElseThrow(() -> new RuntimeException("Contrat non trouvé"));
 
-        // Ajouter la signature au contrat
         contrat.setSignature(signatureBase64);
         contrat.setUpdatedAt(LocalDateTime.now());
 
-        // Sauvegarder le contrat signé
         return contratRepository.save(contrat);
     }
 }
