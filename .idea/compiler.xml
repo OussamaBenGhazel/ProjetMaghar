@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="Microservice-Reclamation" />
+        <module name="Microservice-Avis" />
+        <module name="config-service" />
+        <module name="Microservice-User" />
+        <module name="eureka" />
+        <module name="partenaire-service" />
+        <module name="Microservice-Sinistre" />
+        <module name="Microservice-Recrutement" />
+        <module name="Microservice-Rendezvous" />
+        <module name="gateway" />
+      </profile>
+      <profile name="Annotation profile for Microservice-Assurance" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
+        </processorPath>
+        <module name="Microservice-Assurance" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Microservice-Assurance" options="-parameters" />
+      <module name="Microservice-Avis" options="-parameters" />
+      <module name="Microservice-Reclamation" options="-parameters" />
+      <module name="Microservice-Recrutement" options="-parameters" />
+      <module name="Microservice-Rendezvous" options="-parameters" />
+      <module name="Microservice-Sinistre" options="-parameters" />
+      <module name="Microservice-User" options="-parameters" />
+      <module name="config-service" options="-parameters" />
+      <module name="eureka" options="-parameters" />
+      <module name="gateway" options="-parameters" />
+      <module name="partenaire-service" options="-parameters" />
+    </option>
+  </component>
+</project>
