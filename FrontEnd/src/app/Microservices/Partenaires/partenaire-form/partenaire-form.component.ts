@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { PartenaireService } from '../../../services/Partenaire-Service/partenaire.service';
 import { Router } from '@angular/router';
-import { Partenaire } from 'src/app/core/models/partenaire.model';
+import { Partenaire } from '../../../core/models/partenaire.model';
+import { PartenaireService } from 'src/app/services/Partenaire-Service/partenaire.service';
 
 @Component({
   selector: 'app-partenaire-form',
@@ -9,22 +9,14 @@ import { Partenaire } from 'src/app/core/models/partenaire.model';
   styleUrls: ['./partenaire-form.component.css']
 })
 export class PartenaireFormComponent {
-  partenaire: Partenaire = new Partenaire(); // Initialisation avec le modèle
+  partenaire: Partenaire = new Partenaire(); // Création d'un nouvel objet Partenaire
 
   constructor(private partenaireService: PartenaireService, private router: Router) {}
 
-  onSubmit() {
-    console.log('Données du formulaire avant envoi:', this.partenaire);
-    this.partenaireService.addPartenaire(this.partenaire).subscribe(
-      response => {
-        console.log('Partenaire ajouté avec succès', response);
-        this.router.navigate(['/admin/partenaires']);
-      },
-      error => {
-        console.error('Erreur lors de l\'ajout du partenaire', error);
-      }
-    );
+  ajouterPartenaire() {
+    this.partenaireService.addPartenaire(this.partenaire).subscribe(() => {
+      alert('Partenaire ajouté avec succès !'); // ✅ Message de confirmation (optionnel)
+      this.router.navigate(['/admin/dashboard']);
+    });
   }
-
-
 }

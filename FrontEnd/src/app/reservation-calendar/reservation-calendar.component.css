@@ -1,0 +1,95 @@
+/* Conteneur principal du calendrier */
+.reservation-calendar {
+  padding: 30px;
+  background: linear-gradient(135deg, #ffffff, #f8f9fa);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(209, 3, 3, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  max-width: 400px;
+  margin: auto;
+}
+
+/* Titre du calendrier */
+.reservation-calendar label {
+  font-size: 20px;
+  font-weight: 600;
+  color: #503d2c;
+  margin-bottom: 20px;
+  display: block;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Champ de saisie */
+.mat-form-field {
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  border: 1px solid rgba(230, 40, 40, 0.1);
+  transition: all 0.3s ease;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex:hover {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+}
+
+.mat-form-field-appearance-fill .mat-form-field-infix {
+  padding: 0.5em 0;
+}
+
+/* Bouton du datepicker */
+.mat-datepicker-toggle {
+  color: #e97516;
+  transition: transform 0.2s ease;
+}
+
+.mat-datepicker-toggle:hover {
+  transform: scale(1.1);
+}
+
+/* Jours du calendrier */
+.calendar-day-past {
+  color: #ccc !important;
+  pointer-events: none;
+}
+
+.calendar-day-selected {
+  background: linear-gradient(135deg, #007bff, #00a8ff) !important;
+  color: #fff !important;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.calendar-day-selected:hover {
+  transform: scale(1.1);
+}
+
+/* Date sélectionnée */
+.selected-date {
+  margin-top: 25px;
+  font-size: 18px;
+  color: #f3a617;
+  font-weight: 600;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  animation: fadeIn 0.5s ease;
+}
+
+/* Animation pour la date sélectionnée */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,138 @@
+/* Style pour la modale en plein écran */
+.full-screen-modal .mat-dialog-container {
+  padding: 0;
+  overflow: hidden;
+  border-radius: 0;
+  max-width: 100vw;
+  max-height: 100vh;
+  width: 100vw;
+  height: 100vh;
+}
+
+
+/* Style pour la carte en plein écran */
+.full-screen-modal app-map-offres {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.leaflet-marker-icon {
+  filter: hue-rotate(180deg); /* Change la teinte de l'icône en rouge */
+}
+
+
+
+
+/* 🌟 Style général de la popup */
+.animated-popup {
+  animation: fadeInPopup 0.5s ease-out;
+}
+
+/* 🎨 Apparence moderne */
+.custom-popup {
+  font-family: 'Poppins', sans-serif;
+  padding: 15px;
+  color: #333;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  max-width: 260px;
+  position: relative;
+  transform-origin: top center;
+}
+
+/* ✨ Animation d'affichage */
+@keyframes fadeInPopup {
+  0% {
+      opacity: 0;
+      transform: scale(0.7);
+  }
+  80% {
+      transform: scale(1.05);
+  }
+  100% {
+      opacity: 1;
+      transform: scale(1);
+  }
+}
+
+/* 🏷️ Titre et icône */
+.popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.popup-icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* 📌 Texte stylisé */
+.custom-popup p {
+  font-size: 14px;
+  margin: 8px 0;
+  color: #555;
+}
+
+/* 🌟 Icônes */
+.custom-popup i {
+  margin-right: 6px;
+  color: #007bff;
+}
+
+/* 🟢 Boutons */
+.popup-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* 🌟 Boutons stylisés */
+.btn-popup {
+  display: inline-block;
+  padding: 8px 12px;
+  font-size: 14px;
+  text-decoration: none;
+  color: white;
+  background: linear-gradient(to right, #007bff, #0056b3);
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* 🟢 Effet hover */
+.btn-popup:hover {
+  background: linear-gradient(to right, #0056b3, #003f7f);
+  transform: scale(1.05);
+}
+
+/* 🟠 Bouton secondaire (itinéraire) */
+.btn-popup.secondary {
+  background: linear-gradient(to right, #28a745, #1e7e34);
+}
+
+.btn-popup.secondary:hover {
+  background: linear-gradient(to right, #1e7e34, #155d27);
+}
+
+/* 🌟 Style pour le bouton de réservation */
+.reserve-btn {
+  display: inline-block;
+  padding: 8px 12px;
+  font-size: 14px;
+  text-decoration: none;
+  color: white;
+  background-color: #28a745; /* Couleur verte */
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+  margin-top: 10px;
+}
+
+/* Effet hover */
+.reserve-btn:hover {
+  background-color: #218838; /* Couleur plus foncée au survol */
+  transform: scale(1.05);
+}
