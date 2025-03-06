@@ -1,27 +1,28 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminComponent } from './admin/admin.component';
-import { DashboardComponent } from './admin/dashboard/dashboard.component';
-import { PartenaireFormComponent } from './Microservices/Partenaires/partenaire-form/partenaire-form.component';
-import { PartenaireListComponent } from './Microservices/Partenaires/partenaire-list/partenaire-list.component';
+
+// Import only the relevant components
+import { ReclamationFormComponent } from './Microservices/Reclamations/reclamation-form/reclamation-form.component';
+import { ReclamationListComponent } from './Microservices/Reclamations/reclamation-list/reclamation-list.component';
+import { DemandeListComponent } from './Microservices/DemandesAssistances/demande-list/demande-list.component';
+import { DemandeFormComponent } from './Microservices/DemandesAssistances/demande-form/demande-form.component';
+
 
 const routes: Routes = [
-  { path: 'admin', component: AdminComponent, children: [
-    { path: 'dashboard', component: DashboardComponent },
-    { path: 'partenaire-form', component: PartenaireFormComponent },
-    { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
-  ]},
-
-  { path: 'packages', component: PartenaireListComponent },
-
-
-
-
+  // Add routes for Reclamation-related components
+  { path: 'reclamations', component: ReclamationListComponent },
+  { path: 'reclamations/form', component: ReclamationFormComponent },
+  { path: 'reclamations/create', component: ReclamationFormComponent },
+  { path: 'reclamations/edit/:id', component: ReclamationFormComponent },
+  { path: 'demandes-assistance', component: DemandeListComponent },
+  { path: 'demandes-assistance/form', component: DemandeFormComponent },
+  { path: 'demandes-assistance/create', component: DemandeFormComponent },
+  { path: 'demandes-assistance/edit/:id', component: DemandeFormComponent },
+  { path: '', redirectTo: '/reclamations', pathMatch: 'full' } // Default route
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

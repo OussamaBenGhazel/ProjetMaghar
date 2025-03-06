@@ -1,0 +1,101 @@
+/* Form Styling */
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  input.form-control,
+  textarea.form-control,
+  select.form-control {
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Invalid Input Styling */
+  .is-invalid {
+    border-color: #dc3545;
+    background-color: #fff3f3;
+  }
+  
+  .invalid-feedback {
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  /* Button Styling */
+  button.btn-primary {
+    display: block;
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 25px;
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  button.btn-primary:disabled {
+    background-color: #ccc;
+    border-color: #ccc;
+  }
+  
+  button.btn-primary:hover {
+    opacity: 0.8;
+  }
+  
+  /* Textarea */
+  textarea.form-control {
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+    resize: vertical;
+  }
+  
+  /* Select Styling */
+  select.form-control {
+    width: 100%; /* Ensure select takes full width */
+    padding: 10px 20px; /* Add padding to the select box */
+    font-size: 16px; /* Increase font size for better readability */
+    min-height: 45px; /* Ensure select box is taller */
+    background-color: #fff; /* White background for better visibility */
+    color: #333; /* Dark text color for better contrast */
+    border-radius: 5px; /* Rounded corners */
+    border: 1px solid #ced4da; /* Light border */
+  }
+  
+  /* Option Styling */
+  select.form-control option {
+    padding: 10px;
+    font-size: 16px; /* Ensure option text is large enough */
+    white-space: normal; /* Allow text to wrap if it overflows */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 576px) {
+    form {
+      padding: 15px;
+    }
+  
+    button.btn-primary {
+      font-size: 14px;
+    }
+  }
+  

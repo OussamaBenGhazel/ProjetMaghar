@@ -1,0 +1,60 @@
+<form [formGroup]="reclamationForm" (ngSubmit)="saveReclamation()">
+  <div class="form-group">
+    <label for="clientName">Nom du client</label>
+    <input 
+      formControlName="clientName" 
+      id="clientName" 
+      type="text" 
+      class="form-control" 
+      [ngClass]="{'is-invalid': reclamationForm.get('clientName')?.invalid && reclamationForm.get('clientName')?.touched}">
+    <div *ngIf="reclamationForm.get('clientName')?.invalid && reclamationForm.get('clientName')?.touched" class="invalid-feedback">
+      <small *ngIf="reclamationForm.get('clientName')?.hasError('required')">Le nom du client est obligatoire.</small>
+      <small *ngIf="reclamationForm.get('clientName')?.hasError('maxlength')">Le nom du client doit avoir un maximum de 100 caractères.</small>
+      <small *ngIf="reclamationForm.get('clientName')?.hasError('noNumbers')">Le nom du client ne doit pas contenir de chiffres.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="typeReclamation">Type de réclamation</label>
+    <input 
+      formControlName="typeReclamation" 
+      class="form-control" 
+      [ngClass]="{'is-invalid': reclamationForm.get('typeReclamation')?.invalid && reclamationForm.get('typeReclamation')?.touched}" 
+      required>
+    <div *ngIf="reclamationForm.get('typeReclamation')?.invalid && reclamationForm.get('typeReclamation')?.touched" class="invalid-feedback">
+      <small *ngIf="reclamationForm.get('typeReclamation')?.hasError('required')">Le type de réclamation est obligatoire.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="titre">Titre</label>
+    <input 
+      formControlName="titre" 
+      id="titre" 
+      type="text" 
+      class="form-control" 
+      [ngClass]="{'is-invalid': reclamationForm.get('titre')?.invalid && reclamationForm.get('titre')?.touched}" 
+      required>
+    <div *ngIf="reclamationForm.get('titre')?.invalid && reclamationForm.get('titre')?.touched" class="invalid-feedback">
+      <small *ngIf="reclamationForm.get('titre')?.hasError('required')">Le titre est obligatoire.</small>
+      <small *ngIf="reclamationForm.get('titre')?.hasError('maxlength')">Le titre doit avoir un maximum de 100 caractères.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea 
+      formControlName="description" 
+      id="description" 
+      class="form-control" 
+      rows="4" 
+      [ngClass]="{'is-invalid': reclamationForm.get('description')?.invalid && reclamationForm.get('description')?.touched}"></textarea>
+    <div *ngIf="reclamationForm.get('description')?.invalid && reclamationForm.get('description')?.touched" class="invalid-feedback">
+      <small *ngIf="reclamationForm.get('description')?.hasError('maxlength')">La description doit avoir un maximum de 500 caractères.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary" [disabled]="reclamationForm.invalid">Soumettre</button>
+  </div>
+</form>

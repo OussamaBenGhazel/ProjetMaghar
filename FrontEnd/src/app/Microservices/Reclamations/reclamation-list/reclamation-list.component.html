@@ -1,0 +1,50 @@
+<!-- Search Bar for filtering -->
+<div class="search-container mb-3">
+  <label for="search" class="form-label">Rechercher :</label>
+  <input type="text" id="search" class="form-control" [(ngModel)]="searchTerm" (input)="filterReclamations()" placeholder="Recherche par client, type, titre, description ou statut">
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Client</th>
+      <th>Type Réclamation</th>
+      <th>Titre</th>
+      <th>Description</th>
+      <th>Statut</th>
+      <th>Date de Création</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let rec of filteredReclamations | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
+      <td>{{ rec.id }}</td>
+      <td>{{ rec.clientName }}</td>
+      <td>{{ rec.typeReclamation }}</td>
+      <td>{{ rec.titre }}</td>
+      <td>{{ rec.description || 'N/A' }}</td>
+      <td>{{ rec.statut }}</td>
+      <td>{{ rec.dateCreation | date: 'short' }}</td>
+      <td>
+        <button class="btn btn-danger btn-sm" (click)="deleteReclamation(rec.id)">Supprimer</button>
+        <button class="btn btn-warning btn-sm" (click)="rec.id ? navigateToEdit(rec.id) : null">Modifier</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Pagination -->
+<div class="d-flex justify-content-center mt-4" *ngIf="filteredReclamations.length > itemsPerPage">
+  <pagination-controls 
+    (pageChange)="p = $event" 
+    previousLabel="Précédent"
+    nextLabel="Suivant"
+    [maxSize]="5"
+    [directionLinks]="true"
+    [autoHide]="false">
+  </pagination-controls>
+</div>
+
+<!-- Button to Create New Reclamation -->
+<button class="btn btn-primary" (click)="navigateToCreate()">Créer une Réclamation</button>

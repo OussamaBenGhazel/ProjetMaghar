@@ -1,6 +1,6 @@
 <!-- Header Start -->
 <header class="navigation">
-  <div class="header-top ">
+  <div class="header-top">
     <div class="container">
       <div class="row justify-content-between align-items-center">
         <div class="col-lg-2 col-md-4">
@@ -13,7 +13,7 @@
         <div class="col-lg-10 col-md-8 text-center text-lg-right text-md-right">
           <div class="header-top-info mb-2 mb-md-0">
             <a href="tel:+23-345-67890">Call Us : <span>+23-345-67890</span></a>
-            <a href="mailto:support@gmail.com"><i class="fas fa-envelope mr-2"></i><span>support@gmail.com</span></a>
+            <a href="mailto:support&#64;gmail.com"><i class="fas fa-envelope mr-2"></i><span>support&#64;gmail.com</span></a>
           </div>
         </div>
       </div>
@@ -57,9 +57,15 @@
                 </li>
                 <li class="nav-item @@service"><a class="nav-link" href="service.html">Assurance</a></li>
                 <li class="nav-item @@project">
-                  <a class="nav-link" [routerLink]="'/packages'">Packages</a>
+                  <a class="nav-link" [routerLink]="'/reclamations'">Reclamations</a>
                 </li>
-                                <li class="nav-item dropdown @@blog">
+
+                <!-- Add Demande Assistance Section -->
+                <li class="nav-item @@demande-assistance">
+                  <a class="nav-link" [routerLink]="'/demandes-assistance'">Demande Assistance</a>
+                </li>
+
+                <li class="nav-item dropdown @@blog">
                   <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sinistre <i class="fas fa-chevron-down small"></i></a>
                   <ul class="dropdown-menu" aria-labelledby="dropdown05">
                     <li><a class="dropdown-item @@blogGrid" href="blog-grid.html">Blog Grid</a></li>
@@ -90,3 +96,5 @@
   </div>
 </header>
 <!-- Header Close -->
+
+

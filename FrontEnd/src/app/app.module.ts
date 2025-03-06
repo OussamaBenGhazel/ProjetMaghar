@@ -7,10 +7,15 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { AdminComponent } from './admin/admin.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
-import { PartenaireFormComponent } from './Microservices/Partenaires/partenaire-form/partenaire-form.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { PartenaireListComponent } from './Microservices/Partenaires/partenaire-list/partenaire-list.component';  // Importer FormsModule ici
+import { ReactiveFormsModule } from '@angular/forms';
+import { ReclamationListComponent } from './Microservices/Reclamations/reclamation-list/reclamation-list.component';
+import { ReclamationFormComponent } from './Microservices/Reclamations/reclamation-form/reclamation-form.component';
+import { DemandeListComponent } from './Microservices/DemandesAssistances/demande-list/demande-list.component';
+import { DemandeFormComponent } from './Microservices/DemandesAssistances/demande-form/demande-form.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 @NgModule({
   declarations: [
@@ -19,15 +24,21 @@ import { PartenaireListComponent } from './Microservices/Partenaires/partenaire-
     FooterComponent,
     AdminComponent,
     DashboardComponent,
-    PartenaireFormComponent,
-    PartenaireListComponent,
+    ReclamationListComponent,
+    ReclamationFormComponent,
+    DemandeFormComponent,
+    DemandeListComponent
+    
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    NgxPaginationModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

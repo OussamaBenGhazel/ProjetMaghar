@@ -1,0 +1,72 @@
+<form [formGroup]="demandeForm" (ngSubmit)="saveDemande()">
+  <div class="form-group">
+    <label for="clientName">Nom du client</label>
+    <input
+      formControlName="clientName"
+      id="clientName"
+      type="text"
+      class="form-control"
+      [ngClass]="{'is-invalid': demandeForm.get('clientName')?.invalid && demandeForm.get('clientName')?.touched}"
+    />
+    <div *ngIf="demandeForm.get('clientName')?.invalid && demandeForm.get('clientName')?.touched" class="invalid-feedback">
+      <small *ngIf="demandeForm.get('clientName')?.hasError('required')">Le nom du client est obligatoire.</small>
+      <small *ngIf="demandeForm.get('clientName')?.hasError('maxlength')">Le nom du client doit avoir un maximum de 100 caractères.</small>
+      <small *ngIf="demandeForm.get('clientName')?.hasError('noNumbers')">Le nom du client ne doit pas contenir de chiffres.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="assistanceType">Type d'assistance</label>
+    <select
+      formControlName="assistanceType"
+      id="assistanceType"
+      class="form-control"
+      [ngClass]="{'is-invalid': demandeForm.get('assistanceType')?.invalid && demandeForm.get('assistanceType')?.touched}"
+    >
+      <option value="">Sélectionnez un type</option>
+      <option value="DEPANNAGE_AUTO">Dépannage Auto</option>
+      <option value="ASSISTANCE_HABITATION">Assistance Habitation</option>
+      <option value="MEDICALE">Assistance Médicale</option>
+    </select>
+    <div *ngIf="demandeForm.get('assistanceType')?.invalid && demandeForm.get('assistanceType')?.touched" class="invalid-feedback">
+      <small *ngIf="demandeForm.get('assistanceType')?.hasError('required')">Le type d'assistance est obligatoire.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="location">Localisation</label>
+    <input
+      formControlName="location"
+      id="location"
+      type="text"
+      class="form-control"
+      [ngClass]="{'is-invalid': demandeForm.get('location')?.invalid && demandeForm.get('location')?.touched}"
+    />
+    <div *ngIf="demandeForm.get('location')?.invalid && demandeForm.get('location')?.touched" class="invalid-feedback">
+      <small *ngIf="demandeForm.get('location')?.hasError('required')">La localisation est obligatoire.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea
+      formControlName="description"
+      id="description"
+      class="form-control"
+      rows="4"
+      [ngClass]="{'is-invalid': demandeForm.get('description')?.invalid && demandeForm.get('description')?.touched}"
+    ></textarea>
+    <div *ngIf="demandeForm.get('description')?.invalid && demandeForm.get('description')?.touched" class="invalid-feedback">
+      <small *ngIf="demandeForm.get('description')?.hasError('maxlength')">La description doit avoir un maximum de 500 caractères.</small>
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary" [disabled]="demandeForm.invalid">
+      {{ isEdit ? 'Mettre à jour' : 'Soumettre' }}
+    </button>
+  </div>
+</form>
+
+  
