@@ -37,7 +37,7 @@ export class Contrat {
     this.updatedAt = data.updatedAt ? new Date(data.updatedAt) : new Date();
     this.assurance = data.assurance ? new Assurance(data.assurance) : undefined;
     this.devis = data.devis ? new Devis(data.devis) : undefined;
-    this.facture = data.facture ? new Facture(data.facture) : undefined;
+    this.facture = data.facture ? new facture(data.facture) : undefined;
   }
 }
 
@@ -58,13 +58,15 @@ export class devis {
     this.montant = data.montantAssureTotal || 0;
   }
 }
-
 export class facture {
   id: number;
   montant: number;
 
   constructor(data: Partial<Facture> = {}) {
     this.id = data.id || 0;
-    this.montant = data.montantTotal || 0;
+    // Conversion explicite en number
+    this.montant = typeof data.montantTotal === 'string' ? 
+                  parseFloat(data.montantTotal) : 
+                  (data.montantTotal || 0);
   }
 }

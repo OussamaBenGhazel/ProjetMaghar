@@ -1,13 +1,41 @@
 <div class="container mt-4">
-  <h2 class="text-primary mb-4">Liste des Contrats (Admin)</h2>
+  <h2 class="text-primary mb-4">Dashboard des Contrats (Admin)</h2>
 
-  <!-- Affichage du message de chargement -->
   <div *ngIf="isLoading" class="alert alert-info">Chargement des contrats...</div>
-
-  <!-- Affichage d'une erreur -->
   <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
 
-  <!-- Tableau des contrats -->
+  <div class="row mb-4" *ngIf="!isLoading && contrats.length > 0">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">Répartition des Contrats par Statut</h5>
+        </div>
+        <div class="card-body">
+          <canvas baseChart
+                  [data]="statutChartData"
+                  [options]="barChartOptions"
+                  [type]="barChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">Prime Moyenne par Type d'Assurance</h5>
+        </div>
+        <div class="card-body">
+          <canvas baseChart
+                  [data]="primeChartData"
+                  [options]="barChartOptions"
+                  [type]="barChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="table-responsive" *ngIf="contrats.length > 0">
     <table class="table table-bordered table-striped table-hover">
       <thead class="thead-dark">
@@ -29,7 +57,6 @@
           <td>{{ contrat.montantAssure | currency:'EUR' }}</td>
           <td>{{ contrat.prime | currency:'EUR' }}</td>
           <td>
-            <!-- Statut -->
             <span class="badge mb-2" 
                   [ngClass]="{
                     'badge-success': contrat.statut === 'ACTIVE',
@@ -40,7 +67,6 @@
                   }">
               {{ contrat.statut }}
             </span>
-            <!-- Timeline -->
             <div class="timeline mt-2">
               <div class="timeline-container">
                 <div class="timeline-progress" 
@@ -71,12 +97,10 @@
     </table>
   </div>
 
-  <!-- Message si aucun contrat trouvé -->
   <div *ngIf="!isLoading && contrats.length === 0" class="alert alert-warning">
     Aucun contrat disponible.
   </div>
 
-  <!-- Popup de confirmation -->
   <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'d-block': showPopup}">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -85,7 +109,7 @@
           <button type="button" class="btn-close" (click)="closePopup()"></button>
         </div>
         <div class="modal-body">
-          <p>Voulez-vous vraiment supprimer le contrat #{{ contratToDelete?.numeroContrat }} ?</p>
+          <p>Voulez-vous vraiment supprimer le contrat #{{ contratToDelete?.numeroContrat || 'N/A' }} ?</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="closePopup()">Annuler</button>

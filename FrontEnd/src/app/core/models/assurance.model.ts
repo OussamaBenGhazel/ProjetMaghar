@@ -1,3 +1,4 @@
+
 export class Assurance {
   id?: number;
   nom: string;
@@ -6,7 +7,7 @@ export class Assurance {
   prime: number;
   montantAssure?: number;
   deductible?: number;
-  type: string;
+  type: typesAssurance;  // Utilisation de l'Enum
   conditionsGenerales?: string;
   dateEffective: string;
   dateExpiration: string;
@@ -23,7 +24,7 @@ export class Assurance {
     this.prime = data.prime || 0;
     this.montantAssure = data.montantAssure || 0;
     this.deductible = data.deductible || 0;
-    this.type = data.type || 'SANTE';
+    this.type = data.type || typesAssurance.SANTE;  // Correction ici
     this.conditionsGenerales = data.conditionsGenerales || '';
     this.dateEffective = data.dateEffective || '';
     this.dateExpiration = data.dateExpiration || '';
@@ -31,4 +32,13 @@ export class Assurance {
     this.createdAt = data.createdAt || new Date().toISOString();
     this.updatedAt = data.updatedAt || new Date().toISOString();
   }
+
 }
+  export enum typesAssurance {
+    SANTE = 'SANTE',
+    AUTOMOBILE = 'AUTOMOBILE',
+    VOYAGE = 'VOYAGE',
+    HABITATION = 'HABITATION'
+  }
+  
+

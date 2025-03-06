@@ -40,7 +40,7 @@
   </div>
 
   <div class="row row-cols-1 row-cols-md-3 g-4" *ngIf="filteredContrats.length > 0">
-    <div class="col" *ngFor="let contrat of filteredContrats">
+    <div class="col" *ngFor="let contrat of filteredContrats | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
       <div class="card contrat-card shadow-sm">
         <div class="card-header text-white" style="background-color: rgb(34, 35, 40); border-radius: 8px 8px 0 0;">
           <h5 class="card-title mb-0">Contrat #{{ contrat.numeroContrat }}</h5>
@@ -92,13 +92,25 @@
               <i class="fas fa-trash"></i> Supprimer
             </button>
             <button class="btn btn-warning btn-sm" (click)="payContrat(contrat.id!)" 
-            [disabled]="contrat.statut !== 'InProgress' && contrat.statut !== 'PaymentPending'">
-      <i class="fas fa-money-bill-wave"></i> Payer
-    </button>
+                    [disabled]="contrat.statut !== 'InProgress' && contrat.statut !== 'PaymentPending'">
+              <i class="fas fa-money-bill-wave"></i> Payer
+            </button>
           </div>
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="d-flex justify-content-center mt-4" *ngIf="filteredContrats.length > 0">
+    <pagination-controls 
+      (pageChange)="p = $event" 
+      previousLabel="Précédent"
+      nextLabel="Suivant"
+      [maxSize]="5"
+      [directionLinks]="true"
+      [autoHide]="false">
+    </pagination-controls>
   </div>
 
   <!-- Popup de confirmation -->
@@ -114,7 +126,10 @@
         </div>
         <div class="card-footer">
           <button type="button" class="btn btn-secondary" (click)="closePopup()">Annuler</button>
-          <button type="button" class="btn btn-danger" (click)="deleteContrat()">Supprimer</button>
+          <button type="button" class="btn btn-danger" 
+                  (click)="contratToDelete ? deleteContrat(contratToDelete) : null">
+            Supprimer
+          </button>
         </div>
       </div>
     </div>

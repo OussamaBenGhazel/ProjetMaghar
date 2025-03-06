@@ -5,8 +5,6 @@
       Filtrage par type: <strong>{{ typeFiltre }}</strong>
       <button class="btn btn-sm btn-link" [routerLink]="['/assurances']">Voir tout</button>
     </div>
-    
-    
   </div>
 
   <div *ngIf="assurances.length === 0" class="alert alert-warning text-center">
@@ -14,7 +12,7 @@
   </div>
 
   <div class="row" *ngIf="assurances.length > 0">
-    <div class="col-lg-4 col-md-6 mb-4" *ngFor="let assurance of assurances">
+    <div class="col-lg-4 col-md-6 mb-4" *ngFor="let assurance of assurances | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
       <div class="card assurance-card">
         <div class="card-header text-white">
           <h5 class="card-title mb-0">{{ assurance.nom }}</h5>
@@ -22,16 +20,32 @@
         <div class="card-body">
           <p class="card-text"><i class="fas fa-info-circle"></i> <strong>Description:</strong> {{ assurance.description }}</p>
           <p class="card-text"><i class="fas fa-shield-alt"></i> <strong>Type:</strong> {{ assurance.type }}</p>
-          <p class="card-text"><i class="fas fa-euro-sign"></i> <strong>Montant assuré:</strong> {{ assurance.montantAssure }} €</p>
-          <p class="card-text"><i class="fas fa-money-bill-wave"></i> <strong>Prime:</strong> {{ assurance.prime }} €</p>
+          <p class="card-text"><i class="fas fa-euro-sign"></i> <strong>Montant assuré:</strong> {{ assurance.montantAssure }} DT</p>
+          <p class="card-text"><i class="fas fa-money-bill-wave"></i> <strong>Prime:</strong> {{ assurance.prime }} DT</p>
         </div>
         <div class="card-footer text-center">
           <!-- Bouton Souscrire -->
           <button class="btn btn-primary btn-sm" (click)="assurance.id && subscribeToAssurance(assurance.id)">
             <i class="fas fa-edit"></i> Souscrire
           </button>
+          <!-- Bouton Supprimer -->
+          <button class="btn btn-danger btn-sm ms-2" (click)="deleteAssurance(assurance.id!)">
+            <i class="fas fa-trash"></i> Supprimer
+          </button>
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="d-flex justify-content-center mt-4" *ngIf="assurances.length > 0">
+    <pagination-controls 
+      (pageChange)="p = $event" 
+      previousLabel="Précédent"
+      nextLabel="Suivant"
+      [maxSize]="5"
+      [directionLinks]="true"
+      [autoHide]="false">
+    </pagination-controls>
   </div>
 </div>

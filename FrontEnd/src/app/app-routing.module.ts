@@ -12,6 +12,7 @@ import { UserListComponent } from './Microservices/Assurances/user-list/user-lis
 import { ListContratAdminComponent } from './Microservices/Assurances/ComponentsAdmin/list-contrat-admin/list-contrat-admin.component';
 import { FactureclientComponent } from './Microservices/Assurances/ComponentsClient/factureclient/factureclient.component';
 import { ListcontratclientComponent } from './Microservices/Assurances/ComponentsClient/listcontratclient/listcontratclient.component';
+import { FactureAdminComponent } from './Microservices/Assurances/ComponentsAdmin/facture-admin/facture-admin.component';
 
 const routes: Routes = [
   { path: 'admin', component: AdminComponent, children: [
@@ -20,6 +21,8 @@ const routes: Routes = [
     { path: 'assurance-form', component: AddassuranceComponent },
     { path: 'listassurance', component: AssuranceListComponent },
     { path: 'listcontrat', component: ListContratAdminComponent },
+    { path: 'facture',  component : FactureAdminComponent },
+
     { path: 'assurance-form/:id', component: AddassuranceComponent },
     { path: '', component: AddassuranceComponent },
 

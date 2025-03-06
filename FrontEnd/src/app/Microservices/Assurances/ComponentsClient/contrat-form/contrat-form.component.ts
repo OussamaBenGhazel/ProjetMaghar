@@ -6,6 +6,7 @@ import { AssuranceService } from 'src/app/services/Assurance-service/assurance.s
 import { ContratService } from 'src/app/services/Assurance-service/contrat.service';
 import { UserService } from 'src/app/services/Assurance-service/user-service.service';
 import SignaturePad from 'signature_pad';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-contrat-form',
@@ -122,29 +123,47 @@ export class ContratFormComponent implements OnInit, AfterViewInit {
 
   async submitContratForm(): Promise<void> {
     this.saveSignature();
+  
+    if (!this.contrat.signature) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Signature requise',
+        text: 'Vous devez signer le contrat avant de le soumettre.',
+        confirmButtonText: 'OK'
+      });
+      return;
+    }
+  
     this.contrat.userId = this.user.id;
-    console.log('📌 Contrat avant envoi au backend :', JSON.stringify(this.contrat, null, 2));
-    console.log('📌 Signature envoyée :', this.contrat.signature ? this.contrat.signature.substring(0, 50) + '...' : 'Vide');
-
+  
     if (this.isEditMode && this.contratId) {
       this.contratService.updateContrat(this.contratId, this.contrat).subscribe(
-        (updatedContrat) => {
-          console.log('✅ Contrat mis à jour (réponse backend) :', updatedContrat);
-          this.router.navigate(['/confirmation']);
+        () => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Succès',
+            text: 'Contrat mis à jour avec succès !',
+            confirmButtonText: 'OK'
+          }).then(() => this.router.navigate(['/confirmation']));
         },
         error => console.error('❌ Erreur lors de la mise à jour du contrat :', error)
       );
     } else if (this.assuranceId) {
       this.contrat.assuranceId = this.assuranceId;
       this.contratService.createContratFromAssurance(this.assuranceId, this.user.id, this.contrat).subscribe(
-        (newContrat) => {
-          console.log('✅ Contrat créé :', newContrat);
-          this.router.navigate(['/confirmation']);
+        () => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Contrat créé',
+            text: 'Votre contrat a été créé avec succès !',
+            confirmButtonText: 'OK'
+          }).then(() => this.router.navigate(['/confirmation']));
         },
         error => console.error('❌ Erreur lors de la création du contrat :', error)
       );
     }
   }
+  
 
   saveSignature(): void {
     if (this.signaturePad && !this.signaturePad.isEmpty()) {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Contrat, StatutContrat } from 'src/app/core/models/Contrat.model';
 import { ContratService } from 'src/app/services/Assurance-service/contrat.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-listcontratclient',
@@ -15,7 +16,9 @@ export class ListcontratclientComponent implements OnInit {
   showPopup: boolean = false;
   filterDateDebut: string = '';
   filterDateFin: string = '';
-  filterStatut: StatutContrat | '' = ''; 
+  filterStatut: StatutContrat | '' = '';
+  p: number = 1; // Page actuelle pour la pagination
+  itemsPerPage: number = 6; // Nombre d'éléments par page
 
   readonly statuts = Object.values(StatutContrat);
 
@@ -37,7 +40,7 @@ export class ListcontratclientComponent implements OnInit {
           }));
           this.filteredContrats = [...this.contrats];
         } catch (error) {
-          console.error("Erreur de parsing JSON :", error);
+          console.error('Erreur de parsing JSON :', error);
         }
       },
       error => {
@@ -67,6 +70,7 @@ export class ListcontratclientComponent implements OnInit {
     }
 
     this.filteredContrats = filtered;
+    this.p = 1; // Réinitialiser la page à 1 après filtration
   }
 
   setFilterStatut(statut: StatutContrat | ''): void {
@@ -82,8 +86,20 @@ export class ListcontratclientComponent implements OnInit {
   }
 
   openDeletePopup(contrat: Contrat): void {
-    this.contratToDelete = contrat;
-    this.showPopup = true;
+    Swal.fire({
+      title: 'Êtes-vous sûr ?',
+      text: `Voulez-vous vraiment supprimer le contrat #${contrat.numeroContrat} ?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Oui, supprimer',
+      cancelButtonText: 'Annuler'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.deleteContrat(contrat);
+      }
+    });
   }
 
   closePopup(): void {
@@ -91,27 +107,20 @@ export class ListcontratclientComponent implements OnInit {
     this.contratToDelete = null;
   }
 
-  deleteContrat(): void {
-    if (this.contratToDelete && this.contratToDelete.id) {
-      this.contratService.deleteContrat(this.contratToDelete.id).subscribe(
-        () => {
-          this.contrats = this.contrats.filter(c => c.id !== this.contratToDelete!.id);
-          this.filteredContrats = this.filteredContrats.filter(c => c.id !== this.contratToDelete!.id);
-          console.log(`✅ Contrat ${this.contratToDelete!.id} supprimé`);
-          this.closePopup();
-        },
-        error => {
-          console.error('❌ Erreur lors de la suppression du contrat:', error);
-          this.closePopup();
-        }
-      );
+  deleteContrat(contrat: Contrat): void {
+    if (contrat && contrat.id) {
+      this.contratService.deleteContrat(contrat.id).subscribe(() => {
+        this.contrats = this.contrats.filter(c => c.id !== contrat.id);
+        this.filteredContrats = this.filteredContrats.filter(c => c.id !== contrat.id);
+        this.closePopup();
+      });
     }
   }
+
   payContrat(contratId: number): void {
     const contrat = this.contrats.find(c => c.id === contratId);
     
     if (contrat && (contrat.statut === 'InProgress' || contrat.statut === 'PaymentPending')) {
-      // Si le statut est InProgress, on le met à jour avant la redirection
       if (contrat.statut === 'InProgress') {
         contrat.statut = StatutContrat.PaymentPending;
         this.contratService.updateContrat(contratId, contrat).subscribe(
@@ -124,30 +133,40 @@ export class ListcontratclientComponent implements OnInit {
           }
         );
       } else {
-        // Si le statut est déjà PaymentPending, on redirige immédiatement
         this.redirectToFacture(contratId);
       }
     } else {
       console.warn('Le contrat doit être en statut InProgress ou PaymentPending');
     }
   }
-  
+
   private redirectToFacture(contratId: number): void {
     this.router.navigate(['/factureclient', contratId]);
   }
+
   viewContrat(contratId: number): void {
     this.router.navigate([`/contrat/${contratId}`]);
   }
 
   editContrat(id: number | undefined): void {
     if (id !== undefined) {
-      this.router.navigate(['/contrat-form2', id]);
+      Swal.fire({
+        title: 'Modifier le contrat',
+        text: 'Voulez-vous modifier ce contrat ?',
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonText: 'Oui, modifier',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.router.navigate(['/contrat-form2', id]);
+        }
+      });
     } else {
-      console.error('Contrat ID is undefined');
+      Swal.fire('Erreur', 'Contrat ID est indéfini', 'error');
     }
   }
 
-  // Méthode pour obtenir les étapes de la timeline
   getTimelineSteps(contrat: Contrat): { label: string; completed: boolean; active: boolean }[] {
     return [
       { label: 'En cours', completed: contrat.statut === 'InProgress' || contrat.statut === 'PaymentPending' || contrat.statut === 'ACTIVE', active: contrat.statut === 'InProgress' },

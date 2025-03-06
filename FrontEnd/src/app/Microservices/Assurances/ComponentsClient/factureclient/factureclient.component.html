@@ -1,10 +1,21 @@
-<div *ngIf="facture">
+<div *ngIf="facture" class="facture-container">
   <h3>Détails de la Facture</h3>
-  <p><strong>Numéro de Facture :</strong> {{ facture.numeroFactur }}</p>
+  <p><strong>Numéro de Facture :</strong> {{ facture.numeroFacture }}</p>
   <p><strong>Montant Total :</strong> {{ facture.montantTotal }}</p>
   <p><strong>Date d'Émission :</strong> {{ facture.dateEmission | date }}</p>
-  <p><strong>Date d'Échéance :</strong> {{ facture.dateEcheanc  }}</p>
+  <p><strong>Date d'Échéance :</strong> {{ facture.dateEcheance | date }}</p>
+
+  <!-- Champ de carte Stripe -->
+  <div *ngIf="facture.statut !== 'PAYEE' && facture">
+    <div id="card-element" class="card-element"></div>
+    <button (click)="pay()" [disabled]="!facture.id" class="pay-button">Payer avec Stripe</button>
+    <div *ngIf="paymentError" class="error">{{ paymentError }}</div>
+  </div>
 
   <!-- Bouton de téléchargement -->
-  <button (click)="downloadFacture()">Télécharger la Facture</button>
+  <button (click)="downloadFacture()" [disabled]="!facture.id" class="download-button">Télécharger la Facture</button>
+</div>
+
+<div *ngIf="factureNotFound">
+  <p>Aucune facture trouvée pour ce contrat.</p>
 </div>

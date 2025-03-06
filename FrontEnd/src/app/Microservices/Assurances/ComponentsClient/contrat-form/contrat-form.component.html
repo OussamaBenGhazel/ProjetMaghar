@@ -32,19 +32,20 @@
              [ngModel]="contrat.dateFin | date:'yyyy-MM-dd'" 
              (ngModelChange)="updateDateFin($event)" name="dateFin" required>
     </div>
+<!-- Prime (readonly) -->
+<div class="form-group">
+  <label for="prime">Prime</label>
+  <input type="number" class="form-control" id="prime" 
+         [(ngModel)]="contrat.prime" name="prime" readonly>
+</div>
 
-    <!-- Prime et Montant Assuré -->
-    <div class="form-group">
-      <label for="prime">Prime</label>
-      <input type="number" class="form-control" id="prime" 
-             [(ngModel)]="contrat.prime" name="prime" required>
-    </div>
+<!-- Montant Assuré (readonly) -->
+<div class="form-group">
+  <label for="montantAssure">Montant assuré</label>
+  <input type="number" class="form-control" id="montantAssure" 
+         [(ngModel)]="contrat.montantAssure" name="montantAssure" readonly>
+</div>
 
-    <div class="form-group">
-      <label for="montantAssure">Montant assuré</label>
-      <input type="number" class="form-control" id="montantAssure" 
-             [(ngModel)]="contrat.montantAssure" name="montantAssure" required>
-    </div>
 
     <!-- Zone de Signature -->
     <div class="form-group signature-container">

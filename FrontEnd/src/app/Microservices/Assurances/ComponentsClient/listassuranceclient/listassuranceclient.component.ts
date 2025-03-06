@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Assurance } from 'src/app/core/models/assurance.model';
@@ -12,13 +11,15 @@ import { AssuranceService } from 'src/app/services/Assurance-service/assurance.s
 export class ListassuranceclientComponent implements OnInit {
   assurances: Assurance[] = [];
   typeFiltre: string = '';
-  
+  p: number = 1; // Page actuelle pour la pagination
+  itemsPerPage: number = 6; // Nombre d'éléments par page
+
   constructor(
     private assuranceService: AssuranceService, 
     private router: Router,
     private route: ActivatedRoute
-  ) { }
-  
+  ) {}
+
   ngOnInit(): void {
     // Écouter les changements de paramètres d'URL
     this.route.queryParams.subscribe(params => {
@@ -27,7 +28,7 @@ export class ListassuranceclientComponent implements OnInit {
       this.loadAssurances(type);
     });
   }
-  
+
   loadAssurances(type: string = ''): void {
     if (type) {
       // Charger les assurances filtrées par type
@@ -41,12 +42,12 @@ export class ListassuranceclientComponent implements OnInit {
       });
     }
   }
-  
+
   // Redirection vers le formulaire de souscription avec l'ID de l'assurance
   subscribeToAssurance(assuranceId: number): void {
     this.router.navigate(['/contrat-form', assuranceId]);
   }
-  
+
   deleteAssurance(id: number): void {
     if (confirm('Voulez-vous vraiment supprimer cette assurance ?')) {
       this.assuranceService.deleteAssurance(id).subscribe(() => {
@@ -54,7 +55,7 @@ export class ListassuranceclientComponent implements OnInit {
       });
     }
   }
-  
+
   navigateToAddAssurance(): void {
     this.router.navigate(['/admin/assurance-form']);
   }
