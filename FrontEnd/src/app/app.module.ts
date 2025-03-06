@@ -23,6 +23,7 @@ import { ListassuranceclientComponent } from './Microservices/Assurances/Compone
 import { FactureclientComponent } from './Microservices/Assurances/ComponentsClient/factureclient/factureclient.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FactureAdminComponent } from './Microservices/Assurances/ComponentsAdmin/facture-admin/facture-admin.component';
+import * as FileSaver from 'file-saver';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,10 @@ import { FactureAdminComponent } from './Microservices/Assurances/ComponentsAdmi
     HttpClientModule, // Pour les requêtes HTTP
     NgChartsModule, // Pour les histogrammes
     AppRoutingModule,
-    NgxPaginationModule 
+    NgxPaginationModule ,
+    
+
+    
                   
   ],
   providers: [],

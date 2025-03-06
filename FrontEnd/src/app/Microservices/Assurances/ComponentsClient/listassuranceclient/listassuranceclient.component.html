@@ -1,5 +1,21 @@
 <div class="container mt-4">
   <div class="d-flex justify-content-between mb-4">
+    <!-- Barre de recherche avec classe personnalisée -->
+    <div class="search-bar">
+      <div class="input-group">
+        <input 
+          type="text" 
+          class="form-control" 
+          placeholder="Rechercher dans les assurances..." 
+          [(ngModel)]="searchQuery" 
+          (ngModelChange)="filterAssurances()"
+        >
+        <button class="btn btn-outline-secondary" type="button" (click)="searchQuery = ''; filterAssurances()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+
     <!-- Indicateur de filtre -->
     <div *ngIf="typeFiltre" class="alert alert-info mb-0 py-1">
       Filtrage par type: <strong>{{ typeFiltre }}</strong>
@@ -27,10 +43,6 @@
           <!-- Bouton Souscrire -->
           <button class="btn btn-primary btn-sm" (click)="assurance.id && subscribeToAssurance(assurance.id)">
             <i class="fas fa-edit"></i> Souscrire
-          </button>
-          <!-- Bouton Supprimer -->
-          <button class="btn btn-danger btn-sm ms-2" (click)="deleteAssurance(assurance.id!)">
-            <i class="fas fa-trash"></i> Supprimer
           </button>
         </div>
       </div>

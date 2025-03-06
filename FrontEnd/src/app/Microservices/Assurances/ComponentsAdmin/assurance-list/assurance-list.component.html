@@ -36,38 +36,94 @@
     </div>
   </div>
 
-  <!-- Bouton Ajouter en haut à droite -->
-  <div class="d-flex justify-content-end mb-4">
-    <button class="btn btn-success btn-sm" (click)="navigateToAddAssurance()">
-      <i class="fas fa-plus-circle"></i> Ajouter une Assurance
-    </button>
+  <!-- Barre d'actions par lots -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <button class="btn btn-info btn-sm" (click)="exportToCSV()" [disabled]="selectedAssurances.size === 0">
+        <i class="fas fa-file-csv"></i> Exporter en CSV
+      </button>
+    </div>
+    <div>
+      <button class="btn btn-success btn-sm" (click)="navigateToAddAssurance()">
+        <i class="fas fa-plus-circle"></i> Ajouter une Assurance
+      </button>
+    </div>
   </div>
-  
+
   <div *ngIf="filteredAssurances.length === 0" class="alert alert-warning text-center">
     Aucune assurance trouvée.
   </div>
   
   <div class="row" *ngIf="filteredAssurances.length > 0">
-    <div class="col-lg-4 col-md-6 mb-4" *ngFor="let assurance of filteredAssurances">
+    <div class="col-lg-4 col-md-6 mb-4" *ngFor="let assurance of filteredAssurances | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
       <div class="card assurance-card">
-        <div class="card-header text-white">
+        <div class="card-header text-white d-flex justify-content-between align-items-center">
           <h5 class="card-title mb-0">{{ assurance.nom }}</h5>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" (change)="toggleSelection(assurance.id!)" [checked]="selectedAssurances.has(assurance.id!)">
+          </div>
         </div>
         <div class="card-body">
           <p class="card-text"><i class="fas fa-info-circle"></i> <strong>Description:</strong> {{ assurance.description }}</p>
           <p class="card-text"><i class="fas fa-shield-alt"></i> <strong>Type:</strong> {{ assurance.type }}</p>
-          <p class="card-text"><i class="fas fa-euro-sign"></i> <strong>Montant assuré:</strong> {{ assurance.montantAssure }} DT </p>
-          <p class="card-text"><i class="fas fa-money-bill-wave"></i> <strong>Prime:</strong> {{ assurance.prime }}DT </p>
+          <p class="card-text"><i class="fas fa-euro-sign"></i> <strong>Montant assuré:</strong> {{ assurance.montantAssure }} DT</p>
+          <p class="card-text"><i class="fas fa-money-bill-wave"></i> <strong>Prime:</strong> {{ assurance.prime }} DT</p>
+          <div class="dropdown">
+            <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="statusDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ assurance.statut || 'Sélectionner statut' }}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="statusDropdown">
+              <li><a class="dropdown-item" (click)="updateStatus(assurance.id!, 'ACTIF')">Actif</a></li>
+              <li><a class="dropdown-item" (click)="updateStatus(assurance.id!, 'INACTIF')">Inactif</a></li>
+              <li><a class="dropdown-item" (click)="updateStatus(assurance.id!, 'EN_ATTENTE')">En attente</a></li>
+            </ul>
+          </div>
+          <button class="btn btn-info btn-sm mt-2" (click)="showDetails(assurance)">
+            <i class="fas fa-info"></i> Détails
+          </button>
         </div>
         <div class="card-footer text-center">
-          <!-- Bouton Modifier -->
           <button class="btn btn-primary btn-sm" (click)="assurance.id !== undefined && editAssurance(assurance.id)">
             <i class="fas fa-edit"></i> Modifier
           </button>
-          <!-- Bouton Supprimer -->
           <button class="btn btn-danger btn-sm" (click)="assurance.id !== undefined && deleteAssurance(assurance.id)">
             <i class="fas fa-trash"></i> Supprimer
           </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="d-flex justify-content-center mt-4" *ngIf="filteredAssurances.length > 0">
+    <pagination-controls 
+      (pageChange)="p = $event" 
+      previousLabel="Précédent"
+      nextLabel="Suivant"
+      [maxSize]="5"
+      [directionLinks]="true"
+      [autoHide]="false">
+    </pagination-controls>
+  </div>
+
+  <!-- Modal pour les détails -->
+  <div class="modal fade" [class.show]="showDetailsModal" [style.display]="showDetailsModal ? 'block' : 'none'" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Détails de l'assurance : {{ selectedAssurance?.nom }}</h5>
+          <button type="button" class="btn-close" (click)="closeDetails()" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" *ngIf="selectedAssurance">
+          <p><strong>ID :</strong> {{ selectedAssurance.id }}</p>
+          <p><strong>Description :</strong> {{ selectedAssurance.description }}</p>
+          <p><strong>Type :</strong> {{ selectedAssurance.type }}</p>
+          <p><strong>Montant assuré :</strong> {{ selectedAssurance.montantAssure }} DT</p>
+          <p><strong>Prime :</strong> {{ selectedAssurance.prime }} DT</p>
+          <p><strong>Statut :</strong> {{ selectedAssurance.statut }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeDetails()">Fermer</button>
         </div>
       </div>
     </div>

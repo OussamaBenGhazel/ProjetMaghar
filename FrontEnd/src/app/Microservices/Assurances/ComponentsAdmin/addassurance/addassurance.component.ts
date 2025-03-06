@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AssuranceService } from 'src/app/services/Assurance-service/assurance.service';
 import { Assurance } from 'src/app/core/models/assurance.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-addassurance',
@@ -85,7 +86,13 @@ export class AddassuranceComponent implements OnInit {
 
   onSubmit(): void {
     if (this.assuranceForm.invalid) {
-      alert('Veuillez remplir tous les champs obligatoires.');
+      Swal.fire({
+        title: 'Erreur',
+        text: 'Veuillez remplir tous les champs obligatoires.',
+        icon: 'error',
+        confirmButtonColor: '#d33',
+        confirmButtonText: 'OK'
+      });
       return;
     }
 
@@ -113,12 +120,25 @@ export class AddassuranceComponent implements OnInit {
   }
 
   private handleSuccess(action: string): void {
-    alert(`Assurance ${action} avec succès !`);
-    this.router.navigate(['/admin/listassurance']);
+    Swal.fire({
+      title: 'Succès',
+      text: `Assurance ${action} avec succès !`,
+      icon: 'success',
+      confirmButtonColor: '#3085d6',
+      confirmButtonText: 'OK'
+    }).then(() => {
+      this.router.navigate(['/admin/listassurance']);
+    });
   }
 
   private handleError(error: any): void {
     console.error('Erreur :', error);
-    alert('Une erreur est survenue.');
+    Swal.fire({
+      title: 'Erreur',
+      text: 'Une erreur est survenue.',
+      icon: 'error',
+      confirmButtonColor: '#d33',
+      confirmButtonText: 'OK'
+    });
   }
 }
