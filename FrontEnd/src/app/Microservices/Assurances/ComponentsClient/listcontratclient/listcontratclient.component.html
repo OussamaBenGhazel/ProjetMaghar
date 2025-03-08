@@ -42,6 +42,11 @@
   <div class="row row-cols-1 row-cols-md-3 g-4" *ngIf="filteredContrats.length > 0">
     <div class="col" *ngFor="let contrat of filteredContrats | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
       <div class="card contrat-card shadow-sm">
+        <!-- Alerte si la date de fin est aujourd'hui -->
+        <div *ngIf="isDateToday(contrat.dateFin)" class="alert alert-warning alert-dismissible fade show mb-0" role="alert">
+          <strong>Attention !</strong> Ce contrat (#{{ contrat.numeroContrat }}) expire aujourd'hui. Vérifiez votre statut.
+          <button type="button" class="btn-close" (click)="dismissAlert($event, contrat.id!)"></button>
+        </div>
         <div class="card-header text-white" style="background-color: rgb(34, 35, 40); border-radius: 8px 8px 0 0;">
           <h5 class="card-title mb-0">Contrat #{{ contrat.numeroContrat }}</h5>
           <span class="badge float-end" 
@@ -59,8 +64,8 @@
           <div class="contract-info">
             <p><i class="fas fa-calendar-alt me-2 text-muted"></i><strong>Début:</strong> {{ contrat.dateDebut | date:'dd/MM/yyyy' }}</p>
             <p><i class="fas fa-calendar-check me-2 text-muted"></i><strong>Fin:</strong> {{ contrat.dateFin | date:'dd/MM/yyyy' }}</p>
-            <p><i class="fas fa-coins me-2 text-muted"></i><strong>Prime:</strong> {{ contrat.prime | currency:'EUR' }}</p>
-            <p><i class="fas fa-wallet me-2 text-muted"></i><strong>Montant Assuré:</strong> {{ contrat.montantAssure | currency:'EUR' }}</p>
+            <p><i class="fas fa-coins me-2 text-muted"></i><strong>Prime:</strong> {{ contrat.prime }}</p>
+            <p><i class="fas fa-wallet me-2 text-muted"></i><strong>Montant Assuré:</strong> {{ contrat.montantAssure }}</p>
           </div>
           <div class="timeline mt-3">
             <div class="timeline-container">
