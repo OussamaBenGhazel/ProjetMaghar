@@ -1,4 +1,5 @@
-package tn.esprit.partenaireservice.Entity;
+package tn.esprit.user.entity;
+
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,15 +10,13 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Partenaire {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nom;
-    private String type; // Garage, Clinique, etc.
-    private String adresse;
+    private String email;
+    private int age;
     private String telephone;
-    private Double latitude;
-    private Double longitude;
-
+    private String localisation;
 }

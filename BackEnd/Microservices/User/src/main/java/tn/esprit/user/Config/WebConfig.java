@@ -1,4 +1,5 @@
-package tn.esprit.partenaireservice.config;
+package tn.esprit.user.Config;
+
 
 
 import org.springframework.context.annotation.Configuration;
