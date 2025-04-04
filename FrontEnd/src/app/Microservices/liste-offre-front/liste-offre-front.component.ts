@@ -97,6 +97,7 @@ export class ListeOffreFrontComponent implements OnInit {
     });
   }
 
+
   // Méthode pour ouvrir la carte des offres
   openMap(): void {
     const dialogRef = this.dialog.open(MapOffresComponent, {

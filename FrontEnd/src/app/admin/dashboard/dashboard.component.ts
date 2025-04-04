@@ -21,7 +21,10 @@ export class DashboardComponent implements OnInit {
   formOffre: any = { typeOffre: '', description: '', prix: 0, localisation: '', partenaire: null, nombrePlaces: 0, dateFin: '' }; // Formulaire d'offre
   showPopup: boolean = false; // Contrôle l'affichage du popup
   popupMessage: string = ''; // Message à afficher dans le popup
-
+  showOffreList: boolean = false;
+  p: number = 1; // Page actuelle pour les partenaires
+  itemsPerPage: number = 5; // Nombre d'éléments par page
+  pOffres: number = 1; // Page actuelle pour les offres
   constructor(
     private partenaireService: PartenaireService,
     private offreService: OffrePartenaireService
@@ -31,7 +34,9 @@ export class DashboardComponent implements OnInit {
     this.getAllPartenaires(); // Charger tous les partenaires au démarrage
     this.getAllOffres(); // Charger toutes les offres au démarrage
   }
-
+  toggleOffreList(): void {
+    this.showOffreList = !this.showOffreList;
+  }
   // Afficher/masquer le formulaire de partenaire
   toggleFormPartenaire(): void {
     this.showFormPartenaire = !this.showFormPartenaire;

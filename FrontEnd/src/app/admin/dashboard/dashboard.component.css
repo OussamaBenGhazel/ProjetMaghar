@@ -127,7 +127,41 @@
   pointer-events: none; /* Désactiver les interactions avec le tableau */
 }
 
+/* Styles pour la pagination */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
 
+.ngx-pagination {
+  padding-left: 0;
+}
+
+.ngx-pagination li {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.ngx-pagination a,
+.ngx-pagination button {
+  color: #007bff;
+  text-decoration: none;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.ngx-pagination a:hover,
+.ngx-pagination button:hover {
+  background-color: #f8f9fa;
+}
+
+.ngx-pagination .current {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
 
 
 /* Overlay pour le popup */
@@ -167,6 +201,485 @@
   }
 }
 
+
+/* Styles généraux pour les tables */
+.table {
+  width: 100%; /* Tableau prend toute la largeur */
+  border-collapse: collapse;
+  margin: 0; /* Supprimer les marges */
+  font-size: 16px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* En-tête de la table */
+.table thead tr {
+  background-color: #6a11cb; /* Couleur de fond de l'en-tête */
+  color: white;
+  text-align: left;
+}
+
+/* Cellules de l'en-tête */
+.table th {
+  padding: 12px 15px;
+  font-weight: 600;
+}
+
+/* Lignes de la table */
+.table tbody tr {
+  border-bottom: 1px solid #dddddd;
+  transition: background-color 0.3s ease;
+}
+
+/* Effet de survol sur les lignes */
+.table tbody tr:hover {
+  background-color: #f8f9fa; /* Couleur de fond au survol */
+}
+
+/* Cellules de la table */
+.table td {
+  padding: 12px 15px;
+}
+
+/* Conteneur principal */
+.content {
+  padding: 20px;
+  width: 100%; /* Prend toute la largeur de l'écran */
+  box-sizing: border-box; /* Inclut le padding dans la largeur */
+}
+
+/* Boutons d'action */
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+/* Style de base pour les boutons Modifier et Supprimer */
+.btn-edit,
+.btn-delete {
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  flex: 1;
+  min-width: 100px;
+}
+
+/* Style spécifique pour le bouton Modifier */
+.btn-edit {
+  background: linear-gradient(135deg, #6a11cb, #2575fc); /* Dégradé violet à bleu */
+}
+
+/* Style spécifique pour le bouton Supprimer */
+.btn-delete {
+  background: linear-gradient(135deg, #f44336, #e57373); /* Dégradé rouge */
+}
+
+/* Effet au survol pour les deux boutons */
+.btn-edit:hover,
+.btn-delete:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.btn-edit:hover {
+  background: linear-gradient(135deg, #2575fc, #36cb11); /* Inversion du dégradé pour Modifier */
+}
+
+.btn-delete:hover {
+  background: linear-gradient(135deg, #e57373, #f44336); /* Inversion du dégradé pour Supprimer */
+}
+
+/* Effet au clic pour les deux boutons */
+.btn-edit:active,
+.btn-delete:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Style des icônes */
+.btn-edit i,
+.btn-delete i {
+  font-size: 16px;
+  color: white;
+}
+
+/* Pagination */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.ngx-pagination {
+  padding-left: 0;
+}
+
+.ngx-pagination li {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.ngx-pagination a,
+.ngx-pagination button {
+  color: #6a11cb;
+  text-decoration: none;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.ngx-pagination a:hover,
+.ngx-pagination button:hover {
+  background-color: #f8f9fa;
+}
+
+.ngx-pagination .current {
+  background-color: #6a11cb;
+  color: white;
+  border-color: #6a11cb;
+}
+
+
+
+.list-container {
+  display: flex; /* Permet de mettre les deux listes côte à côte */
+  width: 100vw; /* Occupe toute la largeur de l'écran */
+  gap: 10px; /* Espacement entre les listes */
+}
+
+.list {
+  flex: 1; /* Chaque liste prend un espace égal */
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: auto; /* Ajoute un scroll si la liste est trop grande */
+  min-height: 300px; /* Ajuste la hauteur selon ton besoin */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Style de base pour les boutons Modifier et Supprimer */
+.btn-edit,
+.btn-delete {
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px; /* Coins arrondis */
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; /* Espace entre l'icône et le texte */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  transition: all 0.3s ease;
+}
+
+/* Style spécifique pour le bouton Modifier */
+.btn-edit {
+  background: linear-gradient(135deg, #4caf50, #81c784); /* Dégradé vert */
+}
+
+/* Style spécifique pour le bouton Supprimer */
+.btn-delete {
+  background: linear-gradient(135deg, #f44336, #e57373); /* Dégradé rouge */
+}
+
+/* Effet au survol pour les deux boutons */
+.btn-edit:hover,
+.btn-delete:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Ombre plus prononcée */
+  transform: translateY(-2px); /* Légère élévation */
+}
+
+.btn-edit:hover {
+  background: linear-gradient(135deg, #81c784, #4caf50); /* Inversion du dégradé pour Modifier */
+}
+
+.btn-delete:hover {
+  background: linear-gradient(135deg, #e57373, #f44336); /* Inversion du dégradé pour Supprimer */
+}
+
+/* Effet au clic pour les deux boutons */
+.btn-edit:active,
+.btn-delete:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Style des icônes */
+.btn-edit i,
+.btn-delete i {
+  font-size: 18px;
+  color: white;
+}
+
+/* Style du bouton Consulter les offres */
+.btn-consulter {
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4); /* Dégradé rose */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px; /* Coins arrondis */
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; /* Espace entre l'icône et le texte */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  transition: all 0.3s ease;
+  margin-right: 10px; /* Espacement entre les boutons */
+}
+
+/* Effet au survol pour le bouton Consulter les offres */
+.btn-consulter:hover {
+  background: linear-gradient(135deg, #fad0c4, #ff9a9e); /* Inversion du dégradé */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Ombre plus prononcée */
+  transform: translateY(-2px); /* Légère élévation */
+}
+
+/* Style du bouton Fermer */
+/* Style du bouton Fermer */
+.btn-close {
+  background: linear-gradient(135deg, #88180d, #e00602); /* Dégradé rouge clair */
+  color: white;
+  border: none;
+  padding: 12px 50px;
+  border-radius: 25px; /* Coins arrondis */
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex; /* Utilisation de flexbox */
+  justify-content: center; /* Centre le texte horizontalement */
+  align-items: center; /* Centre le texte verticalement */
+  text-align: center; /* Alignement du texte */
+  gap: 8px; /* Espace entre l'icône et le texte */
+  width: fit-content; /* Ajuste la largeur au contenu */
+  min-width: 80px; /* Largeur minimale pour un bon rendu */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  transition: all 0.3s ease;
+}
+
+/* Effet au survol pour le bouton Fermer */
+.btn-close:hover {
+  background: linear-gradient(135deg, #ffcccb, #630c05); /* Inversion du dégradé */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Ombre plus prononcée */
+  transform: translateY(-2px); /* Légère élévation */
+}
+
+/* Style des icônes */
+.btn-consulter i,
+.btn-close i {
+  font-size: 18px;
+  color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Style du bouton Ajouter Offre (même que Ajouter Partenaire) */
+.btn-add {
+  background: linear-gradient(135deg, #6a11cb, #2575fc); /* Dégradé vert */
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 25px; /* Coins arrondis */
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* Espace entre l'icône et le texte */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  transition: all 0.3s ease;
+}
+
+.btn-add:hover {
+  background: linear-gradient(135deg, #8362a7, #868686); /* Couleur plus foncée au survol */
+}
+
+
+/* Style du bouton Ajouter Partenaire */
+/* Conteneur des boutons */
+.btn-container {
+  display: flex;
+  gap: 5px; /* Réduit l'espacement entre les boutons */
+  align-items: center; /* Alignement vertical */
+}
+
+/* Style des boutons */
+/* Conteneur des boutons */
+.btn-container {
+  display: flex; /* Affichage en ligne */
+  align-items: center; /* Alignement vertical */
+  gap: 20px; /* Réduction de l'espacement entre les boutons */
+
+}
+
+/* Style des boutons */
+.btn-add {
+  background: linear-gradient(135deg, #6a11cb, #2575fc); /* Dégradé vert */
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px; /* Espacement entre l'icône et le texte */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  margin: 0; /* Supprime les marges */
+  white-space: nowrap; /* Empêche le retour à la ligne */
+}
+
+
+
+/* Conteneur pour les boutons d'action */
+.action-buttons {
+  display: flex;
+  gap: 8px; /* Espace entre les boutons */
+}
+
+/* Style de base pour les boutons Modifier et Supprimer */
+.btn-edit,
+.btn-delete {
+  color: white;
+  border: none;
+  padding: 8px 16px; /* Taille réduite pour une meilleure intégration */
+  border-radius: 20px; /* Coins arrondis */
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px; /* Espace entre l'icône et le texte */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  transition: all 0.3s ease;
+  flex: 1; /* Les boutons prennent la même largeur */
+  min-width: 100px; /* Largeur minimale pour éviter un rétrécissement excessif */
+}
+
+/* Style spécifique pour le bouton Modifier */
+.btn-edit {
+  background: linear-gradient(135deg, #6a11cb, #2575fc); /* Dégradé violet à bleu */
+}
+
+/* Style spécifique pour le bouton Supprimer */
+.btn-delete {
+  background: linear-gradient(135deg, #f44336, #e57373); /* Dégradé rouge */
+}
+
+/* Effet au survol pour les deux boutons */
+.btn-edit:hover,
+.btn-delete:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Ombre plus prononcée */
+  transform: translateY(-2px); /* Légère élévation */
+}
+
+.btn-edit:hover {
+  background: linear-gradient(135deg, #2575fc, #6a11cb); /* Inversion du dégradé pour Modifier */
+}
+
+.btn-delete:hover {
+  background: linear-gradient(135deg, #e57373, #f44336); /* Inversion du dégradé pour Supprimer */
+}
+
+/* Effet au clic pour les deux boutons */
+.btn-edit:active,
+.btn-delete:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Style des icônes */
+.btn-edit i,
+.btn-delete i {
+  font-size: 16px;
+  color: white;
+}
+
+
+/* Effet au survol */
+.btn-add-partenaire:hover {
+  background: linear-gradient(135deg, #2575fc, #6a11cb); /* Inversion du dégradé */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Ombre plus prononcée */
+  transform: translateY(-2px); /* Légère élévation */
+}
+
+/* Effet au clic */
+.btn-add-partenaire:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Style de l'icône */
+.btn-add-partenaire i {
+  font-size: 18px;
+  color: white;
+}
 /* Style du bouton de fermeture */
 .popup-content button {
   margin-top: 10px;
