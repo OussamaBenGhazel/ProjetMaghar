@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { OffrePartenaireService } from 'src/app/services/OffrePartenaire-Service/offre-partenaire-service.service';
 import { debounceTime } from 'rxjs/operators';
 import { ReservationService } from 'src/app/services/ReservationService';
-import { MatDialog } from '@angular/material/dialog'; // Importez MatDialog
+import { MatDialog } from '@angular/material/dialog';
 import { ReservationCalendarComponent } from 'src/app/reservation-calendar/reservation-calendar.component';
 import { MapOffresComponent } from 'src/app/map-offres/map-offres.component';
 import { GeocodingService } from 'src/app/services/geocoding.service';
@@ -18,6 +18,7 @@ export class ListeOffreFrontComponent implements OnInit {
   filteredOffres: any[] = [];
   page: number = 1;
   itemsPerPage: number = 9;
+  showStatsModal = false;
 
   typesAssurance: string[] = [
     'Assurance automobile',
@@ -33,14 +34,12 @@ export class ListeOffreFrontComponent implements OnInit {
   constructor(
     private offreService: OffrePartenaireService,
     private reservationService: ReservationService,
-    private dialog: MatDialog, // Injectez MatDialog,
-    private geocodingService: GeocodingService // Injectez le service de géocodage
-
+    private dialog: MatDialog,
+    private geocodingService: GeocodingService
   ) {}
 
   ngOnInit(): void {
     this.getAllOffres();
-
     this.searchLocalisation.valueChanges.pipe(debounceTime(300)).subscribe(() => this.applyFilters());
     this.searchTypeAssurance.valueChanges.pipe(debounceTime(300)).subscribe(() => this.applyFilters());
   }
@@ -67,20 +66,17 @@ export class ListeOffreFrontComponent implements OnInit {
     );
   }
 
-  // Méthode pour réserver une offre
   reserverOffre(offreId: number): void {
     const dateLimite = new Date(this.offres.find(offre => offre.id === offreId).dateFin);
 
-    // Ouvrir la modale avec le calendrier
     const dialogRef = this.dialog.open(ReservationCalendarComponent, {
-      width: '400px', // Taille de la modale
-      data: { dateLimite: dateLimite } // Passer la date limite au calendrier
+      width: '400px',
+      data: { dateLimite: dateLimite }
     });
 
-    // Écouter la fermeture de la modale
     dialogRef.afterClosed().subscribe((selectedDate: Date) => {
       if (selectedDate) {
-        const userId = 2; // Remplacez par l'ID de l'utilisateur connecté
+        const userId = 2; // À remplacer par l'ID réel de l'utilisateur
         const reservation = { dateReservation: selectedDate };
 
         this.reservationService.createReservation(userId, offreId, reservation).subscribe(
@@ -97,20 +93,30 @@ export class ListeOffreFrontComponent implements OnInit {
     });
   }
 
-
-  // Méthode pour ouvrir la carte des offres
   openMap(): void {
     const dialogRef = this.dialog.open(MapOffresComponent, {
-      width: '100vw', // Largeur de la modale en plein écran
-      height: '100vh', // Hauteur de la modale en plein écran
-      maxWidth: '100vw', // Largeur maximale
-      maxHeight: '100vh', // Hauteur maximale
-      panelClass: 'full-screen-modal', // Classe CSS pour le style en plein écran
-      data: { offres: this.filteredOffres } // Passez les offres filtrées à la carte
+      width: '100vw',
+      height: '100vh',
+      maxWidth: '100vw',
+      maxHeight: '100vh',
+      panelClass: 'full-screen-modal',
+      data: { offres: this.filteredOffres }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('La carte a été fermée');
     });
+  }
+
+  toggleStatsModal() {
+    this.showStatsModal = !this.showStatsModal;
+    document.body.style.overflow = this.showStatsModal ? 'hidden' : '';
+  }
+
+  @HostListener('document:keydown.escape')
+  closeOnEscape(): void {
+    if (this.showStatsModal) {
+      this.toggleStatsModal();
+    }
   }
 }

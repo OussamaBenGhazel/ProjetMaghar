@@ -8,7 +8,7 @@
     <div class="search-container">
       <!-- Champ de recherche par localisation -->
       <div class="search-input">
-        <i class="icon fas fa-search"></i> <!-- Icône de recherche -->
+        <i class="icon fas fa-search"></i>
         <input
           type="text"
           placeholder="Rechercher par localisation"
@@ -18,12 +18,17 @@
 
       <!-- Sélecteur de type d'assurance -->
       <div class="search-input select-container">
-        <i class="icon fas fa-filter"></i> <!-- Icône de filtre -->
+        <i class="icon fas fa-filter"></i>
         <select [formControl]="searchTypeAssurance">
           <option value="">Tous les types d'assurance</option>
           <option *ngFor="let type of typesAssurance" [value]="type">{{ type }}</option>
         </select>
       </div>
+
+      <!-- Nouveau bouton pour voir les statistiques -->
+      <button class="btn btn-info" (click)="toggleStatsModal()">
+        <i class="fas fa-chart-bar"></i> Voir les statistiques
+      </button>
     </div>
 
     <!-- Bouton "Voir sur la carte" -->
@@ -41,44 +46,39 @@
           <div class="card-body">
             <p class="card-text">{{ offre.description }}</p>
             <p>
-              <i class="fas fa-euro-sign"></i> <!-- Icône pour le prix -->
+              <i class="fas fa-euro-sign"></i>
               <strong>Prix:</strong> {{ offre.prix }} TND
             </p>
             <p>
-              <i class="fas fa-tag"></i> <!-- Icône pour le type d'offre -->
+              <i class="fas fa-tag"></i>
               <strong>Type d'offre:</strong> {{ offre.typeOffre }}
             </p>
             <p>
-              <i class="fas fa-map-marker-alt"></i> <!-- Icône pour la localisation -->
+              <i class="fas fa-map-marker-alt"></i>
               <strong>Localisation:</strong> {{ offre.localisation }}
             </p>
             <p>
-              <i class="fas fa-handshake"></i> <!-- Icône pour le partenaire -->
+              <i class="fas fa-handshake"></i>
               <strong>Partenaire:</strong> {{ offre.partenaire?.nom || 'Aucun partenaire' }}
             </p>
             <p>
-              <i class="fas fa-users"></i> <!-- Icône pour les places disponibles -->
+              <i class="fas fa-users"></i>
               <strong>Places disponibles:</strong> {{ offre.nombrePlaces }}
             </p>
-            <!-- Ajout de la date d'expiration -->
             <p>
-              <i class="fas fa-calendar-times"></i> <!-- Icône pour la date d'expiration -->
+              <i class="fas fa-calendar-times"></i>
               <strong>Date d'expiration:</strong> {{ offre.dateFin | date: 'dd/MM/yyyy' }}
             </p>
           </div>
           <div class="card-footer">
             <button class="animated-button" (click)="reserverOffre(offre.id)">
               <svg xmlns="http://www.w3.org/2000/svg" class="arr-2" viewBox="0 0 24 24">
-                <path
-                  d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
-                ></path>
+                <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
               </svg>
               <span class="text">R E S E R V E R</span>
               <span class="circle"></span>
               <svg xmlns="http://www.w3.org/2000/svg" class="arr-1" viewBox="0 0 24 24">
-                <path
-                  d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
-                ></path>
+                <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
               </svg>
             </button>
           </div>
@@ -86,7 +86,7 @@
       </div>
     </div>
 
-    <!-- Pagination centrée en bas -->
+    <!-- Pagination -->
     <div class="d-flex justify-content-center mt-auto">
       <pagination-controls (pageChange)="page = $event"></pagination-controls>
     </div>
@@ -97,4 +97,14 @@
 <div id="w">
   <canvas id="space"></canvas>
   <a href="#" id="warp">WARP SPEED</a>
+</div>
+
+<!-- ✅ Bloc modal pour les statistiques -->
+<div class="stats-modal-overlay" [class.active]="showStatsModal">
+  <div class="stats-modal-content">
+    <button class="close-btn" (click)="toggleStatsModal()">
+      <i class="fas fa-times"></i>
+    </button>
+    <app-stats [isModal]="true"></app-stats>
+  </div>
 </div>

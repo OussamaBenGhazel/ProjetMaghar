@@ -1,0 +1,58 @@
+<div class="stats-container">
+  <h2 class="text-center mb-4">Statistiques des Réservations</h2>
+
+  <div class="text-center mb-3">
+    <button class="btn btn-primary" (click)="refreshData()" [disabled]="isLoading">
+      <i class="fas fa-sync-alt" [class.fa-spin]="isLoading"></i> Actualiser
+    </button>
+  </div>
+
+  <div *ngIf="isLoading" class="text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Chargement...</span>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading">
+    <!-- Graphique à barres -->
+    <div *ngIf="currentChartIndex === 0" class="chart-page">
+      <div class="chart-container">
+        <h3>Réservations par type d'offre</h3>
+        <div class="chart-wrapper">
+          <canvas baseChart
+                  [data]="barChartData"
+                  [options]="chartOptions"
+                  type="bar">
+          </canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Graphique circulaire -->
+    <div *ngIf="currentChartIndex === 1" class="chart-page">
+      <div class="chart-container">
+        <h3>Répartition par mois</h3>
+        <div class="chart-wrapper">
+          <canvas baseChart
+                  [data]="pieChartData"
+                  [options]="chartOptions"
+                  type="pie">
+          </canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="chart-pagination mt-3">
+      <button class="btn btn-outline-primary" (click)="prevChart()">
+        <i class="fas fa-chevron-left"></i> Précédent
+      </button>
+
+      <span class="mx-3">Page {{currentChartIndex + 1}}/{{charts.length}}</span>
+
+      <button class="btn btn-outline-primary" (click)="nextChart()">
+        Suivant <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+</div>

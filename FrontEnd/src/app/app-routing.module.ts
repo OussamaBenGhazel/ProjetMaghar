@@ -8,6 +8,7 @@ import { PartenaireEditComponent } from './Microservices/Partenaires/partenaire-
 import { OffrePartenaireFormComponent } from './Microservices/OffrePartenaire/offre-partenaire-form/offre-partenaire-form.component';
 import { OffrePartenaireEditComponent } from './Microservices/OffrePartenaire/offre-partenaire-edit/offre-partenaire-edit.component';
 import { ListeOffreFrontComponent } from './Microservices/liste-offre-front/liste-offre-front.component';
+import { StatsComponent } from './stats/stats.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,7 @@ const routes: Routes = [
 
   },
   { path: 'NosOffres', component: ListeOffreFrontComponent },
+  { path: 'statistiques', component: StatsComponent }
 
 ];
 

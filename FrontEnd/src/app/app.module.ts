@@ -29,6 +29,11 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MapOffresComponent } from './map-offres/map-offres.component';
+import { StatsComponent } from './stats/stats.component';
+import { NgChartsModule } from 'ng2-charts';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,6 +50,7 @@ import { MapOffresComponent } from './map-offres/map-offres.component';
     ListeOffreFrontComponent,
     ReservationCalendarComponent,
     MapOffresComponent,
+    StatsComponent,
 
   ],
   imports: [
@@ -56,17 +62,20 @@ import { MapOffresComponent } from './map-offres/map-offres.component';
     ReactiveFormsModule,
     MatDialogModule,
 
-    BrowserAnimationsModule, // Nécessaire pour les animations
+
     BrowserAnimationsModule, // Nécessaire pour les animations
     MatDatepickerModule, // Module de calendrier
     MatNativeDateModule, // Module de gestion des dates
     MatInputModule, // Module pour les champs de saisie
-    MatFormFieldModule, // Module pour les formulaires
+    MatFormFieldModule,
+
+    // Module pour les formulaires
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
 
     }),
+    NgChartsModule
 
   ],
   providers: [],
