@@ -22,5 +22,6 @@ public class ReservationController {
         Reservation savedReservation = reservationService.createReservation(userId, offreId, reservation);
         return ResponseEntity.ok(savedReservation);
     }
+    
 }
 

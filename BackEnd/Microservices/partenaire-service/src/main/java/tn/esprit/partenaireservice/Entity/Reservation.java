@@ -21,7 +21,8 @@ public class Reservation {
 
     private LocalDateTime dateReservation;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "offreId", insertable = false, updatable = false)
     OffrePartenaire offrepartenaire;
 
 }
