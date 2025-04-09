@@ -1,0 +1,135 @@
+.assurance-card {
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .assurance-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  }
+  
+  .assurance-card .card-header {
+    background: linear-gradient(135deg, #ff3c00, #d44d0e);
+    padding: 15px;
+  }
+  
+  .assurance-card .card-title {
+    color: #ffffff;
+    font-weight: bold;
+  }
+  
+  .assurance-card .card-body p {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .assurance-card .card-footer {
+    background: #f8f9fa;
+    padding: 10px;
+  }
+  
+  .btn {
+    border-radius: 5px;
+    transition: 0.3s;
+  }
+  
+  .btn:hover {
+    opacity: 0.85;
+  }
+  /* Style de la barre de recherche */
+.search-bar {
+  position: relative;
+  width: 100%;
+  max-width: 500px; /* Largeur maximale pour une bonne lisibilité */
+}
+
+.input-group {
+  border-radius: 25px; /* Coins arrondis pour un look moderne */
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Ombre douce pour un effet surélevé */
+  background-color: #ffffff; /* Fond blanc pour contraste */
+  transition: box-shadow 0.3s ease, transform 0.2s ease; /* Animation fluide */
+}
+
+.input-group:focus-within {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); /* Ombre plus prononcée au focus */
+  transform: translateY(-2px); /* Légère élévation au focus */
+}
+
+.form-control {
+  border: none; /* Supprimer la bordure par défaut */
+  border-radius: 25px 0 0 25px; /* Coins arrondis uniquement à gauche */
+  padding: 10px 15px; /* Espacement interne */
+  font-size: 1rem; /* Taille de police lisible */
+  color: #333; /* Couleur de texte */
+  background-color: transparent; /* Pas de fond pour intégrer avec le groupe */
+  outline: none; /* Supprimer le contour au focus */
+  box-shadow: none; /* Supprimer l'ombre par défaut */
+  transition: background-color 0.3s ease; /* Transition pour le survol */
+}
+
+.form-control::placeholder {
+  color: #999; /* Couleur grise pour le placeholder */
+  opacity: 1; /* Assurer la visibilité */
+}
+
+.form-control:focus {
+  background-color: #f8f9fa; /* Légère couleur au focus */
+}
+
+.btn-outline-secondary {
+  border: none; /* Supprimer la bordure */
+  border-radius: 0 25px 25px 0; /* Coins arrondis uniquement à droite */
+  background-color: #6c757d; /* Couleur de fond du bouton */
+  color: #fff; /* Texte blanc */
+  padding: 8px 15px; /* Espacement interne */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Animation fluide */
+}
+
+.btn-outline-secondary:hover {
+  background-color: #5a6268; /* Couleur plus sombre au survol */
+  color: #fff; /* Garder le texte blanc */
+}
+
+.btn-outline-secondary .fas {
+  font-size: 1rem; /* Taille de l'icône */
+}
+
+.btn-outline-secondary:focus {
+  box-shadow: none; /* Supprimer l'ombre par défaut au focus */
+  outline: none; /* Supprimer le contour */
+}
+
+/* Réactivité pour les petits écrans */
+@media (max-width: 768px) {
+  .search-bar {
+    width: 100%; /* Pleine largeur sur mobile */
+    max-width: 100%;
+  }
+
+  .input-group {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Ombre réduite sur mobile */
+  }
+
+  .form-control {
+    font-size: 0.9rem; /* Taille de police réduite */
+    padding: 8px 12px;
+  }
+
+  .btn-outline-secondary {
+    padding: 6px 12px;
+  }
+}
+
+/* Animation personnalisée pour une expérience fluide */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.input-group {
+  animation: fadeIn 0.3s ease-in-out;
+}

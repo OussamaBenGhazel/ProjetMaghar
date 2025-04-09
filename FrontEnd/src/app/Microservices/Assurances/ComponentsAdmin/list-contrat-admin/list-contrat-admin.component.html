@@ -1,0 +1,121 @@
+<div class="container mt-4">
+  <h2 class="text-primary mb-4">Dashboard des Contrats (Admin)</h2>
+
+  <div *ngIf="isLoading" class="alert alert-info">Chargement des contrats...</div>
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+  <div class="row mb-4" *ngIf="!isLoading && contrats.length > 0">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">Répartition des Contrats par Statut</h5>
+        </div>
+        <div class="card-body">
+          <canvas baseChart
+                  [data]="statutChartData"
+                  [options]="barChartOptions"
+                  [type]="barChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">Prime Moyenne par Type d'Assurance</h5>
+        </div>
+        <div class="card-body">
+          <canvas baseChart
+                  [data]="primeChartData"
+                  [options]="barChartOptions"
+                  [type]="barChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-responsive" *ngIf="contrats.length > 0">
+    <table class="table table-bordered table-striped table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th>Numéro</th>
+          <th>Date Début</th>
+          <th>Date Fin</th>
+          <th>Montant Assuré</th>
+          <th>Prime</th>
+          <th>Statut & Progression</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let contrat of contrats">
+          <td>{{ contrat.numeroContrat }}</td>
+          <td>{{ contrat.dateDebut | date:'dd/MM/yyyy' }}</td>
+          <td>{{ contrat.dateFin | date:'dd/MM/yyyy' }}</td>
+          <td>{{ contrat.montantAssure | currency:'EUR' }}</td>
+          <td>{{ contrat.prime | currency:'EUR' }}</td>
+          <td>
+            <span class="badge mb-2" 
+                  [ngClass]="{
+                    'badge-success': contrat.statut === 'ACTIVE',
+                    'badge-danger': contrat.statut === 'EXPIRE',
+                    'badge-warning': contrat.statut === 'SUSPENDU',
+                    'badge-info': contrat.statut === 'InProgress',
+                    'badge-secondary': contrat.statut === 'PaymentPending'
+                  }">
+              {{ contrat.statut }}
+            </span>
+            <div class="timeline mt-2">
+              <div class="timeline-container">
+                <div class="timeline-progress" 
+                     [style.width]="contrat.statut === 'ACTIVE' ? '100%' : (contrat.statut === 'PaymentPending' ? '50%' : '0%')"></div>
+                <div class="timeline-steps d-flex justify-content-between">
+                  <div class="timeline-step" 
+                       [ngClass]="{'completed': step.completed, 'active': step.active}"
+                       *ngFor="let step of getTimelineSteps(contrat)">
+                    <div class="step-circle">
+                      <i class="fas" [ngClass]="{
+                        'fa-hourglass-start': step.label === 'En cours',
+                        'fa-money-bill-wave': step.label === 'Paiement',
+                        'fa-check-circle': step.label === 'Actif'
+                      }"></i>
+                    </div>
+                    <span class="step-label">{{ step.label }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <button class="btn btn-info btn-sm me-2" (click)="viewDetails(contrat.id)">Voir</button>
+            <button class="btn btn-danger btn-sm" (click)="openDeletePopup(contrat)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!isLoading && contrats.length === 0" class="alert alert-warning">
+    Aucun contrat disponible.
+  </div>
+
+  <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'d-block': showPopup}">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title">Confirmation de suppression</h5>
+          <button type="button" class="btn-close" (click)="closePopup()"></button>
+        </div>
+        <div class="modal-body">
+          <p>Voulez-vous vraiment supprimer le contrat #{{ contratToDelete?.numeroContrat || 'N/A' }} ?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closePopup()">Annuler</button>
+          <button type="button" class="btn btn-danger" (click)="deleteContrat()">Supprimer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

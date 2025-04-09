@@ -1,0 +1,74 @@
+<div class="container mt-4">
+  <h2>{{ isEditMode ? 'Modifier le contrat' : 'Créer un contrat' }}</h2>
+  <form (ngSubmit)="submitContratForm()">
+    <!-- Informations utilisateur -->
+    <div class="form-group">
+      <label for="userName">Nom de l'utilisateur</label>
+      <input type="text" class="form-control" id="userName" [(ngModel)]="user.nom" name="nom" readonly>
+    </div>
+
+    <div class="form-group">
+      <label for="userEmail">Email de l'utilisateur</label>
+      <input type="email" class="form-control" id="userEmail" [(ngModel)]="user.email" name="email" readonly>
+    </div>
+
+    <!-- Numéro du contrat -->
+    <div class="form-group">
+      <label>Numéro du contrat</label>
+      <input type="text" class="form-control" [(ngModel)]="contrat.numeroContrat" name="numeroContrat" readonly>
+    </div>
+
+    <!-- Dates -->
+    <div class="form-group">
+      <label for="dateDebut">Date de début</label>
+      <input type="date" class="form-control" id="dateDebut" 
+             [ngModel]="contrat.dateDebut | date:'yyyy-MM-dd'" 
+             (ngModelChange)="updateDateDebut($event)" name="dateDebut" required>
+    </div>
+
+    <div class="form-group">
+      <label for="dateFin">Date de fin</label>
+      <input type="date" class="form-control" id="dateFin" 
+             [ngModel]="contrat.dateFin | date:'yyyy-MM-dd'" 
+             (ngModelChange)="updateDateFin($event)" name="dateFin" required>
+    </div>
+<!-- Prime (readonly) -->
+<div class="form-group">
+  <label for="prime">Prime</label>
+  <input type="number" class="form-control" id="prime" 
+         [(ngModel)]="contrat.prime" name="prime" readonly>
+</div>
+
+<!-- Montant Assuré (readonly) -->
+<div class="form-group">
+  <label for="montantAssure">Montant assuré</label>
+  <input type="number" class="form-control" id="montantAssure" 
+         [(ngModel)]="contrat.montantAssure" name="montantAssure" readonly>
+</div>
+
+
+    <!-- Zone de Signature -->
+    <div class="form-group signature-container">
+      <label for="signatureCanvas">Signature</label>
+      <div class="signature-box">
+        <canvas #canvas id="signatureCanvas" width="400" height="200"></canvas>
+        <p class="signature-placeholder" *ngIf="isSignatureEmpty()">Signez ici</p>
+      </div>
+      <div class="signature-buttons">
+        <button type="button" class="btn btn-danger" (click)="clearSignature()">Effacer</button>
+        <button type="button" class="btn btn-primary" (click)="saveSignature()">Enregistrer la signature</button>
+      </div>
+    </div>
+
+    <!-- Affichage de la signature -->
+    <div *ngIf="contrat.signature">
+      <h5>Signature enregistrée :</h5>
+      <img [src]="contrat.signature" alt="Signature enregistrée" class="signature-image" style="max-width: 400px;">
+    </div>
+
+    <!-- Bouton de soumission -->
+    <button type="submit" class="btn btn-success mt-3">
+      {{ isEditMode ? 'Mettre à jour le contrat' : 'Créer le contrat' }}
+    </button>
+  </form>
+</div>
