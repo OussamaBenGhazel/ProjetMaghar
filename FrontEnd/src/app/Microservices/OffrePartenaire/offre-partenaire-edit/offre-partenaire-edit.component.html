@@ -1,0 +1,24 @@
+<!-- offre-partenaire-edit.component.html -->
+<div class="container">
+  <h2>Modifier l'offre Partenaire</h2>
+
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="typeOffre">Type d'Offre</label>
+      <input type="text" class="form-control" id="typeOffre" [(ngModel)]="offre.typeOffre" name="typeOffre" required>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea class="form-control" id="description" [(ngModel)]="offre.description" name="description" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="prix">Prix</label>
+      <input type="number" class="form-control" id="prix" [(ngModel)]="offre.prix" name="prix" required>
+    </div>
+    <div class="form-group">
+      <label for="localisation">Localisation</label>
+      <input type="text" class="form-control" id="localisation" [(ngModel)]="offre.localisation" name="localisation" required>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Modifier l'Offre</button>
+  </form>
+</div>

@@ -19,4 +19,5 @@ public class Partenaire {
     private String telephone;
     private Double latitude;
     private Double longitude;
+
 }

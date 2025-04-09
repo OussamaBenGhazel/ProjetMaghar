@@ -1,0 +1,126 @@
+<!-- Formulaire d'ajout d'offre (affiché uniquement si showForm est true) -->
+<div *ngIf="showForm" class="form-overlay">
+  <div class="form-container">
+    <h2>{{ isEdit ? 'Modifier' : 'Ajouter' }} une Offre</h2>
+    <form (ngSubmit)="saveOffre()" #offreForm="ngForm">
+      <div class="form-group">
+        <label>Type d'Offre</label>
+        <input
+          class="form-control"
+          [(ngModel)]="offre.typeOffre"
+          name="typeOffre"
+          required
+          #typeOffre="ngModel"
+        />
+        <div *ngIf="typeOffre.invalid && typeOffre.touched" class="error-message">
+          Le type d'offre est requis.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <input
+          class="form-control"
+          [(ngModel)]="offre.description"
+          name="description"
+          required
+          #description="ngModel"
+        />
+        <div *ngIf="description.invalid && description.touched" class="error-message">
+          La description est requise.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Prix</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="offre.prix"
+          name="prix"
+          required
+          #prix="ngModel"
+        />
+        <div *ngIf="prix.invalid && prix.touched" class="error-message">
+          Le prix est requis.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Localisation</label>
+        <input
+          class="form-control"
+          [(ngModel)]="offre.localisation"
+          name="localisation"
+          required
+          #localisation="ngModel"
+        />
+        <div *ngIf="localisation.invalid && localisation.touched" class="error-message">
+          La localisation est requise.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Nombre de Places</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="offre.nombrePlaces"
+          name="nombrePlaces"
+          required
+          #nombrePlaces="ngModel"
+        />
+        <div *ngIf="nombrePlaces.invalid && nombrePlaces.touched" class="error-message">
+          Le nombre de places est requis.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Date de Fin</label>
+        <input
+          type="date"
+          class="form-control"
+          [(ngModel)]="offre.dateFin"
+          name="dateFin"
+          required
+          #dateFin="ngModel"
+        />
+        <div *ngIf="dateFin.invalid && dateFin.touched" class="error-message">
+          La date de fin est requise.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Partenaire</label>
+        <select
+          class="form-control"
+          [(ngModel)]="offre.partenaire"
+          name="partenaire"
+          required
+          #partenaire="ngModel"
+        >
+          <option *ngFor="let partenaire of partenaires" [ngValue]="partenaire">
+            {{ partenaire.nom }}
+          </option>
+        </select>
+        <div *ngIf="partenaire.invalid && partenaire.touched" class="error-message">
+          Le partenaire est requis.
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-success"
+        [disabled]="offreForm.invalid"
+      >
+        {{ isEdit ? 'Modifier' : 'Ajouter' }}
+      </button>
+      <button type="button" class="btn btn-secondary ml-2" (click)="toggleForm()">Fermer</button>
+    </form>
+  </div>
+</div>
+
+<!-- Bouton pour afficher le formulaire -->
+<div class="container">
+  <button class="btn btn-primary" (click)="toggleForm()">Ajouter une Offre</button>
+</div>

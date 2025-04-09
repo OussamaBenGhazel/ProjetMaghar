@@ -65,6 +65,11 @@ export class facture {
   constructor(data: Partial<Facture> = {}) {
     this.id = data.id || 0;
     // Conversion explicite en number
+    this.montant = typeof data.montantTotal === 'string' ?
+                  parseFloat(data.montantTotal) :
+                  (data.montantTotal || 0);
+  }
+}
     this.montant = typeof data.montantTotal === 'string' ? 
                   parseFloat(data.montantTotal) : 
                   (data.montantTotal || 0);

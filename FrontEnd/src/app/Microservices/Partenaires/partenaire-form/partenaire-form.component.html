@@ -1,31 +1,133 @@
-<div class="container">
-  <h2>Ajouter un Partenaire</h2>
+<!-- Formulaire d'ajout/modification de partenaire -->
+<div *ngIf="showFormPartenaire" class="form-overlay">
+  <div class="form-container">
+    <h2>{{ editPartenaire ? 'Modifier' : 'Ajouter' }} un Partenaire</h2>
+    <form (ngSubmit)="savePartenaire()" #partenaireForm="ngForm">
+      <!-- Nom -->
+      <div class="form-group">
+        <label>Nom</label>
+        <input
+          class="form-control"
+          [(ngModel)]="formPartenaire.nom"
+          name="nom"
+          required
+          minlength="3"
+          #nom="ngModel"
+          (blur)="nom.control.markAsTouched()"
+        />
+        <div *ngIf="nom.invalid && nom.touched" class="error-message">
+          <span *ngIf="nom.errors?.['required']">Le nom est requis.</span>
+          <span *ngIf="nom.errors?.['minlength']">Le nom doit contenir au moins 3 caractères.</span>
+        </div>
+      </div>
 
-  <form (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="nom">Nom</label>
-      <input type="text" id="nom" [(ngModel)]="partenaire.nom" name="nom" class="form-control" required placeholder="Nom du partenaire">
-    </div>
-    <div class="form-group">
-      <label for="type">Type</label>
-      <input type="text" id="type" [(ngModel)]="partenaire.type" name="type" class="form-control" required placeholder="Type de partenaire">
-    </div>
-    <div class="form-group">
-      <label for="adresse">Adresse</label>
-      <input type="text" id="adresse" [(ngModel)]="partenaire.adresse" name="adresse" class="form-control" required placeholder="Adresse">
-    </div>
-    <div class="form-group">
-      <label for="telephone">Téléphone</label>
-      <input type="text" id="telephone" [(ngModel)]="partenaire.telephone" name="telephone" class="form-control" required placeholder="Numéro de téléphone">
-    </div>
-    <div class="form-group">
-      <label for="latitude">Latitude</label>
-      <input type="number" id="latitude" [(ngModel)]="partenaire.latitude" name="latitude" class="form-control" required placeholder="Latitude">
-    </div>
-    <div class="form-group">
-      <label for="longitude">Longitude</label>
-      <input type="number" id="longitude" [(ngModel)]="partenaire.longitude" name="longitude" class="form-control" required placeholder="Longitude">
-    </div>
-    <button type="submit" class="btn btn-primary">Ajouter le partenaire</button>
-  </form>
+      <!-- Type -->
+      <div class="form-group">
+        <label>Type</label>
+        <input
+          class="form-control"
+          [(ngModel)]="formPartenaire.type"
+          name="type"
+          required
+          #type="ngModel"
+          (blur)="type.control.markAsTouched()"
+        />
+        <div *ngIf="type.invalid && type.touched" class="error-message">
+          <span *ngIf="type.errors?.['required']">Le type est requis.</span>
+        </div>
+      </div>
+
+      <!-- Adresse -->
+      <div class="form-group">
+        <label>Adresse</label>
+        <input
+          class="form-control"
+          [(ngModel)]="formPartenaire.adresse"
+          name="adresse"
+          required
+          #adresse="ngModel"
+          (blur)="adresse.control.markAsTouched()"
+        />
+        <div *ngIf="adresse.invalid && adresse.touched" class="error-message">
+          <span *ngIf="adresse.errors?.['required']">L'adresse est requise.</span>
+        </div>
+      </div>
+
+      <!-- Téléphone -->
+      <div class="form-group">
+        <label>Téléphone</label>
+        <input
+          class="form-control"
+          [(ngModel)]="formPartenaire.telephone"
+          name="telephone"
+          required
+          pattern="^[0-9]{8,10}$"
+          placeholder="Ex: 0123456789"
+          #telephone="ngModel"
+          (blur)="telephone.control.markAsTouched()"
+        />
+        <div *ngIf="telephone.invalid && telephone.touched" class="error-message">
+          <span *ngIf="telephone.errors?.['required']">Le téléphone est requis.</span>
+          <span *ngIf="telephone.errors?.['pattern']">Numéro invalide (8 à 10 chiffres).</span>
+        </div>
+      </div>
+
+
+      <!-- Latitude -->
+      <div class="form-group">
+        <label>Latitude</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="formPartenaire.latitude"
+          name="latitude"
+          required
+          min="-90"
+          max="90"
+          #latitude="ngModel"
+          (blur)="latitude.control.markAsTouched()"
+        />
+        <div *ngIf="latitude.invalid && latitude.touched" class="error-message">
+          <span *ngIf="latitude.errors?.['required']">La latitude est requise.</span>
+          <span *ngIf="latitude.errors?.['min'] || latitude.errors?.['max']">
+            La latitude doit être entre -90 et 90.
+          </span>
+        </div>
+      </div>
+
+      <!-- Longitude -->
+      <div class="form-group">
+        <label>Longitude</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="formPartenaire.longitude"
+          name="longitude"
+          required
+          min="-180"
+          max="180"
+          #longitude="ngModel"
+          (blur)="longitude.control.markAsTouched()"
+        />
+        <div *ngIf="longitude.invalid && longitude.touched" class="error-message">
+          <span *ngIf="longitude.errors?.['required']">La longitude est requise.</span>
+          <span *ngIf="longitude.errors?.['min'] || longitude.errors?.['max']">
+            La longitude doit être entre -180 et 180.
+          </span>
+        </div>
+      </div>
+
+      <!-- Boutons -->
+      <button
+        type="submit"
+        class="btn btn-success"
+        [disabled]="partenaireForm.invalid"
+      >
+        {{ editPartenaire ? 'Mettre à jour' : 'Ajouter' }}
+      </button>
+      <button type="button" class="btn btn-secondary ml-2" (click)="toggleFormPartenaire(); resetFormPartenaire()">
+        Fermer
+      </button>
+    </form>
+  </div>
 </div>

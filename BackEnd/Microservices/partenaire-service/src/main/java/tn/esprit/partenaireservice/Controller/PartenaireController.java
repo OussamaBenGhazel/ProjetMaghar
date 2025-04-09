@@ -1,5 +1,6 @@
 package tn.esprit.partenaireservice.Controller;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ public class PartenaireController {
 
     // Ajouter un Partenaire
     @PostMapping
+    @Transactional
     public ResponseEntity<Partenaire> ajouterPartenaire(@RequestBody Partenaire partenaire) {
         Partenaire savedPartenaire = partenaireService.ajouterPartenaire(partenaire);
         return new ResponseEntity<>(savedPartenaire, HttpStatus.CREATED);

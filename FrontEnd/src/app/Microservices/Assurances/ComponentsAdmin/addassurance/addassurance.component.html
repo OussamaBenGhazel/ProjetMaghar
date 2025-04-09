@@ -9,39 +9,39 @@
           <label class="form-label fw-bold">Nom de l'assurance :</label>
           <input type="text" formControlName="nom" class="form-control" required />
         </div>
-          
+
         <div class="mb-3">
           <label class="form-label fw-bold">Description :</label>
           <textarea formControlName="description" class="form-control"></textarea>
         </div>
-      
+
         <div class="mb-3">
           <label class="form-label fw-bold">Détails de couverture :</label>
           <textarea formControlName="couvertureDetails" class="form-control"></textarea>
         </div>
-      
+
         <div class="mb-3">
           <label class="form-label fw-bold">Prime :</label>
           <input type="number" formControlName="prime" class="form-control" required />
         </div>
-      
+
         <div class="mb-3">
           <label class="form-label fw-bold">Montant Assuré :</label>
           <input type="number" formControlName="montantAssure" class="form-control" />
         </div>
-      
+
         <div class="mb-3">
           <label class="form-label fw-bold">Franchise (DT) :</label>
           <input type="number" formControlName="deductible" class="form-control" />
         </div>
-      
+
         <div class="mb-3">
           <label class="form-label fw-bold">Type d'Assurance :</label>
           <select formControlName="type" class="form-select">
             <option *ngFor="let type of typesAssurance" [value]="type">{{ type }}</option>
           </select>
         </div>
-      
+
         <div class="mb-3">
           <label class="form-label fw-bold">Conditions Générales :</label>
           <textarea formControlName="conditionsGenerales" class="form-control"></textarea>
@@ -73,4 +73,5 @@
       </form>
     </div>
   </div>
+</div>
 </div>

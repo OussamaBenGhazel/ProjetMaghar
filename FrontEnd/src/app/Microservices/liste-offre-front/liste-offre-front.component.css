@@ -1,0 +1,389 @@
+:root {
+  --primary-color: #f39c12; /* Orange doré */
+  --secondary-color: #e67e22; /* Orange foncé */
+  --text-color: #2d3436; /* Gris anthracite */
+  --bg-light: #dcdcdc; /* Gris clair pour le fond des cartes */
+  --white: #ffffff; /* Blanc pour le texte et autres éléments */
+  --shadow-color: rgba(0, 0, 0, 0.08);
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.offer-card {
+  background: #fffffffd; /* Fond gris clair */
+  border-radius: 15px;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 3px 8px var(--shadow-color);
+  border: 2px solid transparent;
+  width: 100%; /* Ajuste la largeur pour s’adapter au conteneur */
+  max-width: 350px; /* Définit une taille maximale */
+  height: 550px; /* Augmente la hauteur de la carte */
+  display: flex;
+  flex-direction: column;
+  position: relative; /* Pour fixer le footer en bas */
+}
+
+.offer-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary-color);
+  box-shadow: 0px 10px 20px rgba(3, 3, 3, 0.959);
+}
+
+.card-header {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: var(--white);
+  text-align: center;
+  padding: 15px;
+  font-weight: bold;
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+.card-body {
+  padding: 20px;
+  font-size: 15px;
+  color: var(--text-color);
+  background: var(--bg-light); /* Fond gris clair */
+  flex-grow: 1; /* Permet au contenu de s'étendre */
+}
+
+.card-body p {
+  margin-bottom: 8px;
+}
+
+.card-footer {
+  background: var(--white);
+  text-align: center;
+  padding: 15px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex; /* Active flexbox */
+  justify-content: center; /* Centre horizontalement */
+  align-items: center; /* Centre verticalement */
+}
+
+.btn-success {
+  background: transparent;
+  border: 2px solid var(--secondary-color);
+  padding: 12px 25px;
+  border-radius: 30px;
+  color: var(--secondary-color);
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.3s ease-in-out;
+  display: block;
+  width: fit-content;
+  margin: 0 auto; /* Centre le bouton horizontalement */
+}
+
+.btn-success:hover {
+  background: var(--secondary-color);
+  color: var(--white);
+  transform: scale(1.05);
+}
+
+/* Adaptation mobile */
+@media (max-width: 768px) {
+  .col-md-4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+/* Style général */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  height: 20vh;
+
+}
+
+h2.text-center {
+  font-size: 2rem; /* Taille réduite */
+  font-weight: bold;
+  color: #222;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  opacity: 0;
+  transform: translateY(15px);
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+/* Animation du soulignement */
+h2.text-center::after {
+  content: "";
+  display: block;
+  width: 180px; /* Ligne plus courte */
+  height: 3px; /* Légèrement plus fine */
+  background: linear-gradient(to right, #ff5733, #ffbd33);
+  margin: 6px auto 0; /* Moins d'espace sous le texte */
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: center;
+  animation: underlineExpand 0.6s ease-out 0.4s forwards;
+}
+
+/* Effet d’apparition optimisé */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation de la ligne plus rapide */
+@keyframes underlineExpand {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+
+
+
+
+/* Style pour le modal */
+.stats-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.stats-modal-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+.stats-modal-content {
+  background: white;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 1200px;
+  max-height: 90vh;
+  padding: 2rem;
+  position: relative;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+  z-index: 10;
+}
+
+/* Flou sur le contenu principal quand le modal est ouvert */
+body.stats-modal-open #background-container {
+  filter: blur(5px);
+  overflow: hidden;
+}
+
+
+
+.map-button {
+  margin-bottom: 30px; /* Ajuste la valeur selon tes besoins */
+}
+
+
+
+.animated-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 16px 36px;
+  border: 4px solid;
+  border-color: transparent;
+  font-size: 16px;
+  background-color: ;
+  border-radius: 100px;
+  font-weight: 600;
+  color: #1f387e;
+  box-shadow: 0 0 0 2px #ffffff;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button svg {
+  position: absolute;
+  width: 24px;
+  fill: #1f387e;
+  z-index: 9;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button .arr-1 {
+  right: 16px;
+}
+
+.animated-button .arr-2 {
+  left: -25%;
+}
+
+.animated-button .circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  background-color: #c5e5e4;
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button .text {
+  position: relative;
+  z-index: 1;
+  transform: translateX(-12px);
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button:hover {
+  box-shadow: 0 0 0 12px transparent;
+  color: #212121;
+  border-radius: 12px;
+}
+
+.animated-button:hover .arr-1 {
+  right: -25%;
+}
+
+.animated-button:hover .arr-2 {
+  left: 16px;
+}
+
+.animated-button:hover .text {
+  transform: translateX(12px);
+}
+
+.animated-button:hover svg {
+  fill: #1f387e;
+}
+
+.animated-button:active {
+  scale: 0.95;
+  box-shadow: 0 0 0 4px greenyellow;
+}
+
+.animated-button:hover .circle {
+  width: 220px;
+  height: 220px;
+  opacity: 1;
+}
+
+/* Style pour les champs de recherche */
+.search-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.search-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border: 2px solid #e0e0e0;
+  border-radius: 30px;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 300px;
+}
+
+.search-input:hover {
+  border-color: #f39c12;
+  box-shadow: 0 0 8px rgba(243, 156, 18, 0.2);
+}
+
+.search-input input,
+.search-input select {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  font-size: 1rem;
+  color: #2d3436;
+  padding-left: 2rem;
+}
+
+.search-input input::placeholder {
+  color: #95a5a6;
+}
+
+.search-input select {
+  appearance: none;
+  cursor: pointer;
+}
+
+.search-input .icon {
+  position: absolute;
+  left: 1rem;
+  color: #95a5a6;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.search-input:hover .icon {
+  color: #f39c12;
+}
+
+/* Style pour la modale en plein écran */
+.full-screen-modal .mat-dialog-container {
+  padding: 0;
+  overflow: hidden;
+  border-radius: 0;
+  max-width: 100vw;
+  max-height: 100vh;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* Style pour la carte en plein écran */
+.full-screen-modal app-map-offres {
+  display: block;
+  width: 100%;
+  height: 100%;
+}

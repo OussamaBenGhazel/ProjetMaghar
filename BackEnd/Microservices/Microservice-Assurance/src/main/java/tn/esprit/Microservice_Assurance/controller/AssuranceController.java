@@ -9,6 +9,7 @@ import tn.esprit.Microservice_Assurance.model.TypeAssurance;
 import tn.esprit.Microservice_Assurance.service.AssuranceService;
 
 import java.util.List;
+@CrossOrigin(origins = "http://localhost:62366")
 
 @RestController
 @RequestMapping("/api/assurances")

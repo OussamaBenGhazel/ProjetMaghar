@@ -28,6 +28,7 @@ public class OffrePartenaireService {
         return offrePartenaireRepository.findAll();
     }
 
+
     // Obtenir une Offre par ID
     public Optional<OffrePartenaire> obtenirOffreParId(Long id) {
         return offrePartenaireRepository.findById(id);
@@ -52,29 +53,20 @@ public class OffrePartenaireService {
     }
 
 
+    public List<OffrePartenaire> filtrerOffres(String typeAssurance, Double prixMax, String localisation) {
+        List<OffrePartenaire> offres = offrePartenaireRepository.findByTypeOffre(typeAssurance);
 
-    // Recherche d'offres par type, prix et éventuellement par localisation
-    public List<OffrePartenaire> rechercherOffres(String typeOffre, Double prixMax, String localisation) {
-        // Normalisation du paramètre typeOffre (enlever les espaces et mettre en minuscule)
-        if (typeOffre != null) {
-            typeOffre = typeOffre.trim().toLowerCase();  // Cela assure une recherche insensible à la casse.
+        if (prixMax != null) {
+            offres = offres.stream().filter(o -> o.getPrix() <= prixMax).toList();
         }
-        System.out.println("Paramètre reçu : typeOffre = " + typeOffre);
 
-        if (typeOffre != null && prixMax != null && localisation != null) {
-            return offrePartenaireRepository.findByTypeOffreAndPrixLessThanAndLocalisation(typeOffre, prixMax, localisation);
-        } else if (typeOffre != null && prixMax != null) {
-            return offrePartenaireRepository.findByTypeOffreAndPrixLessThan(typeOffre, prixMax);
-        } else if (typeOffre != null && localisation != null) {
-            return offrePartenaireRepository.findByTypeOffreAndLocalisation(typeOffre, localisation);
-        } else if (typeOffre != null) {
-            return offrePartenaireRepository.findByTypeOffre(typeOffre);
-        } else if (prixMax != null && localisation != null) {
-            return offrePartenaireRepository.findByPrixLessThanAndLocalisation(prixMax, localisation);
-        } else {
-            return offrePartenaireRepository.findAll();  // Retourne toutes les offres si aucun paramètre n'est passé
+        if (localisation != null && !localisation.isEmpty()) {
+            offres = offres.stream().filter(o -> o.getLocalisation().equalsIgnoreCase(localisation)).toList();
         }
+
+        return offres;
     }
+
 
 
 
