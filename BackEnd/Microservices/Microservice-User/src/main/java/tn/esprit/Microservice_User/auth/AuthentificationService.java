@@ -112,6 +112,10 @@ public class AuthentificationService {
     }
 
 
+
+
+    //@Transactional
+
     public void avtivateAccount(String token) throws MessagingException {
         Token savedToken = tokenRepositroy.findByToken(token)
                 .orElseThrow(()->new RuntimeException("Invalide token"));

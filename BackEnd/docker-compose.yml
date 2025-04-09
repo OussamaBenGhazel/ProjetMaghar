@@ -23,6 +23,7 @@ services:
       - 1080:1080
       - 1025:1025
 
+
   eureka:
     container_name: eureka-server
     image: eureka/eureka
@@ -35,10 +36,12 @@ services:
     ports:
       - 8065:8065
 
+
 networks:
   user-net:
     driver: bridge
 
 volumes:
   mysql:
+
     driver: local
