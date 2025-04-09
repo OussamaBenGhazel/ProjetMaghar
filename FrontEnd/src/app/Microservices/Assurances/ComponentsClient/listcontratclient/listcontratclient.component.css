@@ -1,0 +1,161 @@
+/* Amélioration générale du style */
+.card.contrat-card {
+  border-radius: 8px;
+  transition: transform 0.2s ease-in-out;
+  border: 1px solid #ddd;
+}
+.card.contrat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+.card-header {
+  border-radius: 8px 8px 0 0;
+  padding: 15px;
+  background-color: rgb(34, 35, 40); /* Changement de #000000 à rgb(34, 35, 40) */
+  color: #fff; /* Texte blanc pour lisibilité */
+}
+.contract-info p {
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  color: #333;
+}
+.contract-info i {
+  color: #6c757d;
+}
+
+/* Statut filter buttons */
+.filter-card {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+.statut-filter .btn {
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #ddd;
+}
+.statut-filter .btn.active {
+  font-weight: bold;
+  background-color: rgb(34, 35, 40); /* Changement de #000 à rgb(34, 35, 40) */
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.statut-filter .btn:hover {
+  background-color: #e9ecef;
+}
+
+/* Timeline professionnelle */
+.timeline {
+  margin: 20px 0;
+  padding: 0 10px;
+}
+.timeline-container {
+  position: relative;
+  padding: 20px 0;
+}
+.timeline-progress {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 4px;
+  background: #ff3c00; /* Couleur inchangée */
+  z-index: 0;
+  transition: width 0.5s ease-in-out;
+}
+.timeline-steps {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+}
+.timeline-step {
+  text-align: center;
+  flex: 1;
+}
+.step-circle {
+  width: 30px;
+  height: 30px;
+  background: #e9ecef;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 5px;
+  font-size: 1rem;
+  color: #6c757d;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.timeline-step.completed .step-circle {
+  background: #ff3c00; /* Couleur inchangée */
+  color: #fff;
+}
+.timeline-step.active .step-circle {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.step-label {
+  display: block;
+  font-size: 0.8rem;
+  color: #6c757d;
+  font-weight: 500;
+}
+.timeline-step.completed .step-label {
+  color: #ff3c00; /* Couleur inchangée */
+}
+.timeline-step.active .step-label {
+  font-weight: bold;
+}
+
+/* Boutons dans le footer */
+.btn-group .btn {
+  margin: 0 5px;
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+.btn-group .btn:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+.btn-group .btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Popup */
+.modal-content {
+  border-radius: 8px;
+}
+.modal-header {
+  border-radius: 8px 8px 0 0;
+  background-color: rgb(34, 35, 40); /* Changement pour le popup */
+}
+.card-body {
+  padding: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .row-cols-md-3 {
+    row: cols -1px;
+  }
+  .timeline-steps {
+    flex-direction: column;
+    align-items: center;
+  }
+  .timeline-progress {
+    display: none;
+  }
+  .timeline-step {
+    margin-bottom: 15px;
+  }
+  .btn-group .btn {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+}

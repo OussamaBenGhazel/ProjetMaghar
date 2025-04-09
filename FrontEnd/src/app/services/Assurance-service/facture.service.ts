@@ -7,7 +7,8 @@ import { Facture } from 'src/app/core/models/Facture .model';
   providedIn: 'root'
 })
 export class FactureService {
-  private apiUrl = 'http://localhost:8087/api/factures'; // Adapter selon l'environnement
+
+  private apiUrl = 'http://localhost:8081/api/factures'; // Adapter selon l'environnement
 
   constructor(private http: HttpClient) {}
 
@@ -50,4 +51,6 @@ export class FactureService {
   getAllFactures(): Observable<Facture[]> {
     return this.http.get<Facture[]>(`${this.apiUrl}`);
   }
+}
+
 }

@@ -1,0 +1,142 @@
+<div class="container mt-4">
+  <!-- Section de filtre -->
+  <div class="card filter-card shadow-sm mb-4">
+    <div class="card-body p-4">
+      <h5 class="card-title text-white mb-4" style="background-color: rgb(34, 35, 40); padding: 10px; border-radius: 8px 8px 0 0;">Filtrer les contrats</h5>
+      <div class="row mb-3">
+        <div class="col-md-4 mb-3">
+          <label for="filterDateDebut" class="form-label fw-bold text-dark">Date de début :</label>
+          <input type="date" id="filterDateDebut" class="form-control" 
+                 [(ngModel)]="filterDateDebut" (ngModelChange)="filterContrats()">
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="filterDateFin" class="form-label fw-bold text-dark">Date de fin :</label>
+          <input type="date" id="filterDateFin" class="form-control" 
+                 [(ngModel)]="filterDateFin" (ngModelChange)="filterContrats()">
+        </div>
+        <div class="col-md-4 d-flex align-items-end">
+          <button class="btn btn-outline-dark w-100" (click)="resetFilters()">Réinitialiser</button>
+        </div>
+      </div>
+      <div class="statut-filter d-flex flex-wrap gap-2">
+        <button class="btn statut-btn" 
+                [ngClass]="{'active': filterStatut === ''}" 
+                (click)="setFilterStatut('')" style="background-color: #ffffff; color: #000000;">Tous</button>
+        <button *ngFor="let statut of statuts" 
+                class="btn statut-btn" 
+                [ngClass]="{'active': filterStatut === statut, 
+                           'btn-success': statut === 'ACTIVE', 
+                           'btn-danger': statut === 'EXPIRE', 
+                           'btn-warning': statut === 'SUSPENDU', 
+                           'btn-info': statut === 'InProgress', 
+                           'btn-secondary': statut === 'PaymentPending'}"
+                (click)="setFilterStatut(statut)">{{ statut }}</button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="filteredContrats.length === 0" class="alert alert-warning text-center">
+    Aucun contrat trouvé pour cette période ou ce statut.
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-3 g-4" *ngIf="filteredContrats.length > 0">
+    <div class="col" *ngFor="let contrat of filteredContrats | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
+      <div class="card contrat-card shadow-sm">
+        <!-- Alerte si la date de fin est aujourd'hui -->
+        <div *ngIf="isDateToday(contrat.dateFin)" class="alert alert-warning alert-dismissible fade show mb-0" role="alert">
+          <strong>Attention !</strong> Ce contrat (#{{ contrat.numeroContrat }}) expire aujourd'hui. Vérifiez votre statut.
+          <button type="button" class="btn-close" (click)="dismissAlert($event, contrat.id!)"></button>
+        </div>
+        <div class="card-header text-white" style="background-color: rgb(34, 35, 40); border-radius: 8px 8px 0 0;">
+          <h5 class="card-title mb-0">Contrat #{{ contrat.numeroContrat }}</h5>
+          <span class="badge float-end" 
+                [ngClass]="{
+                  'bg-success': contrat.statut === 'ACTIVE',
+                  'bg-danger': contrat.statut === 'EXPIRE',
+                  'bg-warning': contrat.statut === 'SUSPENDU',
+                  'bg-info': contrat.statut === 'InProgress',
+                  'bg-secondary': contrat.statut === 'PaymentPending'
+                }">
+            {{ contrat.statut }}
+          </span>
+        </div>
+        <div class="card-body p-3">
+          <div class="contract-info">
+            <p><i class="fas fa-calendar-alt me-2 text-muted"></i><strong>Début:</strong> {{ contrat.dateDebut | date:'dd/MM/yyyy' }}</p>
+            <p><i class="fas fa-calendar-check me-2 text-muted"></i><strong>Fin:</strong> {{ contrat.dateFin | date:'dd/MM/yyyy' }}</p>
+            <p><i class="fas fa-coins me-2 text-muted"></i><strong>Prime:</strong> {{ contrat.prime }}</p>
+            <p><i class="fas fa-wallet me-2 text-muted"></i><strong>Montant Assuré:</strong> {{ contrat.montantAssure }}</p>
+          </div>
+          <div class="timeline mt-3">
+            <div class="timeline-container">
+              <div class="timeline-progress" 
+                   [style.width]="contrat.statut === 'ACTIVE' ? '100%' : (contrat.statut === 'PaymentPending' ? '66.66%' : '33.33%')"></div>
+              <div class="timeline-steps d-flex justify-content-between">
+                <div class="timeline-step" 
+                     [ngClass]="{'completed': step.completed, 'active': step.active}"
+                     *ngFor="let step of getTimelineSteps(contrat); let i = index">
+                  <div class="step-circle" [ngClass]="{'completed': step.completed}">
+                    <i class="fas" [ngClass]="{
+                      'fa-hourglass-start': step.label === 'En cours',
+                      'fa-money-bill-wave': step.label === 'Paiement',
+                      'fa-check-circle': step.label === 'Actif'
+                    }"></i>
+                  </div>
+                  <span class="step-label">{{ step.label }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer text-center bg-light p-2">
+          <div class="btn-group" role="group">
+            <button class="btn btn-primary btn-sm me-2" (click)="editContrat(contrat.id!)">
+              <i class="fas fa-edit"></i> Modifier
+            </button>
+            <button class="btn btn-danger btn-sm me-2" (click)="openDeletePopup(contrat)">
+              <i class="fas fa-trash"></i> Supprimer
+            </button>
+            <button class="btn btn-warning btn-sm" (click)="payContrat(contrat.id!)" 
+                    [disabled]="contrat.statut !== 'InProgress' && contrat.statut !== 'PaymentPending'">
+              <i class="fas fa-money-bill-wave"></i> Payer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="d-flex justify-content-center mt-4" *ngIf="filteredContrats.length > 0">
+    <pagination-controls 
+      (pageChange)="p = $event" 
+      previousLabel="Précédent"
+      nextLabel="Suivant"
+      [maxSize]="5"
+      [directionLinks]="true"
+      [autoHide]="false">
+    </pagination-controls>
+  </div>
+
+  <!-- Popup de confirmation -->
+  <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'d-block': showPopup}">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="card modal-content shadow">
+        <div class="card-header bg-danger text-white">
+          <h5 class="modal-title">Confirmation de suppression</h5>
+          <button type="button" class="btn-close" (click)="closePopup()" aria-label="Close"></button>
+        </div>
+        <div class="card-body">
+          <p>Voulez-vous vraiment supprimer le contrat #{{ contratToDelete?.numeroContrat }} ?</p>
+        </div>
+        <div class="card-footer">
+          <button type="button" class="btn btn-secondary" (click)="closePopup()">Annuler</button>
+          <button type="button" class="btn btn-danger" 
+                  (click)="contratToDelete ? deleteContrat(contratToDelete) : null">
+            Supprimer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

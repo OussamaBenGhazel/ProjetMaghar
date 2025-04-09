@@ -1,0 +1,233 @@
+/* Réinitialisation de base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif; /* Police moderne et professionnelle */
+}
+
+/* Conteneur principal pour la facture */
+.facture-container {
+  display: flex;
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 25px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* Ombre plus prononcée pour un effet premium */
+  border: 2px solid #e0e0e0;
+  overflow: hidden;
+}
+
+/* Résumé de la facture (colonne gauche) */
+.facture-summary {
+  flex: 1;
+  padding: 25px;
+  background: linear-gradient(135deg, #2c3e50, #34495e); /* Dégradé sombre et élégant */
+  color: #ffffff;
+  border-radius: 10px 0 0 10px;
+  position: relative;
+}
+
+.facture-summary h3 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #ffffff;
+  border-bottom: 3px solid #f1c40f; /* Accent doré pour l'expertise */
+  padding-bottom: 10px;
+  text-align: left;
+  font-weight: 700;
+}
+
+.experience-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: #f1c40f; /* Or pour symboliser l'expérience */
+  color: #2c3e50;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.facture-item p {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #ecf0f1;
+  line-height: 1.6;
+}
+
+.facture-item p strong {
+  color: #f1c40f; /* Accent doré pour les titres */
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+/* Formulaire de paiement (colonne droite) */
+.payment-form {
+  flex: 2;
+  padding: 25px;
+  background-color: #ffffff;
+  border-left: 2px solid #e0e0e0; /* Séparation élégante */
+}
+
+.payment-section h4 {
+  font-size: 20px;
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+/* Champ de carte Stripe */
+.card-element {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid #bdc3c7;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  background-color: #fafafa;
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-element:focus-within {
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+  outline: none;
+}
+
+/* Boutons */
+.action-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.pay-button,
+.download-button {
+  flex: 1;
+  padding: 14px 30px;
+  background: linear-gradient(90deg, #ff3c00, #ff3c00); /* Dégradé bleu pour un effet moderne */
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  transition: transform 0.3s ease, background 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+}
+
+.pay-button:hover,
+.download-button:hover {
+  background: linear-gradient(90deg, #2980b9, #3498db); /* Dégradé inversé au survol */
+  transform: translateY(-3px);
+}
+
+.pay-button:disabled,
+.download-button:disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Message d'erreur */
+.error {
+  color: #e74c3c;
+  margin-top: 10px;
+  font-size: 16px;
+  padding: 10px;
+  background-color: #f2dede;
+  border-radius: 6px;
+  text-align: center;
+  border-left: 4px solid #e74c3c;
+}
+
+/* Message "Aucune facture" */
+.not-found-message {
+  text-align: center;
+  font-size: 18px;
+  color: #e74c3c;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+/* Style responsive */
+@media (max-width: 900px) {
+  .facture-container {
+    flex-direction: column;
+  }
+
+  .facture-summary,
+  .payment-form {
+    width: 100%;
+  }
+
+  .facture-summary {
+    border-radius: 10px 10px 0 0;
+  }
+
+  .payment-form {
+    border-left: none;
+    border-top: 2px solid #e0e0e0;
+    border-radius: 0 0 10px 10px;
+  }
+
+  .experience-badge {
+    top: 10px;
+    right: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .facture-container {
+    margin: 10px;
+    padding: 15px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .pay-button,
+  .download-button {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  h3 {
+    font-size: 24px;
+  }
+
+  .facture-item p,
+  .payment-section h4 {
+    font-size: 16px;
+  }
+
+  .error {
+    font-size: 14px;
+  }
+}
+
+/* Animation légère pour les transitions */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.facture-container {
+  animation: fadeIn 0.5s ease-in;
+}

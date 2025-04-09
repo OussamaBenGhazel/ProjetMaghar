@@ -8,7 +8,9 @@
     <file url="file://$PROJECT_DIR$/Microservices/Microservice-Rendezvous/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Microservices/Microservice-Sinistre/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Microservices/Microservice-User/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Microservices/config-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Microservices/eureka/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Microservices/gateway/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Microservices/partenaire-service/src/main/java" charset="UTF-8" />
   </component>
 </project>

@@ -8,7 +8,8 @@ import { Contrat } from 'src/app/core/models/Contrat.model';
 })
 export class ContratService {
 
-  private apiUrl = 'http://localhost:8087/contrats'; // L'URL de votre API
+
+  private apiUrl = 'http://localhost:8081/contrats'; // L'URL de votre API
 
   constructor(private http: HttpClient) { }
 
@@ -25,7 +26,6 @@ export class ContratService {
   updateContrat(id: number, contrat: Contrat): Observable<Contrat> {
     return this.http.put<Contrat>(`${this.apiUrl}/update/${id}`, contrat);
   }
-
 
   // Supprimer un contrat
   deleteContrat(id: number): Observable<void> {

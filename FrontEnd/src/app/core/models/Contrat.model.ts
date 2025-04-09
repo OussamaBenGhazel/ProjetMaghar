@@ -70,3 +70,8 @@ export class facture {
                   (data.montantTotal || 0);
   }
 }
+    this.montant = typeof data.montantTotal === 'string' ? 
+                  parseFloat(data.montantTotal) : 
+                  (data.montantTotal || 0);
+  }
+}

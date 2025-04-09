@@ -13,6 +13,37 @@
     <option name="workspaceImportForciblyTurnedOn" value="true" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_X" default="true" project-jdk-name="openjdk-22 (3)" project-jdk-type="JavaSDK">
+
+        <option value="$PROJECT_DIR$/BackEnd/Microservices/eureka/pom.xml" />
+        <option value="$PROJECT_DIR$/BackEnd/Microservices/gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/BackEnd/Microservices/config-service/pom.xml" />
+        <option value="$PROJECT_DIR$/BackEnd/Microservices/Microservice-Avis/pom.xml" />
+        <option value="$PROJECT_DIR$/BackEnd/Microservices/Microservice-User/pom.xml" />
+        <option value="$PROJECT_DIR$/BackEnd/Microservices/partenaire-service/pom.xml" />
+        <option value="$PROJECT_DIR$/BackEnd/Microservices/Microservice-Sinistre/pom.xml" />
+        <option value="$PROJECT_DIR$/BackEnd/Microservices/Microservice-Assurance/pom.xml" />
+        <option value="$PROJECT_DIR$/BackEnd/Microservices/Microservice-Rendezvous/pom.xml" />
+        <option value="$PROJECT_DIR$/BackEnd/Microservices/Microservice-Reclamation/pom.xml" />
+        <option value="$PROJECT_DIR$/BackEnd/Microservices/Microservice-Recrutement/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_23" default="true" project-jdk-name="openjdk-23" project-jdk-type="JavaSDK">
+        <option value="$PROJECT_DIR$/Microservices/partenaire-service/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservices/Microservice-Avis/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservices/Microservice-Reclamation/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservices/Microservice-Recrutement/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservices/Microservice-Rendezvous/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservices/Microservice-Sinistre/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservices/Microservice-User/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservices/Microservice-Assurance/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservices/eureka/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservices/config-service/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservices/gateway/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
