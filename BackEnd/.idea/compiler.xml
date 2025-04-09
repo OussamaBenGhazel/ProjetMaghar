@@ -9,12 +9,14 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Microservice-Reclamation" />
         <module name="Microservice-Avis" />
+        <module name="config-service" />
         <module name="Microservice-User" />
         <module name="eureka" />
         <module name="partenaire-service" />
         <module name="Microservice-Sinistre" />
         <module name="Microservice-Recrutement" />
         <module name="Microservice-Rendezvous" />
+        <module name="gateway" />
       </profile>
       <profile name="Annotation profile for Microservice-Assurance" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -36,7 +38,9 @@
       <module name="Microservice-Rendezvous" options="-parameters" />
       <module name="Microservice-Sinistre" options="-parameters" />
       <module name="Microservice-User" options="-parameters" />
+      <module name="config-service" options="-parameters" />
       <module name="eureka" options="-parameters" />
+      <module name="gateway" options="-parameters" />
       <module name="partenaire-service" options="-parameters" />
     </option>
   </component>

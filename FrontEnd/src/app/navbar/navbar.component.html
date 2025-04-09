@@ -57,7 +57,7 @@
                 </li>
                 <li class="nav-item @@service"><a class="nav-link" href="service.html">Assurance</a></li>
                 <li class="nav-item @@project">
-                  <a class="nav-link" [routerLink]="'/packages'">Packages</a>
+                  <a class="nav-link" href="service.html">Packages</a>
                 </li>
                                 <li class="nav-item dropdown @@blog">
                   <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sinistre <i class="fas fa-chevron-down small"></i></a>
@@ -81,6 +81,12 @@
 
               <div class="my-2 my-md-0 ml-lg-4 text-center">
                 <a href="contact.html" class="btn btn-solid-border btn-round-full">Get a Quote</a>
+              </div>
+              <div class="my-2 my-md-0 ml-lg-4 text-center">
+                <span *ngIf="userFirstName">Welcome, {{ userFirstName }}</span>
+                <button class="btn btn-link logout-button" (click)="logout()" title="Logout">
+                  <fa-icon [icon]="faSignOutAlt"></fa-icon>
+                </button>
               </div>
             </div>
           </nav>
