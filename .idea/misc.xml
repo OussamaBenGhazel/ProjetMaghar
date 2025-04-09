@@ -4,6 +4,7 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/BackEnd/Microservices/eureka/pom.xml" />
         <option value="$PROJECT_DIR$/BackEnd/Microservices/gateway/pom.xml" />
         <option value="$PROJECT_DIR$/BackEnd/Microservices/config-service/pom.xml" />
@@ -19,6 +20,23 @@
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_23" default="true" project-jdk-name="openjdk-23" project-jdk-type="JavaSDK">
+=======
+        <option value="$PROJECT_DIR$/Microservices/partenaire-service/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservices/Microservice-Avis/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservices/Microservice-Reclamation/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservices/Microservice-Recrutement/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservices/Microservice-Rendezvous/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservices/Microservice-Sinistre/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservices/Microservice-User/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservices/Microservice-Assurance/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservices/eureka/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservices/config-service/pom.xml" />
+        <option value="$PROJECT_DIR$/Microservices/gateway/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
+>>>>>>> 57756e6cf6bea677e9741b397af13bd1bad3c98e
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

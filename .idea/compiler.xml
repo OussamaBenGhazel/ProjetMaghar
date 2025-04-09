@@ -8,10 +8,17 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Microservice-Reclamation" />
+<<<<<<< HEAD
         <module name="config-service" />
         <module name="Microservice-Avis" />
         <module name="eureka" />
         <module name="Microservice-User" />
+=======
+        <module name="Microservice-Avis" />
+        <module name="config-service" />
+        <module name="Microservice-User" />
+        <module name="eureka" />
+>>>>>>> 57756e6cf6bea677e9741b397af13bd1bad3c98e
         <module name="partenaire-service" />
         <module name="Microservice-Sinistre" />
         <module name="Microservice-Recrutement" />

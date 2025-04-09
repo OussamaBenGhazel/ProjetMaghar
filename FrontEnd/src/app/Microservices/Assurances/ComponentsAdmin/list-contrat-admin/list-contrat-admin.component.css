@@ -1,0 +1,185 @@
+/* Styles généraux */
+.container {
+  padding: 20px;
+}
+.table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+.thead-dark {
+  background-color: #343a40;
+  color: white;
+}
+.table-hover tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Timeline professionnelle */
+.timeline {
+  margin: 10px 0;
+  padding: 0 5px;
+}
+.timeline-container {
+  position: relative;
+  padding: 15px 0;
+}
+.timeline-progress {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 3px;
+  background: #ff3c00; /* Changement de couleur */
+  z-index: 0;
+  transition: width 0.5s ease-in-out;
+}
+.timeline-steps {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+}
+.timeline-step {
+  text-align: center;
+  flex: 1;
+}
+.step-circle {
+  width: 30px;
+  height: 30px;
+  background: #e9ecef;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 5px;
+  font-size: 1rem;
+  color: #6c757d;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.timeline-step.completed .step-circle {
+  background: #ff3c00; /* Changement de couleur */
+  color: #fff;
+}
+.timeline-step.active .step-circle {
+  transform: scale(1.1);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+.step-label {
+  display: block;
+  font-size: 0.75rem;
+  color: #6c757d;
+  font-weight: 500;
+}
+.timeline-step.completed .step-label {
+  color: #ff3c00; /* Changement de couleur */
+}
+.timeline-step.active .step-label {
+  font-weight: bold;
+}
+
+/* Boutons */
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 0.85rem;
+}
+.btn-info {
+  margin-right: 5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .table-responsive {
+    font-size: 0.9rem;
+  }
+  .timeline-steps {
+    flex-direction: column;
+    align-items: center;
+  }
+  .timeline-progress {
+    display: none;
+  }
+  .timeline-step {
+    margin-bottom: 15px;
+  }
+  /* list-contrat-admin.component.css */
+.card.h-100 {
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.card.h-100:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.border-primary {
+  border-width: 2px !important;
+}
+
+.timeline {
+  position: relative;
+  margin: 0 auto;
+}
+
+.timeline-container {
+  width: 100%;
+  position: relative;
+}
+
+.timeline-progress {
+  position: absolute;
+  height: 4px;
+  background-color: #28a745;
+  top: 10px;
+  transition: width 0.3s ease-in-out;
+}
+
+.timeline-steps {
+  position: relative;
+  z-index: 1;
+}
+
+.timeline-step {
+  text-align: center;
+  flex: 1;
+}
+
+.step-circle {
+  width: 24px;
+  height: 24px;
+  background: #fff;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  margin: 0 auto 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.completed .step-circle {
+  border-color: #28a745;
+  background: #28a745;
+  color: white;
+}
+
+.active .step-circle {
+  border-color: #007bff;
+  background: #007bff;
+  color: white;
+}
+
+.step-label {
+  font-size: 12px;
+}
+
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+canvas {
+  max-height: 300px;
+}
+}
