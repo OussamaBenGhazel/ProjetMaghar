@@ -11,7 +11,7 @@ export class AssuranceService {
   private baseUrl = ' http://localhost:8081/api/assurances'; // URI de l'API
 
   constructor(private http: HttpClient) { }
-
+//finalezdzs
   // Récupérer toutes les assurances
   getAllAssurances(): Observable<Assurance[]> {
     return this.http.get<Assurance[]>(this.baseUrl);
