@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.Microservice_Assurance.model.Assurance;
+import tn.esprit.Microservice_Assurance.model.TypeAssurance;
 import tn.esprit.Microservice_Assurance.service.AssuranceService;
 
 import java.util.List;
@@ -54,6 +55,12 @@ public class AssuranceController {
     public ResponseEntity<Assurance> getAssuranceById(@PathVariable Long id) {
         Assurance assurance = assuranceService.getAssuranceById(id);
         return ResponseEntity.ok(assurance);
+    }
+    // Dans AssuranceController.java
+    @GetMapping("/type/{type}")
+    public ResponseEntity<List<Assurance>> getAssurancesByType(@PathVariable TypeAssurance type) {
+        List<Assurance> assurances = assuranceService.getAssurancesByType(type);
+        return ResponseEntity.ok(assurances);
     }
 }
 

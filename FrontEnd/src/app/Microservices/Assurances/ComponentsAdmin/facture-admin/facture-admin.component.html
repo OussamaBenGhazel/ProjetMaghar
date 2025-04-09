@@ -1,0 +1,72 @@
+<div class="container mt-4">
+    <!-- Section de filtre -->
+    <div class="card filter-card shadow-sm mb-4">
+      <div class="card-body p-4">
+        <h5 class="card-title text-white mb-4" style="background-color: #222328; padding: 10px; border-radius: 8px 8px 0 0;">Filtrer les factures</h5>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="filterStatut" class="form-label fw-bold text-dark">Filtrer par statut :</label>
+            <select id="filterStatut" class="form-select" [(ngModel)]="filterStatut" (ngModelChange)="filterFactures()">
+              <option value="">Tous</option>
+              <option *ngFor="let statut of statuts" [value]="statut">{{ statut }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="filteredFactures.length === 0" class="alert alert-warning text-center">
+      Aucune facture {{ filterStatut ? 'de statut ' + filterStatut : '' }} trouvée.
+    </div>
+  
+    <div class="row" *ngIf="filteredFactures.length > 0">
+      <div class="col-12">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover">
+            <thead class="table-dark">
+              <tr>
+                <th>ID</th>
+                <th>Numéro</th>
+                <th>Montant Total</th>
+                <th>Statut</th>
+                <th>Date Émission</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let facture of filteredFactures | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
+                <td>{{ facture.id }}</td>
+                <td>{{ facture.numeroFacture }}</td>
+                <td>{{ facture.montantTotal }} Dinars</td>
+                <td>
+                  <span class="badge" [ngClass]="{
+                    'bg-success': facture.statut === 'PAYEE',
+                    'bg-warning': facture.statut === 'EN_ATTENTE' || facture.statut === 'EN_ATTENTE_CONFIRMATION',
+                    'bg-danger': facture.statut === 'ECHEC'
+                  }">{{ facture.statut }}</span>
+                </td>
+                <td>{{ facture.dateEmission | date:'dd/MM/yyyy' }}</td>
+                <td>
+                  <button class="btn btn-sm btn-primary me-2" (click)="downloadFacture(facture.id!)">
+                    <i class="fas fa-download"></i> Télécharger
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Pagination -->
+    <div class="d-flex justify-content-center mt-4" *ngIf="filteredFactures.length > 0">
+      <pagination-controls 
+        (pageChange)="p = $event" 
+        previousLabel="Précédent"
+        nextLabel="Suivant"
+        [maxSize]="5"
+        [directionLinks]="true"
+        [autoHide]="false">
+      </pagination-controls>
+    </div>
+  </div>

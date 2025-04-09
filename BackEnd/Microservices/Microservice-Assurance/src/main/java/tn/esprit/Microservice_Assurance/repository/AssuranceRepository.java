@@ -16,5 +16,7 @@ public interface AssuranceRepository extends JpaRepository<Assurance, Long> {
 
     // Rechercher une assurance par son nom
     Optional<Assurance> findByNom(String nom);
+
+
 }
 
