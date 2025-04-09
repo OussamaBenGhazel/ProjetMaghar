@@ -32,7 +32,7 @@ public class DevisServiceImpl implements DevisService {
         Devis devis = devisRepository.findById(id).get();
 
         devis.setNumeroDevis(devisDetails.getNumeroDevis());
-        devis.setUserId(devisDetails.getUserId());
+        devis.setClientId(devisDetails.getClientId());
         devis.setPrimeEstimee(devisDetails.getPrimeEstimee());
         devis.setMontantAssureTotal(devisDetails.getMontantAssureTotal());
         devis.setDateValidite(devisDetails.getDateValidite());

@@ -1,0 +1,76 @@
+<div class="container mt-4">
+  <div class="card shadow-sm bg-light">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0 text-center">Ajouter une Assurance</h4>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="assuranceForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label class="form-label fw-bold">Nom de l'assurance :</label>
+          <input type="text" formControlName="nom" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-bold">Description :</label>
+          <textarea formControlName="description" class="form-control"></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-bold">Détails de couverture :</label>
+          <textarea formControlName="couvertureDetails" class="form-control"></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-bold">Prime :</label>
+          <input type="number" formControlName="prime" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-bold">Montant Assuré :</label>
+          <input type="number" formControlName="montantAssure" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-bold">Franchise (DT) :</label>
+          <input type="number" formControlName="deductible" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-bold">Type d'Assurance :</label>
+          <select formControlName="type" class="form-select">
+            <option *ngFor="let type of typesAssurance" [value]="type">{{ type }}</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-bold">Conditions Générales :</label>
+          <textarea formControlName="conditionsGenerales" class="form-control"></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-bold">Date Effective :</label>
+          <input type="date" formControlName="dateEffective" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-bold">Date d'Expiration :</label>
+          <input type="date" formControlName="dateExpiration" class="form-control" required [readonly]="true" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-bold">Statut :</label>
+          <select formControlName="statut" class="form-select">
+            <option *ngFor="let statut of statutsProduit" [value]="statut">{{ statut }}</option>
+          </select>
+        </div>
+
+        <!-- Bouton centré -->
+        <div class="text-center mt-4">
+          <button type="submit" class="btn btn-primary px-4" [disabled]="assuranceForm.invalid">
+            <i class="fas fa-plus-circle"></i> Ajouter l'Assurance
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

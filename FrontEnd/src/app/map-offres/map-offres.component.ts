@@ -151,6 +151,8 @@ export class MapOffresComponent implements AfterViewInit {
         break;
       case 'assurance scolaire':
         break;
+        case 'assurance automobile':
+        break;
     }
 
     return L.icon({

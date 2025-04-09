@@ -9,6 +9,7 @@ import { OffrePartenaireFormComponent } from './Microservices/OffrePartenaire/of
 import { OffrePartenaireEditComponent } from './Microservices/OffrePartenaire/offre-partenaire-edit/offre-partenaire-edit.component';
 import { ListeOffreFrontComponent } from './Microservices/liste-offre-front/liste-offre-front.component';
 import { StatsComponent } from './stats/stats.component';
+import { AddassuranceComponent } from './Microservices/Assurances/ComponentsAdmin/addassurance/addassurance.component.spec';
 
 const routes: Routes = [
   {
@@ -22,6 +23,16 @@ const routes: Routes = [
       { path: 'offre-partenaire-form', component: OffrePartenaireFormComponent },
        // Cette ligne est importante
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+
+
+
+
+
+
+      { path: 'assurance-form', component: AddassuranceComponent },
+
+
+
     ]
 
   },

@@ -31,6 +31,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MapOffresComponent } from './map-offres/map-offres.component';
 import { StatsComponent } from './stats/stats.component';
 import { NgChartsModule } from 'ng2-charts';
+import { Assurance } from './core/models/assurance.model';
+import { AddassuranceComponent } from './Microservices/Assurances/ComponentsAdmin/addassurance/addassurance.component.spec';
 
 
 
@@ -50,6 +52,7 @@ import { NgChartsModule } from 'ng2-charts';
     ListeOffreFrontComponent,
     ReservationCalendarComponent,
     MapOffresComponent,
+    AddassuranceComponent,
     StatsComponent,
 
   ],

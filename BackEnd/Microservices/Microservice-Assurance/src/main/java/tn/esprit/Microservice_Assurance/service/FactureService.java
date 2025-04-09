@@ -1,26 +1,23 @@
+// Interface FactureService
 package tn.esprit.Microservice_Assurance.service;
 
+import com.stripe.exception.StripeException;
 import tn.esprit.Microservice_Assurance.model.Facture;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface FactureService {
-    // Créer une nouvelle facture
-    Facture createFacture(Facture facture);
 
-    // Créer une facture à partir d'un contrat
-    Facture createFactureFromContrat(Long contratId);
-
-    // Récupérer une facture par son ID
-    Optional<Facture> getFactureById(Long id);
-
-    // Récupérer toutes les factures
     List<Facture> getAllFactures();
+    Facture getFactureById(Long id);
+    // Autres méthodes potentielles selon vos besoins
 
-    // Mettre à jour une facture
-    Facture updateFacture(Long id, Facture facture);
+    Facture processPaymentWithStripe(Long factureId, String paymentMethodId) throws StripeException;
+    Facture confirmStripePayment(Long factureId) throws StripeException; // Nouvelle méthode pour confirmer le paiement
+    byte[] genererFacturePDF(Long factureId);
+    byte[] signerFacturePDF(byte[] pdfBytes);
 
-    // Supprimer une facture
-    void deleteFacture(Long id);
+     Facture createFactureFromContrat(Long contratId) ;
+
+
 }
