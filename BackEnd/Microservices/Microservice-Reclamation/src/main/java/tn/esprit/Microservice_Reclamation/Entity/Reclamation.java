@@ -32,6 +32,9 @@ public class Reclamation {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateCreation;
 
+    private String email;  // Champ email ajouté
+
+    private String codeReclamation; // Code unique ajouté
 
     public Reclamation() {}
 
@@ -44,14 +47,21 @@ public class Reclamation {
 
     @PrePersist
     public void prePersist() {
-        if (this.statut == null) {
-            this.statut = Statut.EN_ATTENTE; // Valeur par défaut
-        }
+        // Définir la date de création par défaut
         if (this.dateCreation == null) {
-            this.dateCreation = LocalDate.now(); // Valeur par défaut
+            this.dateCreation = LocalDate.now();
+        }
+        // Définir le statut par défaut
+        if (this.statut == null) {
+            this.statut = Statut.EN_ATTENTE;
+        }
+        // Générer un code de réclamation si non défini
+        if (this.codeReclamation == null) {
+            this.codeReclamation = "REC-" + java.util.UUID.randomUUID().toString().substring(0, 8).toUpperCase();
         }
     }
 
+    // Getters et setters
 
     public Long getId() {
         return id;
@@ -108,5 +118,20 @@ public class Reclamation {
     public void setDateCreation(LocalDate dateCreation) {
         this.dateCreation = dateCreation;
     }
-}
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getCodeReclamation() {
+        return codeReclamation;
+    }
+
+    public void setCodeReclamation(String codeReclamation) {
+        this.codeReclamation = codeReclamation;
+    }
+}
