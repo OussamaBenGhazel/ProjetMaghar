@@ -1,0 +1,62 @@
+/* Container for the confirmation message */
+.confirmation-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f9f9f9;
+    color: #333;
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  
+  /* Title styling */
+  .confirmation-message h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #4caf50; /* Success green */
+    margin-bottom: 20px;
+  }
+  
+  /* Paragraph styling for the confirmation text */
+  .confirmation-message p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #555;
+  }
+  
+  /* Countdown timer styling */
+  .confirmation-message .countdown {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #f44336; /* Red for countdown */
+    margin-top: 10px;
+  }
+  
+  /* Button styling */
+  .confirmation-message button {
+    padding: 10px 20px;
+    background-color: #4caf50; /* Green background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  /* Button hover effect */
+  .confirmation-message button:hover {
+    background-color: #45a049; /* Darker green on hover */
+    transform: scale(1.05); /* Slight button enlargement */
+  }
+  
+  /* Button disabled (if needed) */
+  .confirmation-message button:disabled {
+    background-color: #b0b0b0;
+    cursor: not-allowed;
+  }
+  
+  
+  

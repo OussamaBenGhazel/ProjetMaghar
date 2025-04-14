@@ -1,0 +1,49 @@
+<div class="search-container mb-3">
+  <label for="search" class="form-label">Rechercher :</label>
+  <input type="text" id="search" class="form-control" [(ngModel)]="searchTerm" (input)="filterDemandes()" placeholder="Recherche par client, type d'assistance, localisation">
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Client</th>
+      <th>Type d'Assistance</th>
+      <th>Localisation</th>
+      <th>Statut</th>
+      <th>Date de Demande</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let demande of filteredDemandes | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
+      <td>{{ demande.id }}</td>
+      <td>{{ demande.clientName }}</td>
+      <td>{{ demande.assistanceType }}</td>
+      <td>{{ demande.location }}</td>
+      <td>{{ demande.statut }}</td>
+      <td>{{ demande.dateRequested | date: 'short' }}</td>
+      <td>{{ demande.description || 'N/A' }}</td>
+      <td>
+        <button class="btn btn-danger btn-sm" (click)="deleteDemandeAssistance(demande.id)">Supprimer</button>
+        <button class="btn btn-warning btn-sm" (click)="demande.id ? navigateToEdit(demande.id) : null">Modifier</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<div class="d-flex justify-content-center mt-4" *ngIf="filteredDemandes.length > itemsPerPage">
+  <pagination-controls 
+    (pageChange)="p = $event" 
+    previousLabel="Précédent"
+    nextLabel="Suivant"
+    [maxSize]="5"
+    [directionLinks]="true"
+    [autoHide]="false">
+  </pagination-controls>
+</div>
+
+
+<button class="btn btn-primary" (click)="navigateToCreate()">Créer une Demande d'Assistance</button>

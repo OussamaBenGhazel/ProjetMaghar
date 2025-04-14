@@ -1,13 +1,11 @@
-// Enum pour Statut
+// Enum for Statut
 export enum Statut {
   EN_ATTENTE = 'EN_ATTENTE',
   EN_COURS = 'EN_COURS',
   TERMINE = 'TERMINE'
 }
 
-
-
-// Interface pour Reclamation
+// Interface for Reclamation
 export interface Reclamation {
   id?: number;
   clientName: string;
@@ -16,8 +14,10 @@ export interface Reclamation {
   description?: string;
   statut: Statut; 
   dateCreation: string;
- 
+  email: string;  // Added email field
+  codeReclamation: string;  // Added unique code field for reclamation
 }
+
 export interface DemandeAssistance {
   id?: number;               
   clientName: string;       

@@ -1,0 +1,97 @@
+<form [formGroup]="reclamationForm" (ngSubmit)="saveReclamation()">
+    <!-- Client Name -->
+    <div class="form-group">
+      <label for="clientName">Nom du client</label>
+      <input 
+        formControlName="clientName" 
+        id="clientName" 
+        type="text" 
+        placeholder="Entrez votre nom complet"
+        class="form-control" 
+        [ngClass]="{'is-invalid': reclamationForm.get('clientName')?.invalid && reclamationForm.get('clientName')?.touched}">
+      <div *ngIf="reclamationForm.get('clientName')?.invalid && reclamationForm.get('clientName')?.touched" class="invalid-feedback">
+        <small *ngIf="reclamationForm.get('clientName')?.hasError('required')">Le nom du client est obligatoire.</small>
+        <small *ngIf="reclamationForm.get('clientName')?.hasError('maxlength')">Le nom du client doit avoir un maximum de 100 caractères.</small>
+        <small *ngIf="reclamationForm.get('clientName')?.hasError('noNumbers')">Le nom du client ne doit pas contenir de chiffres.</small>
+      </div>
+    </div>
+  
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input 
+        formControlName="email" 
+        id="email" 
+        type="email" 
+        placeholder="Entrez votre email"
+        class="form-control" 
+        [ngClass]="{'is-invalid': reclamationForm.get('email')?.invalid && reclamationForm.get('email')?.touched}">
+      <div *ngIf="reclamationForm.get('email')?.invalid && reclamationForm.get('email')?.touched" class="invalid-feedback">
+        <small *ngIf="reclamationForm.get('email')?.hasError('required')">L'email est obligatoire.</small>
+        <small *ngIf="reclamationForm.get('email')?.hasError('email')">Veuillez entrer un email valide.</small>
+      </div>
+    </div>
+  
+    <!-- Type de réclamation -->
+    <div class="form-group">
+      <label for="typeReclamation">Type de réclamation</label>
+      <input 
+        formControlName="typeReclamation" 
+        id="typeReclamation"
+        placeholder="Ex : Remboursement, Retard..."
+        class="form-control" 
+        [ngClass]="{'is-invalid': reclamationForm.get('typeReclamation')?.invalid && reclamationForm.get('typeReclamation')?.touched}">
+      <div *ngIf="reclamationForm.get('typeReclamation')?.invalid && reclamationForm.get('typeReclamation')?.touched" class="invalid-feedback">
+        <small *ngIf="reclamationForm.get('typeReclamation')?.hasError('required')">Le type de réclamation est obligatoire.</small>
+      </div>
+    </div>
+  
+    <!-- Titre -->
+    <div class="form-group">
+      <label for="titre">Titre</label>
+      <input 
+        formControlName="titre" 
+        id="titre" 
+        type="text" 
+        placeholder="Sujet de votre réclamation"
+        class="form-control" 
+        [ngClass]="{'is-invalid': reclamationForm.get('titre')?.invalid && reclamationForm.get('titre')?.touched}">
+      <div *ngIf="reclamationForm.get('titre')?.invalid && reclamationForm.get('titre')?.touched" class="invalid-feedback">
+        <small *ngIf="reclamationForm.get('titre')?.hasError('required')">Le titre est obligatoire.</small>
+        <small *ngIf="reclamationForm.get('titre')?.hasError('maxlength')">Le titre doit avoir un maximum de 100 caractères.</small>
+      </div>
+    </div>
+  
+    <!-- Description -->
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea 
+        formControlName="description" 
+        id="description" 
+        rows="4" 
+        placeholder="Expliquez votre situation en quelques mots..."
+        class="form-control" 
+        [ngClass]="{'is-invalid': reclamationForm.get('description')?.invalid && reclamationForm.get('description')?.touched}"></textarea>
+      <div *ngIf="reclamationForm.get('description')?.invalid && reclamationForm.get('description')?.touched" class="invalid-feedback">
+        <small *ngIf="reclamationForm.get('description')?.hasError('maxlength')">La description doit avoir un maximum de 500 caractères.</small>
+      </div>
+    </div>
+  
+    <!-- ✅ CAPTCHA -->
+    <div class="form-group mt-3">
+      <re-captcha 
+        formControlName="recaptcha"
+        siteKey="6LfmchErAAAAALZSfx5pqG3ToHA5gO_91mXswZ2Y"
+        (resolved)="onCaptchaResolved($event)">
+      </re-captcha>
+      <div *ngIf="reclamationForm.get('recaptcha')?.invalid && reclamationForm.get('recaptcha')?.touched" class="invalid-feedback d-block">
+        <small>Veuillez valider le Captcha pour continuer.</small>
+      </div>
+    </div>
+  
+    <!-- ✅ Submit -->
+    <div class="form-group mt-4">
+      <button type="submit" class="btn btn-success w-100" [disabled]="reclamationForm.invalid">Soumettre la réclamation</button>
+    </div>
+  </form>
+  

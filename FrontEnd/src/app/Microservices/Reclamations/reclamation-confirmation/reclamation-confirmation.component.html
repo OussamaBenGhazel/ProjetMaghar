@@ -1,0 +1,8 @@
+<div class="confirmation-message">
+    <h2>Votre réclamation a été soumise avec succès!</h2>
+    <p>Nous avons bien reçu votre demande et nous la traiterons dans les plus brefs délais.</p>
+  
+    <!-- Button triggers manual redirect -->
+    <button (click)="goToHomePage()" *ngIf="!autoRedirected">Retour à l'accueil</button>
+  </div>
+  

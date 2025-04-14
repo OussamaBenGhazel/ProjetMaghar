@@ -1,0 +1,112 @@
+/* General form container */
+form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Form group styling */
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  /* Label styling */
+  label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+  }
+  
+  /* Input fields and textareas styling */
+  input.form-control, textarea.form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+  }
+  
+  input.form-control:focus, textarea.form-control:focus {
+    border-color: #66afe9;
+    outline: none;
+  }
+  
+  /* Invalid input styling */
+  .is-invalid {
+    border-color: #dc3545;
+  }
+  
+  .is-invalid:focus {
+    border-color: #e74c3c;
+  }
+  
+  /* Error message styling */
+  .invalid-feedback {
+    font-size: 0.875rem;
+    color: #dc3545;
+    margin-top: 5px;
+  }
+  
+  /* CAPTCHA styling */
+  .re-captcha {
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+  }
+  
+  /* Submit button styling */
+  button[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    padding: 12px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button[type="submit"]:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  button[type="submit"]:hover:enabled {
+    background-color: #218838;
+  }
+  
+  /* Focus effect for the form */
+  input.form-control:focus, textarea.form-control:focus, button[type="submit"]:focus {
+    box-shadow: 0 0 5px rgba(66, 153, 225, 0.6);
+  }
+  
+  /* Margin for the CAPTCHA validation message */
+  .invalid-feedback.d-block {
+    margin-top: 10px;
+    display: block;
+  }
+  
+  /* Margin between form groups */
+  .form-group + .form-group {
+    margin-top: 20px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    form {
+      padding: 15px;
+    }
+  
+    button[type="submit"] {
+      font-size: 1rem;
+    }
+  }
+  

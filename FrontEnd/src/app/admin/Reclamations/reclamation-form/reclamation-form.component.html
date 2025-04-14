@@ -55,6 +55,36 @@
   </div>
 
   <div class="form-group">
+    <label for="email">Email du client</label>
+    <input 
+      formControlName="email" 
+      id="email" 
+      type="email" 
+      class="form-control" 
+      [ngClass]="{'is-invalid': reclamationForm.get('email')?.invalid && reclamationForm.get('email')?.touched}" 
+      required>
+    <div *ngIf="reclamationForm.get('email')?.invalid && reclamationForm.get('email')?.touched" class="invalid-feedback">
+      <small *ngIf="reclamationForm.get('email')?.hasError('required')">L'email est obligatoire.</small>
+      <small *ngIf="reclamationForm.get('email')?.hasError('email')">L'email n'est pas valide.</small>
+    </div>
+  </div>
+
+  <!-- Optional: Code Reclamation (readonly, generated on the backend) -->
+  <div class="form-group">
+    <label for="codeReclamation">Code de Réclamation</label>
+    <input 
+      formControlName="codeReclamation" 
+      id="codeReclamation" 
+      type="text" 
+      class="form-control" 
+      [ngClass]="{'is-invalid': reclamationForm.get('codeReclamation')?.invalid && reclamationForm.get('codeReclamation')?.touched}" 
+      [readonly]="true">
+    <div *ngIf="reclamationForm.get('codeReclamation')?.invalid && reclamationForm.get('codeReclamation')?.touched" class="invalid-feedback">
+      <small *ngIf="reclamationForm.get('codeReclamation')?.hasError('required')">Le code de réclamation est obligatoire.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
     <button type="submit" class="btn btn-primary" [disabled]="reclamationForm.invalid">Soumettre</button>
   </div>
 </form>

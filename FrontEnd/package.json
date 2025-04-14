@@ -21,6 +21,7 @@
     "admin-lte": "^4.0.0-beta3",
     "bootstrap": "^5.3.3",
     "counterup": "^1.0.2",
+    "ng-recaptcha": "^12.0.0",
     "ngx-pagination": "^6.0.3",
     "rxjs": "~7.8.0",
     "slick-carousel": "^1.8.1",

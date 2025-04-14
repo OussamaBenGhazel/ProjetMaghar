@@ -1,7 +1,6 @@
-<!-- Search Bar for filtering -->
 <div class="search-container mb-3">
   <label for="search" class="form-label">Rechercher :</label>
-  <input type="text" id="search" class="form-control" [(ngModel)]="searchTerm" (input)="filterReclamations()" placeholder="Recherche par client, type, titre, description ou statut">
+  <input type="text" id="search" class="form-control" [(ngModel)]="searchTerm" (input)="filterReclamations()" placeholder="Recherche par client, type, titre, description, statut ou email">
 </div>
 
 <table class="table">
@@ -9,11 +8,13 @@
     <tr>
       <th>ID</th>
       <th>Client</th>
+      <th>Email</th> <!-- ✅ Ajouté -->
       <th>Type Réclamation</th>
       <th>Titre</th>
       <th>Description</th>
       <th>Statut</th>
       <th>Date de Création</th>
+      <th>Code Réclamation</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -21,14 +22,16 @@
     <tr *ngFor="let rec of filteredReclamations | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
       <td>{{ rec.id }}</td>
       <td>{{ rec.clientName }}</td>
+      <td>{{ rec.email }}</td> <!-- ✅ Affichage Email -->
       <td>{{ rec.typeReclamation }}</td>
       <td>{{ rec.titre }}</td>
       <td>{{ rec.description || 'N/A' }}</td>
       <td>{{ rec.statut }}</td>
       <td>{{ rec.dateCreation | date: 'short' }}</td>
+      <td>{{ rec.codeReclamation || 'N/A' }}</td>
       <td>
         <button class="btn btn-danger btn-sm" (click)="deleteReclamation(rec.id)">Supprimer</button>
-        <button class="btn btn-warning btn-sm" (click)="rec.id ? navigateToEdit(rec.id) : null">Modifier</button>
+        <button class="btn btn-warning btn-sm" (click)="navigateToEdit(rec.id)">Modifier</button>
       </td>
     </tr>
   </tbody>
