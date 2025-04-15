@@ -1,0 +1,70 @@
+/* Conteneur général du formulaire */
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Titre du formulaire */
+.form-title {
+  text-align: center;
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 30px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Conteneur du formulaire */
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Style des labels des champs */
+.form-label {
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #444;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Style des champs de saisie */
+.form-input {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  transition: border-color 0.3s;
+}
+
+/* Changement de couleur de bordure au focus */
+.form-input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Bouton de soumission */
+.form-btn {
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.form-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Espacement des groupes de formulaire */
+.form-group {
+  margin-bottom: 20px;
+}

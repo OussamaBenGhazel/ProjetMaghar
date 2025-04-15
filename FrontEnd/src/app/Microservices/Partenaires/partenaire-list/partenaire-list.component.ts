@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Partenaire } from 'src/app/core/models/partenaire.model';
+import { Router } from '@angular/router';
 import { PartenaireService } from 'src/app/services/Partenaire-Service/partenaire.service';
 
 @Component({
@@ -8,25 +8,30 @@ import { PartenaireService } from 'src/app/services/Partenaire-Service/partenair
   styleUrls: ['./partenaire-list.component.css']
 })
 export class PartenaireListComponent implements OnInit {
-  partenaires: Partenaire[] = [];
+  partenaires: any[] = [];
 
-  constructor(private partenaireService: PartenaireService) {}
+  constructor(private partenaireService: PartenaireService, private router: Router) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.loadPartenaires();
   }
 
-  // Charger la liste des partenaires
-  loadPartenaires(): void {
-    this.partenaireService.getAllPartenaires().subscribe((data) => {
+  loadPartenaires() {
+    this.partenaireService.getAllPartenaires().subscribe(data => {
       this.partenaires = data;
     });
   }
 
-  // Supprimer un partenaire
-  deletePartenaire(id: number): void {
-    this.partenaireService.deletePartenaire(id).subscribe(() => {
-      this.loadPartenaires();  // Recharger la liste après suppression
-    });
+  deletePartenaire(id: number) {
+    if (confirm('Voulez-vous vraiment supprimer ce partenaire ?')) {
+      this.partenaireService.deletePartenaire(id).subscribe(() => {
+        alert('Partenaire supprimé avec succès !');
+        this.loadPartenaires(); // Recharger la liste après suppression
+      });
+    }
+  }
+
+  modifierPartenaire(id: number) {
+    this.router.navigate(['/admin/partenaire-edit', id]); // Redirection vers le formulaire de modification
   }
 }

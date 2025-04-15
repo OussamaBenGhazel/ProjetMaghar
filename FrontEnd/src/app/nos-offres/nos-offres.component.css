@@ -1,0 +1,88 @@
+/* Conteneur des offres */
+.list-group-item {
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  }
+  
+  /* Effet au survol de la carte */
+  .list-group-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    background-color: #e3f2fd; /* Fond bleu clair au survol */
+  }
+  
+  /* Titre avec icône */
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #007bff;
+  }
+  
+  /* Espacement entre les éléments */
+  .card-text {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 1rem;
+  }
+  
+  /* Amélioration du bouton Postuler */
+  .btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+  }
+  
+  .btn-success i {
+    margin-right: 5px;
+  }
+  
+  /* Changer la couleur du bouton au survol */
+  .btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+  }
+  
+  /* Couleur des icônes */
+  i.fas {
+    color: #007bff;
+  }
+  
+  /* Espacement et alignement des titres et boutons */
+  .d-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  /* Animation de glissement depuis le bas */
+.animated-heading {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #007bff;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideIn 1s ease-out forwards;
+  }
+  
+  /* Animation de glissement du texte */
+  @keyframes slideIn {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Optionnel : Ajouter un léger effet de survol sur le texte */
+  .animated-heading:hover {
+    color: #0056b3;
+    transform: translateY(-5px);
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  

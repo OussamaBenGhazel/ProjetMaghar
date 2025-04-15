@@ -1,0 +1,156 @@
+<div class="container mt-5">
+  <div class="card shadow-lg">
+    <div class="card-header bg-primary text-white text-center">
+      <h2><i class="fas fa-briefcase"></i> {{ isEditMode ? 'Modifier une offre d\'emploi' : 'Ajouter une offre d\'emploi' }}</h2>
+    </div>
+    <div class="card-body">
+      <!-- Alerte de succès -->
+      <div *ngIf="showSuccessAlert" class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+        <i class="fas fa-check-circle"></i> Offre d'emploi ajoutée avec succès !
+        <button type="button" class="btn-close" (click)="showSuccessAlert = false" aria-label="Close"></button>
+      </div>
+
+      <!-- Alerte d'erreur -->
+      <div *ngIf="showErrorAlert" class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+        <i class="fas fa-exclamation-triangle"></i> Erreur lors de l'ajout de l'offre. Veuillez réessayer.
+        <button type="button" class="btn-close" (click)="showErrorAlert = false" aria-label="Close"></button>
+      </div>
+
+      <form [formGroup]="offreEmploiForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="titre" class="form-label">Titre</label>
+              <input id="titre" class="form-control" formControlName="titre" placeholder="Ex: Développeur Web" />
+              <div *ngIf="offreEmploiForm.get('titre')?.touched && offreEmploiForm.get('titre')?.invalid" class="text-danger">
+                Le titre est requis (min 3 caractères).
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="categorie" class="form-label">Catégorie</label>
+              <input id="categorie" class="form-control" formControlName="categorie" placeholder="Ex: Informatique" />
+              <div *ngIf="offreEmploiForm.get('categorie')?.touched && offreEmploiForm.get('categorie')?.invalid" class="text-danger">
+                La catégorie est requise.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea id="description" class="form-control" formControlName="description" rows="3" placeholder="Décrivez l'offre..."></textarea>
+          <div *ngIf="offreEmploiForm.get('description')?.touched && offreEmploiForm.get('description')?.invalid" class="text-danger">
+            La description est requise (min 10 caractères).
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="localisation" class="form-label">Localisation</label>
+              <input id="localisation" class="form-control" formControlName="localisation" placeholder="Ex: Paris, France" />
+              <div *ngIf="offreEmploiForm.get('localisation')?.touched && offreEmploiForm.get('localisation')?.invalid" class="text-danger">
+                La localisation est requise.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="mb-3">
+              <label for="salaireMin" class="form-label">Salaire min (€)</label>
+              <input id="salaireMin" class="form-control" formControlName="salaireMin" type="number" />
+              <div *ngIf="offreEmploiForm.get('salaireMin')?.touched && offreEmploiForm.get('salaireMin')?.invalid" class="text-danger">
+                Salaire minimum requis (≥ 0).
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="mb-3">
+              <label for="salaireMax" class="form-label">Salaire max (€)</label>
+              <input id="salaireMax" class="form-control" formControlName="salaireMax" type="number" />
+              <div *ngIf="offreEmploiForm.get('salaireMax')?.touched && offreEmploiForm.get('salaireMax')?.invalid" class="text-danger">
+                Salaire maximum requis (≥ 0).
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="offreEmploiForm.errors?.['invalidSalaries']" class="text-danger mb-3">
+          Le salaire maximum doit être supérieur ou égal au salaire minimum.
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="typeContrat" class="form-label">Type de contrat</label>
+              <select id="typeContrat" class="form-select" formControlName="typeContrat">
+                <option value="">Sélectionnez un type</option>
+                <option value="CDI">CDI</option>
+                <option value="CDD">CDD</option>
+                <option value="Stage">Stage</option>
+                <option value="Freelance">Freelance</option>
+              </select>
+              <div *ngIf="offreEmploiForm.get('typeContrat')?.touched && offreEmploiForm.get('typeContrat')?.invalid" class="text-danger">
+                Le type de contrat est requis.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="mb-3">
+              <label for="datePublication" class="form-label">Date de publication</label>
+              <input id="datePublication" class="form-control" formControlName="datePublication" type="date" />
+              <div *ngIf="offreEmploiForm.get('datePublication')?.touched && offreEmploiForm.get('datePublication')?.invalid" class="text-danger">
+                La date de publication est requise.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="mb-3">
+              <label for="dateExpiration" class="form-label">Date d’expiration</label>
+              <input id="dateExpiration" class="form-control" formControlName="dateExpiration" type="date" />
+              <div *ngIf="offreEmploiForm.get('dateExpiration')?.touched && offreEmploiForm.get('dateExpiration')?.invalid" class="text-danger">
+                La date d’expiration est requise.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="offreEmploiForm.errors?.['invalidDates']" class="text-danger mb-3">
+          La date d’expiration doit être postérieure à la date de publication.
+        </div>
+
+        <div class="mb-3">
+          <label for="niveauExperience" class="form-label">Niveau d'expérience (années)</label>
+          <input id="niveauExperience" class="form-control" formControlName="niveauExperience" type="number" placeholder="Ex: 3" />
+          <div *ngIf="offreEmploiForm.get('niveauExperience')?.touched && offreEmploiForm.get('niveauExperience')?.invalid" class="text-danger">
+            Le niveau d'expérience doit être un nombre positif.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="competencesRequises" class="form-label">Compétences requises</label>
+          <textarea id="competencesRequises" class="form-control" formControlName="competencesRequises" rows="2" placeholder="Ex: Angular, Spring Boot, SQL"></textarea>
+          <div *ngIf="offreEmploiForm.get('competencesRequises')?.touched && offreEmploiForm.get('competencesRequises')?.invalid" class="text-danger">
+            Les compétences requises sont obligatoires.
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-center gap-3 mt-4">
+          <button type="submit" class="btn btn-primary btn-lg" [disabled]="offreEmploiForm.invalid">
+            <i class="fas fa-plus-circle"></i> {{ isEditMode ? 'Modifier l\'offre' : 'Ajouter l\'offre' }}
+          </button>
+          <button (click)="consulterOffres()" class="btn btn-secondary btn-lg">
+            <i class="fas fa-search"></i> Consulter les offres
+          </button>
+          <button *ngIf="isEditMode" (click)="onEdit()" class="btn btn-warning btn-lg" [disabled]="offreEmploiForm.invalid">
+            <i class="fas fa-pencil-alt"></i> Modifier l'offre
+          </button>
+          <button *ngIf="isEditMode" (click)="onDelete()" class="btn btn-danger btn-lg">
+            <i class="fas fa-trash-alt"></i> Supprimer l'offre
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<div class="container mt-4">
+  <h2>Liste des Rendez-vous</h2>
+  <ul class="list-group">
+      <li *ngFor="let rdv of rendezVousList" class="list-group-item">
+          <strong>Client :</strong> {{ rdv.nomClient }} |
+          <strong>Email :</strong> {{ rdv.emailClient }} |
+          <strong>Date :</strong> {{ rdv.dateHeure }} |
+          <strong>Agent :</strong> {{ rdv.agentAssurance?.id }} |
+          <strong>Statut :</strong> {{ rdv.statut }}
+      </li>
+  </ul>
+</div>

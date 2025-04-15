@@ -1,92 +1,233 @@
-<!-- Header Start -->
 <header class="navigation">
-  <div class="header-top ">
+  <!-- Top Bar -->
+  <div class="header-top">
     <div class="container">
-      <div class="row justify-content-between align-items-center">
-        <div class="col-lg-2 col-md-4">
-          <div class="header-top-socials text-center text-lg-left text-md-left">
-            <a href="https://www.facebook.com/themefisher" aria-label="facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://twitter.com/themefisher" aria-label="twitter"><i class="fab fa-twitter"></i></a>
-            <a href="https://github.com/themefisher/" aria-label="github"><i class="fab fa-github"></i></a>
-          </div>
-        </div>
-        <div class="col-lg-10 col-md-8 text-center text-lg-right text-md-right">
-          <div class="header-top-info mb-2 mb-md-0">
-            <a href="tel:+23-345-67890">Call Us : <span>+23-345-67890</span></a>
-            <a href="mailto:support@gmail.com"><i class="fas fa-envelope mr-2"></i><span>support@gmail.com</span></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="navbar">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <nav class="navbar navbar-expand-lg px-0 py-4">
-            <a class="navbar-brand" href="index.html">
-              Assurance<span>Maghrebia.</span>
+      <div class="row align-items-center">
+        <div class="col-lg-6 col-md-6">
+          <div class="header-top-socials">
+            <a href="https://www.facebook.com/themefisher" aria-label="facebook" class="social-icon">
+              <i class="fab fa-facebook-f"></i>
             </a>
-
-            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarsExample09"
-              aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="fa fa-bars"></span>
-            </button>
-
-            <div class="collapse navbar-collapse text-center" id="navbarsExample09">
-              <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                  <a class="nav-link" href="index.html">Home</a>
-                </li>
-                <li class="nav-item dropdown @@about">
-                  <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">About <i class="fas fa-chevron-down small"></i></a>
-                  <ul class="dropdown-menu" aria-labelledby="dropdown03">
-                    <li><a class="dropdown-item @@company" href="about.html">Our company</a></li>
-                    <li><a class="dropdown-item @@pricing" href="pricing.html">Pricing</a></li>
-
-                    <li class="dropdown dropdown-submenu dropright">
-                      <a class="dropdown-item dropdown-toggle" href="#!" id="dropdown0301" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sub Menu</a>
-
-                      <ul class="dropdown-menu" aria-labelledby="dropdown0301">
-                        <li><a class="dropdown-item" href="index.html">Submenu 01</a></li>
-                        <li><a class="dropdown-item" href="index.html">Submenu 02</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-                <li class="nav-item @@service"><a class="nav-link" href="service.html">Assurance</a></li>
-                <li class="nav-item @@project">
-                  <a class="nav-link" [routerLink]="'/packages'">Packages</a>
-                </li>
-                                <li class="nav-item dropdown @@blog">
-                  <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sinistre <i class="fas fa-chevron-down small"></i></a>
-                  <ul class="dropdown-menu" aria-labelledby="dropdown05">
-                    <li><a class="dropdown-item @@blogGrid" href="blog-grid.html">Blog Grid</a></li>
-                    <li><a class="dropdown-item @@blogSidebar" href="blog-sidebar.html">Blog with Sidebar</a></li>
-                    <li><a class="dropdown-item @@blogSingle" href="blog-single.html">Blog Single</a></li>
-
-                    <li class="dropdown dropdown-submenu dropleft">
-                      <a class="dropdown-item dropdown-toggle" href="#!" id="dropdown0501" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sub Menu</a>
-
-                      <ul class="dropdown-menu" aria-labelledby="dropdown0501">
-                        <li><a class="dropdown-item" href="index.html">Submenu 01</a></li>
-                        <li><a class="dropdown-item" href="index.html">Submenu 02</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-                <li class="nav-item @@contact"><a class="nav-link" href="contact.html">Contact</a></li>
-              </ul>
-
-              <div class="my-2 my-md-0 ml-lg-4 text-center">
-                <a href="contact.html" class="btn btn-solid-border btn-round-full">Get a Quote</a>
-              </div>
-            </div>
-          </nav>
+            <a href="https://twitter.com/themefisher" aria-label="twitter" class="social-icon">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://github.com/themefisher/" aria-label="github" class="social-icon">
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 text-md-right">
+          <div class="header-top-info">
+            <a href="tel:+23-345-67890" class="contact-link">
+              <i class="fas fa-phone-alt mr-2"></i>+23-345-67890
+            </a>
+            <a href="mailto:support@gmail.com" class="contact-link">
+              <i class="fas fa-envelope mr-2"></i>
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Main Navigation -->
+  <div id="navbar" class="navbar-sticky">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="index.html">
+          <span class="brand-first">Assurance</span><span class="brand-second">Maghrebia</span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav"
+          aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon">
+            <i class="fa fa-bars"></i>
+          </span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">About 
+                <i class="fas fa-chevron-down"></i>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="about.html">Our Company</a></li>
+                <li><a class="dropdown-item" href="pricing.html">Pricing</a></li>
+                <li class="dropdown dropright">
+                  <a class="dropdown-item dropdown-toggle" href="#">Sub Menu</a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Submenu 01</a></li>
+                    <li><a class="dropdown-item" href="#">Submenu 02</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="service.html">Assurance</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="'/NosOffres'">Nos Offres</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Sinistre 
+                <i class="fas fa-chevron-down"></i>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="blog-grid.html">Blog Grid</a></li>
+                <li><a class="dropdown-item" href="blog-sidebar.html">Blog with Sidebar</a></li>
+                <li><a class="dropdown-item" href="blog-single.html">Blog Single</a></li>
+                <li class="dropdown dropleft">
+                  <a class="dropdown-item dropdown-toggle" href="#">Sub Menu</a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Submenu 01</a></li>
+                    <li><a class="dropdown-item" href="#">Submenu 02</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <div class="navbar-actions">
+            <a [routerLink]="'/prendre-rendezvous'" class="btn btn-primary btn-round">RDV</a>
+            <button [routerLink]="['/nos-offres']" class="btn btn-primary">Join Us</button>       </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Inline CSS for styling -->
+  <style>
+    .navigation {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    }
+
+    .header-top {
+      background: #2c3e50;
+      padding: 10px 0;
+      color: white;
+    }
+
+    .social-icon {
+      color: white;
+      margin: 0 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .social-icon:hover {
+      transform: scale(1.2);
+      color: #3498db;
+    }
+
+    .contact-link {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .contact-link:hover {
+      color: #3498db;
+    }
+
+    .navbar-sticky {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-brand {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    .brand-first {
+      color: #2c3e50;
+    }
+
+    .brand-second {
+      color: #3498db;
+    }
+
+    .nav-link {
+      color: #2c3e50 !important;
+      padding: 10px 15px !important;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link:hover {
+      color: #3498db !important;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 50%;
+      background: #3498db;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+      left: 0;
+    }
+
+    .dropdown-menu {
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn-round {
+      border-radius: 25px;
+      padding: 8px 20px;
+      margin-left: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: #3498db;
+      border: none;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #2980b9;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      border: 2px solid #3498db;
+      color: #3498db;
+    }
+
+    .btn-outline:hover {
+      background: #3498db;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 991px) {
+      .navbar-collapse {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+      }
+    }
+  </style>
 </header>
-<!-- Header Close -->

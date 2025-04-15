@@ -1,0 +1,133 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4 text-primary">
+    <i class="fas fa-file-alt"></i> Liste des Candidatures
+  </h2>
+
+  <!-- Message de chargement ou d'erreur -->
+  <div *ngIf="isLoading" class="text-center">
+    <p>Chargement des candidatures...</p>
+  </div>
+  <div *ngIf="errorMessage && !isLoading" class="alert alert-danger text-center">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Filtres -->
+  <div *ngIf="!isLoading && !errorMessage" class="mb-3">
+    <!-- Champ de recherche textuel -->
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <input 
+          type="text" 
+          class="form-control" 
+          placeholder="🔍 Rechercher une candidature (nom, e-mail, titre de l’offre)" 
+          [(ngModel)]="searchTerm"
+          (ngModelChange)="onSearchTermChange()"
+        />
+      </div>
+      <!-- Filtre par statut -->
+      <div class="col-md-6">
+        <select 
+          class="form-control" 
+          [(ngModel)]="statusFilter"
+          (ngModelChange)="onStatusFilterChange()"
+        >
+          <option value="">Tous les statuts</option>
+          <option value="En attente">En attente</option>
+          <option value="Acceptée">Acceptée</option>
+          <option value="Rejetée">Rejetée</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Liste des candidatures avec pagination -->
+  <div class="row" *ngIf="!isLoading && !errorMessage">
+    <div *ngFor="let candidature of filteredCandidatures | paginate: { itemsPerPage: pageSize, currentPage: page }" class="col-md-4 mb-4">
+      <div class="card shadow-lg border-0 rounded-3 candidature-card">
+        <div class="card-header bg-gradient text-white text-center py-3" style="background: linear-gradient(45deg, #007bff, #00d4ff);">
+          <h5 class="mb-0"><i class="fas fa-user"></i> {{ candidature.nom }}</h5>
+          <p class="mb-0"><i class="fas fa-envelope"></i> {{ candidature.email }}</p>
+          <!-- Badge pour le statut -->
+          <span class="badge mt-2" [ngClass]="{
+            'bg-success': candidature.statut === 'Acceptée',
+            'bg-danger': candidature.statut === 'Rejetée',
+            'bg-warning': candidature.statut === 'En attente'
+          }">
+            {{ candidature.statut || 'Non défini' }}
+          </span>
+        </div>
+        <div class="card-body">
+          <p><strong>📜 Lettre de Motivation:</strong> {{ candidature.lettreMotivation }}</p>
+          <p><strong>📄 CV:</strong> 
+            <a [href]="getDownloadCvUrl(candidature.id)" target="_blank" class="btn btn-info btn-sm">
+              <i class="fas fa-file-download"></i> Télécharger
+            </a>
+          </p>
+          <p><strong>🏷️ Offre:</strong> {{ candidature.offreEmploi?.titre || 'Non spécifié' }}</p>
+          <p><strong>📂 Catégorie:</strong> {{ candidature.offreEmploi?.categorie || 'Non renseignée' }}</p>
+          <p><strong>📍 Localisation:</strong> {{ candidature.offreEmploi?.localisation || 'Non renseignée' }}</p>
+          <!-- Analyse du CV -->
+          <div *ngIf="candidature.analyseResult">
+            <p><strong>🛠️ Compétences trouvées:</strong> {{ parseAnalyseResult(candidature.analyseResult).skills_found.join(', ') }}</p>
+            <p><strong>📊 Score:</strong> {{ parseAnalyseResult(candidature.analyseResult).score }}/100</p>
+          </div>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+          <button (click)="onEdit(candidature)" class="btn btn-warning btn-sm shadow-sm">
+            <i class="fas fa-pencil-alt"></i> Modifier
+          </button>
+          <button class="btn btn-danger btn-sm shadow-sm" (click)="supprimerCandidature(candidature.id)">
+            <i class="fas fa-trash-alt"></i> Supprimer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contrôles de pagination -->
+  <div class="d-flex justify-content-center mt-4" *ngIf="!isLoading && !errorMessage">
+    <pagination-controls class="custom-pagination" (pageChange)="page = $event"></pagination-controls>
+  </div>
+</div>
+
+<!-- Formulaire de modification -->
+<div *ngIf="isEditMode" class="container mt-4" @fadeIn>
+  <h3 class="text-center mb-4 text-warning">
+    <i class="fas fa-pencil-alt"></i> Modifier la Candidature
+  </h3>
+  <form [formGroup]="editForm" (ngSubmit)="onSave()">
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="nom">Nom</label>
+        <input type="text" id="nom" class="form-control" formControlName="nom" />
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" class="form-control" formControlName="email" />
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="lettreMotivation">Lettre de Motivation</label>
+      <textarea id="lettreMotivation" class="form-control" formControlName="lettreMotivation"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="statut">Statut</label>
+      <select id="statut" class="form-control" formControlName="statut">
+        <option value="En attente">En attente</option>
+        <option value="Acceptée">Acceptée</option>
+        <option value="Rejetée">Rejetée</option>
+      </select>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <button type="submit" class="btn btn-success btn-sm shadow-sm">
+        <i class="fas fa-save"></i> Sauvegarder
+      </button>
+      <button type="button" class="btn btn-secondary btn-sm shadow-sm" (click)="onCancelEdit()">
+        <i class="fas fa-times"></i> Annuler
+      </button>
+    </div>
+  </form>
+</div>

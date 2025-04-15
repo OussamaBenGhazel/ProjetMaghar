@@ -26,9 +26,15 @@ public class OffrePartenaireController {
 
     // Obtenir toutes les Offres
     @GetMapping
-    public List<OffrePartenaire> obtenirToutesLesOffres() {
-        return offrePartenaireService.obtenirToutesLesOffres();
+    public ResponseEntity<List<OffrePartenaire>> obtenirToutesLesOffres() {
+        List<OffrePartenaire> offres = offrePartenaireService.obtenirToutesLesOffres();
+        if (offres.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);  // Retourne HTTP 204 si aucune offre n'est trouvée
+        }
+        return new ResponseEntity<>(offres, HttpStatus.OK);  // Retourne HTTP 200 avec la liste des offres
     }
+
+
 
     // Obtenir une Offre par ID
     @GetMapping("/{id}")
@@ -52,16 +58,7 @@ public class OffrePartenaireController {
     }
 
 
-    // Endpoint pour la recherche d'offres
-    @GetMapping("/search")
-    public List<OffrePartenaire> rechercherOffres(
-            @RequestParam(name = "type", required = false) String typeOffre,
-            @RequestParam(name = "prixMax", required = false) Double prixMax,
-            @RequestParam(name = "localisation", required = false) String localisation) {
 
-        System.out.println("Contrôleur - Type reçu: " + typeOffre);
-        return offrePartenaireService.rechercherOffres(typeOffre, prixMax, localisation);
-    }
 
 
 

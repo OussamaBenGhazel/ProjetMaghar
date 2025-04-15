@@ -1,24 +1,22 @@
-<div class="container">
-  <h2>Liste des Partenaires</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let partenaire of partenaires">
+      <td>{{ partenaire.nom }}</td>
+      <td>{{ partenaire.email }}</td>
+      <td>
+        <!-- Modifier le partenaire en appelant la méthode modifierPartenaire -->
+        <button class="btn btn-warning" (click)="modifierPartenaire(partenaire.id)">Modifier</button>
 
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nom</th>
-        <th>Adresse</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let partenaire of partenaires">
-        <td>{{ partenaire.id }}</td>
-        <td>{{ partenaire.nom }}</td>
-        <td>{{ partenaire.adresse }}</td>
-        <td>
-          <button class="btn btn-primary" routerLink="/partenaires/{{ partenaire.id }}/edit">Modifier</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+        <!-- Supprimer -->
+        <button class="btn btn-danger" (click)="deletePartenaire(partenaire.id)">Supprimer</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

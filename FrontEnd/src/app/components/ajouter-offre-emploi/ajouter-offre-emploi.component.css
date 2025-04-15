@@ -1,0 +1,26 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+.alert {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    min-width: 300px;
+  }
+  
+  .btn-lg {
+    padding: 10px 20px;
+    font-size: 1.1rem;
+  }
+  
+  .form-control, .form-select {
+    border-radius: 8px;
+  }
+  
+  .card {
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+  .card-header {
+    padding: 15px;
+  }

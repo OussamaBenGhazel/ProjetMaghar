@@ -1,0 +1,107 @@
+.offer-card {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  .offer-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .custom-pagination {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .custom-pagination pagination-controls {
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .custom-pagination pagination-controls .ngx-pagination .current {
+    background-color: #007bff !important;
+    color: white !important;
+    border-radius: 5px;
+    padding: 5px 10px;
+  }
+  
+  .card-header {
+    font-weight: bold;
+  }
+  /* Animation pour les champs de formulaire */
+.form-control {
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  /* Animation pour le bouton de soumission */
+  .btn {
+    transition: all 0.3s ease;
+  }
+  
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+  }
+  /* Formulaire */
+form {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Titres */
+  h3.text-warning {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  
+  /* Champs de formulaire */
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-control {
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Boutons */
+  .btn-success {
+    background-color: #28a745;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .btn-success:hover {
+    background-color: #218838;
+  }
+  
+  .btn-secondary {
+    background-color: #6c757d;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #5a6268;
+  }
+  
+  /* Bouton "Modifier" */
+  .btn-warning {
+    background-color: #ffc107;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .btn-warning:hover {
+    background-color: #e0a800;
+  }
+  

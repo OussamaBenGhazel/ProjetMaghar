@@ -1,0 +1,59 @@
+
+<body>
+
+    <h2 class="text-center">Nos Offres</h2>
+
+</body>
+
+
+
+<div class="container mt-4 d-flex flex-column" style="min-height: 100vh;">
+
+  <!-- Champs de recherche alignés à droite -->
+  <div class="row mb-3 justify-content-end">
+    <div class="col-md-3">
+      <input type="text" class="form-control" placeholder="Rechercher" [formControl]="searchLocalisation">
+    </div>
+    <div class="col-md-3 ml-2">
+      <button class="btn btn-primary" (click)="applyFilters()">Rechercher</button>
+    </div>
+  </div>
+
+  <!-- Liste des offres -->
+  <div class="row">
+    <div class="col-md-4" *ngFor="let offre of filteredOffres | paginate: { itemsPerPage: itemsPerPage, currentPage: page }">
+      <div class="card offer-card">
+        <div class="card-header">
+          <h5>{{ offre.typeOffre }}</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{ offre.description }}</p>
+          <p><strong>Prix:</strong> {{ offre.prix }} €</p>
+          <p><strong>Localisation:</strong> {{ offre.localisation }}</p>
+          <p><strong>Partenaire:</strong> {{ offre.partenaire?.nom || 'Aucun partenaire' }}</p>
+        </div>
+        <div class="card-footer">
+          <button class="animated-button">
+            <svg xmlns="http://www.w3.org/2000/svg" class="arr-2" viewBox="0 0 24 24">
+              <path
+                d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+              ></path>
+            </svg>
+            <span class="text">R E S E R V E R </span>
+            <span class="circle"></span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="arr-1" viewBox="0 0 24 24">
+              <path
+                d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+              ></path>
+            </svg>
+          </button>        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination centrée en bas -->
+  <div class="d-flex justify-content-center mt-auto">
+
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+  </div>
+</div>

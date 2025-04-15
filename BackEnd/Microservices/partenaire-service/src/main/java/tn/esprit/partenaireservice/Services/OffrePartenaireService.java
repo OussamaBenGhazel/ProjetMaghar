@@ -28,6 +28,7 @@ public class OffrePartenaireService {
         return offrePartenaireRepository.findAll();
     }
 
+
     // Obtenir une Offre par ID
     public Optional<OffrePartenaire> obtenirOffreParId(Long id) {
         return offrePartenaireRepository.findById(id);
@@ -53,28 +54,6 @@ public class OffrePartenaireService {
 
 
 
-    // Recherche d'offres par type, prix et éventuellement par localisation
-    public List<OffrePartenaire> rechercherOffres(String typeOffre, Double prixMax, String localisation) {
-        // Normalisation du paramètre typeOffre (enlever les espaces et mettre en minuscule)
-        if (typeOffre != null) {
-            typeOffre = typeOffre.trim().toLowerCase();  // Cela assure une recherche insensible à la casse.
-        }
-        System.out.println("Paramètre reçu : typeOffre = " + typeOffre);
-
-        if (typeOffre != null && prixMax != null && localisation != null) {
-            return offrePartenaireRepository.findByTypeOffreAndPrixLessThanAndLocalisation(typeOffre, prixMax, localisation);
-        } else if (typeOffre != null && prixMax != null) {
-            return offrePartenaireRepository.findByTypeOffreAndPrixLessThan(typeOffre, prixMax);
-        } else if (typeOffre != null && localisation != null) {
-            return offrePartenaireRepository.findByTypeOffreAndLocalisation(typeOffre, localisation);
-        } else if (typeOffre != null) {
-            return offrePartenaireRepository.findByTypeOffre(typeOffre);
-        } else if (prixMax != null && localisation != null) {
-            return offrePartenaireRepository.findByPrixLessThanAndLocalisation(prixMax, localisation);
-        } else {
-            return offrePartenaireRepository.findAll();  // Retourne toutes les offres si aucun paramètre n'est passé
-        }
-    }
 
 
 

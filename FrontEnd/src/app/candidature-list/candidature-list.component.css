@@ -1,0 +1,87 @@
+.candidature-card {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    border-radius: 10px;
+  }
+  
+  .candidature-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .blockquote {
+    background: #f8f9fa;
+    padding: 10px 15px;
+    border-left: 5px solid #007bff;
+    font-style: italic;
+  }
+  
+  .btn-info {
+    background-color: #17a2b8;
+    border: none;
+  }
+  
+  .btn-info:hover {
+    background-color: #138496;
+  }
+  .candidature-card {
+    transition: transform 0.2s;
+  }
+  
+  .candidature-card:hover {
+    transform: scale(1.02);
+  }
+  
+  .card-header {
+    border-bottom: none;
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  .blockquote {
+    font-style: italic;
+    color: #555;
+    border-left: 4px solid #007bff;
+    padding-left: 15px;
+  }
+  
+  .badge {
+    font-size: 0.9rem;
+  }
+  
+  .btn-sm {
+    margin-top: 10px;
+  }
+  .candidature-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .candidature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2) !important;
+  }
+  
+  .card-header {
+    border-radius: 10px 10px 0 0;
+  }
+  
+  .card-footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+  }
+  
+  .custom-pagination {
+    font-size: 1.1rem;
+  }
+  
+  .custom-pagination .ngx-pagination .current {
+    background: #007bff;
+    color: white;
+    border-radius: 5px;
+  }
+  
+  .custom-pagination .ngx-pagination a:hover {
+    background: #e9ecef;
+    border-radius: 5px;
+  }

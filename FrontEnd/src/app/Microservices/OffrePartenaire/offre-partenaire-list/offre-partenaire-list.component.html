@@ -1,0 +1,32 @@
+<div class="container">
+  <h2>Liste des Offres Partenaires</h2>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Prix</th>
+        <th>Localisation</th>
+        <th>Partenaire</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let offre of offres">
+        <td>{{ offre.typeOffre }}</td>
+        <td>{{ offre.description }}</td>
+        <td>{{ offre.prix }} €</td>
+        <td>{{ offre.localisation }}</td>
+        <td>{{ offre.partenaire?.nom || 'Aucun partenaire' }}</td>
+        <td>
+          <!-- Bouton pour modifier l'offre -->
+          <button class="btn btn-primary" (click)="editOffre(offre.id)">Modifier</button>
+
+          <!-- Bouton pour supprimer l'offre -->
+          <button class="btn btn-danger" (click)="deleteOffre(offre.id)">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

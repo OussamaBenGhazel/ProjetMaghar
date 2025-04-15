@@ -1,0 +1,37 @@
+<div class="container mt-5">
+    <div *ngIf="offre">
+      <h2 class="animated-title text-center">{{ offre.titre }}</h2>
+  
+      <div class="offre-details">
+        <p><i class="fas fa-briefcase icon"></i> <strong>Catégorie:</strong> <span>{{ offre.categorie }}</span></p>
+        <p><i class="fas fa-map-marker-alt icon"></i> <strong>Localisation:</strong> <span>{{ offre.localisation }}</span></p>
+        <p><i class="fas fa-euro-sign icon"></i> <strong>Salaire:</strong> <span>{{ offre.salaireMin }} - {{ offre.salaireMax }} €</span></p>
+        <p><i class="fas fa-clipboard-list icon"></i> <strong>Type de contrat:</strong> <span>{{ offre.typeContrat }}</span></p>
+        <p><i class="fas fa-cogs icon"></i> <strong>Compétences requises:</strong> <span>{{ offre.competencesRequises }}</span></p>
+        <p><i class="fas fa-align-left icon"></i> <strong>Description:</strong> <span>{{ offre.description }}</span></p>
+      </div>
+    </div>
+  </div>
+  
+    <!-- A Propos de Maghrebia -->
+    <div class="maghrebia-info mt-5">
+      <h3 class="animated fadeInUp">À propos de Maghrebia</h3>
+      <p class="animated fadeInUp">
+        <strong>ASSURANCES MAGHREBIA</strong> est un acteur de référence en matière d'Assurances et de Réassurance en Tunisie.
+        Depuis sa création en 1973, elle a su structurer ses activités et développer une offre complète de produits adaptés
+        aux risques des particuliers et des entreprises.
+      </p>
+      <p class="animated fadeInUp">
+        Son ambition est d'être le partenaire de référence de ses clients dans tous les domaines de l'assurance et de
+        devenir leader dans son métier tant par l'innovation de ses produits que par la qualité de ses services offerts aux
+        assurés pour acquérir leur confiance et ce grâce à l'utilisation des technologies modernes de communications...
+      </p>
+      
+      <!-- Photo de Maghrebia -->
+      <div class="image-container animated fadeInUp">
+        <img src="assets/maghrebia_logo.jpeg" alt="Maghrebia Assurances" class="img-fluid rounded">
+      </div>
+    </div>
+    <!-- Conteneur de la carte -->
+    <div id="map" style="height: 400px;"></div>
+    
