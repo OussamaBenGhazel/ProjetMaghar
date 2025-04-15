@@ -1,16 +1,13 @@
 package tn.esprit.Microservice_Assurance.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "contrats")
 public class Contrat {
 
@@ -18,38 +15,49 @@ public class Contrat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Référence unique du contrat
     @Column(name = "numero_contrat", nullable = false, unique = true)
     private String numeroContrat;
 
+    // Référence vers le client (géré dans le microservice Gestion User)
     @Column(name = "UserId", nullable = false)
     private Long UserId;
 
+    // Référence optionnelle vers le devis utilisé pour la souscription
     @Column(name = "reference_devis")
     private Long referenceDevis;
 
 
+    // Période de validité du contrat
     @Column(name = "date_debut")
     private LocalDate dateDebut;
 
     @Column(name = "date_fin")
     private LocalDate dateFin;
 
+    // Prime confirmée et somme assurée définie dans le contrat
     private BigDecimal prime;
 
     @Column(name = "montant_assure")
     private BigDecimal montantAssure;
 
+    // Conditions particulières du contrat
     @Column(name = "conditions_generales", length = 3000)
     private String conditionsGenerales;
 
+    // Statut du contrat (ACTIVE, CANCELLED, EXPIRED)
     @Enumerated(EnumType.STRING)
     private StatutContrat statut;
 
+    // Dates d'audit
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @Column(name = "signature", columnDefinition = "TEXT")
+    private String signature;  // Stockage en base64 (image encodée)
 
 
 
@@ -60,18 +68,20 @@ public class Contrat {
     // Le produit d'assurance associé au contrat (relation Many-to-One)
     @ManyToOne
     @JoinColumn(name = "assurance_id", nullable = false)
+    @JsonIgnore
     private Assurance assurance;
 
 
     // Optionnel : le devis qui a permis la création du contrat
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "devis_id")
+    @JsonIgnore
     private Devis devis;
 
     // Relation One-to-One avec Facture
     @OneToOne(mappedBy = "contrat", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private Facture facture;
-
 
 
     // Getters, setters, constructeurs...
@@ -171,6 +181,14 @@ public class Contrat {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
     }
 
     public Assurance getAssurance() {

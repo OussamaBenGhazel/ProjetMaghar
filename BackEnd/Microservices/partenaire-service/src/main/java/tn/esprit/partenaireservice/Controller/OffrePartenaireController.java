@@ -58,6 +58,19 @@ public class OffrePartenaireController {
     }
 
 
+<<<<<<< HEAD
+
+=======
+    @GetMapping("/filtrer")
+    public ResponseEntity<List<OffrePartenaire>> filtrerOffres(
+            @RequestParam String typeAssurance,
+            @RequestParam(required = false) Double prixMax,
+            @RequestParam(required = false) String localisation) {
+
+        List<OffrePartenaire> offres = offrePartenaireService.filtrerOffres(typeAssurance, prixMax, localisation);
+        return offres.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(offres);
+    }
+>>>>>>> f66f6dbf7e51f5605863b8a16a767699713241e8
 
 
 

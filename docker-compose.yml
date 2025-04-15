@@ -1,0 +1,32 @@
+services:
+  mysql:
+    container_name: mysql-bsn
+    image: mysql
+    environment:
+      MYSQL_USER: root
+      MYSQL_PASSWORD:
+      MYSQLDATA: /var/lib/mysql/data
+      MYSQL_DATABASE: usersdb
+    volumes:
+      - mysql:/var/lib/mysql
+    ports:
+      - 3306:3306
+    networks:
+      - user-net
+
+    restart: unless-stopped
+
+  mail-dev:
+    container_name: mail-dev-user
+    image: maildev/maildev
+    ports:
+      - 1080:1080
+      - 1025:1025
+
+networks:
+  user-net:
+    driver: bridge
+
+volumes:
+  mysql:
+    driver: local

@@ -8,8 +8,144 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<<<<<<< HEAD
  </head>
 <body>
+=======
+    <style>
+      /* 🌟 STYLE GLOBAL */
+      body {
+          background-color: #f4f4f4;
+          font-family: 'Poppins', sans-serif;
+          margin: 0;
+          padding: 0;
+      }
+
+      /* 🔹 NAVBAR STYLÉE */
+      .navbar {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          background: rgba(0, 0, 0, 0.85);
+          backdrop-filter: blur(10px);
+          color: white;
+          z-index: 1000;
+          padding: 10px 20px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .navbar-brand {
+          font-weight: bold;
+          font-size: 22px;
+      }
+
+      .navbar input {
+          border-radius: 20px;
+          border: none;
+          padding: 8px 15px;
+          outline: none;
+      }
+
+      /* 🔸 SIDEBAR MODERNE */
+      .sidebar {
+          position: fixed;
+          top: 56px;
+          left: 0;
+          width: 260px;
+          height: calc(100vh - 56px);
+          background: linear-gradient(135deg, #1a1a2e, #16213e);
+          box-shadow: 4px 0 10px rgba(0, 0, 0, 0.3);
+          padding-top: 20px;
+          transition: width 0.3s ease-in-out;
+          overflow: hidden;
+      }
+
+      .sidebar:hover {
+          width: 300px;
+      }
+
+      .sidebar a {
+          display: flex;
+          align-items: center;
+          color: white;
+          padding: 15px;
+          font-size: 16px;
+          text-decoration: none;
+          transition: 0.3s;
+      }
+
+      .sidebar a:hover {
+          background: rgba(255, 255, 255, 0.1);
+          padding-left: 20px;
+      }
+
+      .sidebar i {
+          margin-right: 10px;
+      }
+
+      /* 🔹 CONTENU PRINCIPAL */
+      .content {
+          margin-left: 260px;
+          margin-top: 56px;
+          padding: 20px;
+          transition: margin-left 0.3s ease-in-out;
+      }
+
+      /* 🌟 FORMULAIRE */
+      .form-container {
+          background-color: #fff;
+          border-radius: 8px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          padding: 20px;
+          margin-top: 20px;
+      }
+
+      .form-container h3 {
+          margin-bottom: 20px;
+      }
+
+      /* 🌟 TABLEAUX */
+      table {
+          width: 100%;
+          margin-top: 20px;
+      }
+
+      table th {
+          background-color: #1a1a2e;
+          color: white;
+      }
+
+      table td, table th {
+          padding: 15px;
+          text-align: left;
+      }
+
+      .btn-danger, .btn-primary {
+          margin-right: 5px;
+      }
+
+      /* 🌟 RESPONSIVE DESIGN */
+      @media (max-width: 768px) {
+          .sidebar {
+              width: 60px;
+          }
+
+          .sidebar:hover {
+              width: 250px;
+          }
+
+          .content {
+              margin-left: 60px;
+          }
+      }
+
+
+
+  </style>
+
+</head>
+>>>>>>> f66f6dbf7e51f5605863b8a16a767699713241e8
 
 <!-- Navbar -->
 <nav class="navbar navbar-dark">
@@ -20,10 +156,41 @@
     </form>
 </nav>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="content">
+
+
+<!-- Popup pour afficher le message -->
+<div *ngIf="showPopup" class="popup-overlay">
+  <div class="popup-content">
+    <p>Partenaire mis à jour avec succès !</p>
+    <button (click)="closePopup()">Fermer</button>
+  </div>
+</div>
+
+
+
 <!-- Sidebar -->
 <div class="sidebar">
-  <a href="#"><i class="fas fa-home"></i> Partenaire-Service</a>
-  <a href="#"><i class="fas fa-home"></i> Assurance</a>
+  <a routerLink="/admin/partenaire-list"><i class="fas fa-plus-circle"></i><span>partenaire Service</span></a>
+  <a routerLink="/admin/listassurance"><i class="fas fa-plus-circle"></i><span>Assurance Service</span></a>
   <a href="#"><i class="fas fa-home"></i> Sinistre</a>
   <a routerLink="/admin/recrutement"><i class="fas fa-plus-circle"></i><span>Recrutement</span></a>
   <a routerLink="/admin/liste-offres-emploi"><i class="fas fa-plus-circle"></i><span>liste-offres-emploi</span></a>
@@ -34,6 +201,7 @@
   <a href="#"><i class="fas fa-home"></i> Reclamations</a>
   <a href="#"><i class="fas fa-home"></i> RDV</a>
 
+<<<<<<< HEAD
  <!-- Lien pour ajouter un partenaire -->
 <a (click)="toggleFormPartenaire()" class="nav-link" style="cursor: pointer;">
   <i class="fas fa-plus-circle"></i> Ajouter Partenaire
@@ -43,9 +211,13 @@
 <a (click)="toggleFormOffre()" class="nav-link" style="cursor: pointer;">
   <i class="fas fa-plus-circle"></i> Ajouter Offre
 </a>
+=======
+>>>>>>> f66f6dbf7e51f5605863b8a16a767699713241e8
 
 
+  <!-- Lien pour ajouter une offre -->
 
+<<<<<<< HEAD
 </div>
 
 <div class="content">
@@ -78,6 +250,149 @@
 <!-- Formulaire offre -->
 <div *ngIf="showFormOffre">
   <app-offre-partenaire-form (offerAdded)="onOfferAdded()"></app-offre-partenaire-form>
+=======
+</div>
+<div class="main-content">
+  <div class="router-outlet-container">
+      <router-outlet></router-outlet>
+  </div>
+</div>
+
+<!-- Formulaire d'ajout/modification de partenaire -->
+<!-- Formulaire d'ajout/modification de partenaire -->
+<div *ngIf="showFormPartenaire" class="form-overlay">
+  <div class="form-container">
+    <h2>{{ editPartenaire ? 'Modifier' : 'Ajouter' }} un Partenaire</h2>
+    <form (ngSubmit)="savePartenaire()" #partenaireForm="ngForm">
+      <!-- Nom -->
+      <div class="form-group">
+        <label>Nom</label>
+        <input
+          class="form-control"
+          [(ngModel)]="formPartenaire.nom"
+          name="nom"
+          required
+          minlength="3"
+          #nom="ngModel"
+          (blur)="nom.control.markAsTouched()"
+        />
+        <div *ngIf="nom.invalid && nom.touched" class="error-message">
+          <span *ngIf="nom.errors?.['required']">Le nom est requis.</span>
+          <span *ngIf="nom.errors?.['minlength']">Le nom doit contenir au moins 3 caractères.</span>
+        </div>
+      </div>
+
+      <!-- Type -->
+      <div class="form-group">
+        <label>Type</label>
+        <input
+          class="form-control"
+          [(ngModel)]="formPartenaire.type"
+          name="type"
+          required
+          #type="ngModel"
+          (blur)="type.control.markAsTouched()"
+        />
+        <div *ngIf="type.invalid && type.touched" class="error-message">
+          <span *ngIf="type.errors?.['required']">Le type est requis.</span>
+        </div>
+      </div>
+
+      <!-- Adresse -->
+      <div class="form-group">
+        <label>Adresse</label>
+        <input
+          class="form-control"
+          [(ngModel)]="formPartenaire.adresse"
+          name="adresse"
+          required
+          #adresse="ngModel"
+          (blur)="adresse.control.markAsTouched()"
+        />
+        <div *ngIf="adresse.invalid && adresse.touched" class="error-message">
+          <span *ngIf="adresse.errors?.['required']">L'adresse est requise.</span>
+        </div>
+      </div>
+
+      <!-- Téléphone -->
+      <div class="form-group">
+        <label>Téléphone</label>
+        <input
+          class="form-control"
+          [(ngModel)]="formPartenaire.telephone"
+          name="telephone"
+          required
+          pattern="^[0-9]{8,10}$"
+          placeholder="Ex: 0123456789"
+          #telephone="ngModel"
+          (blur)="telephone.control.markAsTouched()"
+        />
+        <div *ngIf="telephone.invalid && telephone.touched" class="error-message">
+          <span *ngIf="telephone.errors?.['required']">Le téléphone est requis.</span>
+          <span *ngIf="telephone.errors?.['pattern']">Numéro invalide (8 à 10 chiffres).</span>
+        </div>
+      </div>
+
+
+      <!-- Latitude -->
+      <div class="form-group">
+        <label>Latitude</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="formPartenaire.latitude"
+          name="latitude"
+          required
+          min="-90"
+          max="90"
+          #latitude="ngModel"
+          (blur)="latitude.control.markAsTouched()"
+        />
+        <div *ngIf="latitude.invalid && latitude.touched" class="error-message">
+          <span *ngIf="latitude.errors?.['required']">La latitude est requise.</span>
+          <span *ngIf="latitude.errors?.['min'] || latitude.errors?.['max']">
+            La latitude doit être entre -90 et 90.
+          </span>
+        </div>
+      </div>
+
+      <!-- Longitude -->
+      <div class="form-group">
+        <label>Longitude</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="formPartenaire.longitude"
+          name="longitude"
+          required
+          min="-180"
+          max="180"
+          #longitude="ngModel"
+          (blur)="longitude.control.markAsTouched()"
+        />
+        <div *ngIf="longitude.invalid && longitude.touched" class="error-message">
+          <span *ngIf="longitude.errors?.['required']">La longitude est requise.</span>
+          <span *ngIf="longitude.errors?.['min'] || longitude.errors?.['max']">
+            La longitude doit être entre -180 et 180.
+          </span>
+        </div>
+      </div>
+
+      <!-- Boutons -->
+      <button
+        type="submit"
+        class="btn btn-success"
+        [disabled]="partenaireForm.invalid"
+      >
+        {{ editPartenaire ? 'Mettre à jour' : 'Ajouter' }}
+      </button>
+      <button type="button" class="btn btn-secondary ml-2" (click)="toggleFormPartenaire(); resetFormPartenaire()">
+        Fermer
+      </button>
+    </form>
+  </div>
+</div>
+>>>>>>> f66f6dbf7e51f5605863b8a16a767699713241e8
 </div>
 
 
@@ -85,6 +400,7 @@
 
 
 
+<<<<<<< HEAD
   <!-- Tableau des partenaires -->
   <div class="mt-4">
     <h2>Liste des Partenaires</h2>
@@ -160,11 +476,207 @@
         </tr>
       </tbody>
     </table>
+=======
+
+
+
+
+<!-- Formulaire d'ajout/modification d'offre -->
+<div *ngIf="showFormOffre" class="form-overlay">
+  <div class="form-container">
+    <h2>{{ editOffre ? 'Modifier' : 'Ajouter' }} une Offre</h2>
+    <form (ngSubmit)="saveOffre()" #offreForm="ngForm">
+      <!-- Type d'Offre -->
+      <div class="form-group">
+        <label>Type d'Offre</label>
+        <input
+          class="form-control"
+          [(ngModel)]="formOffre.typeOffre"
+          name="typeOffre"
+          required
+          #typeOffre="ngModel"
+          (blur)="typeOffre.control.markAsTouched()"
+        />
+        <div *ngIf="typeOffre.invalid && typeOffre.touched" class="error-message">
+          <span *ngIf="typeOffre.errors?.['required']">Le type d'offre est Obligatoire.</span>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="form-group">
+        <label>Description</label>
+        <input
+          class="form-control"
+          [(ngModel)]="formOffre.description"
+          name="description"
+          required
+          #description="ngModel"
+          (blur)="description.control.markAsTouched()"
+        />
+        <div *ngIf="description.invalid && description.touched" class="error-message">
+          <span *ngIf="description.errors?.['required']">La description est Obligatoire.</span>
+        </div>
+      </div>
+
+      <!-- Prix -->
+      <div class="form-group">
+        <label>Prix</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="formOffre.prix"
+          name="prix"
+          required
+          #prix="ngModel"
+          (blur)="prix.control.markAsTouched()"
+        />
+        <div *ngIf="prix.invalid && prix.touched" class="error-message">
+          <span *ngIf="prix.errors?.['required']">Le prix est Obligatoire.</span>
+        </div>
+      </div>
+
+      <!-- Localisation -->
+      <div class="form-group">
+        <label>Localisation</label>
+        <input
+          class="form-control"
+          [(ngModel)]="formOffre.localisation"
+          name="localisation"
+          required
+          #localisation="ngModel"
+          (blur)="localisation.control.markAsTouched()"
+        />
+        <div *ngIf="localisation.invalid && localisation.touched" class="error-message">
+          <span *ngIf="localisation.errors?.['required']">La localisation est Obligatoire.</span>
+        </div>
+      </div>
+
+      <!-- Nombre de Places -->
+      <div class="form-group">
+        <label>Nombre de Places</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="formOffre.nombrePlaces"
+          name="nombrePlaces"
+          required
+          #nombrePlaces="ngModel"
+          (blur)="nombrePlaces.control.markAsTouched()"
+        />
+        <div *ngIf="nombrePlaces.invalid && nombrePlaces.touched" class="error-message">
+          <span *ngIf="nombrePlaces.errors?.['required']">Le nombre de places est Obligatoire.</span>
+        </div>
+      </div>
+
+
+
+      <!-- Date de Fin -->
+      <div class="form-group">
+        <label>Date de Fin</label>
+        <input
+          type="date"
+          class="form-control"
+          [(ngModel)]="formOffre.dateFin"
+          name="dateFin"
+          required
+          #dateFin="ngModel"
+          (blur)="dateFin.control.markAsTouched()"
+        />
+        <div *ngIf="dateFin.invalid && dateFin.touched" class="error-message">
+          <span *ngIf="dateFin.errors?.['required']">La date de fin est Obligatoire.</span>
+        </div>
+      </div>
+
+      <!-- Partenaire -->
+      <div class="form-group">
+        <label>Partenaire</label>
+        <select
+          class="form-control"
+          [(ngModel)]="formOffre.partenaire"
+          name="partenaire"
+          required
+          #partenaire="ngModel"
+          (blur)="partenaire.control.markAsTouched()"
+        >
+          <option *ngFor="let partenaire of partenaires" [ngValue]="partenaire">
+            {{ partenaire.nom }}
+          </option>
+        </select>
+        <div *ngIf="partenaire.invalid && partenaire.touched" class="error-message">
+          <span *ngIf="partenaire.errors?.['required']">Le partenaire est Obligatoire.</span>
+        </div>
+      </div>
+
+      <!-- Boutons -->
+      <button
+        type="submit"
+        class="btn btn-success"
+        [disabled]="offreForm.invalid"
+      >
+        {{ editOffre ? 'Mettre à jour' : 'Ajouter' }}
+      </button>
+      <button type="button" class="btn btn-secondary ml-2" (click)="toggleFormOffre()">Fermer</button>
+    </form>
+  </div>
+</div>
+
+<!-- Liste des offres -->
+<div *ngIf="showOffreList" class="mt-4">
+  <div class="d-flex justify-content-between align-items-center">
+    <h2>Liste des Offres</h2>
+    <button class="btn-close" (click)="toggleOffreList()">
+      <i class="fas fa-times"></i>
+      <span>Fermer</span>
+    </button>
+  </div>
+
+  <table class="table table-striped full-width">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Type d'Offre</th>
+        <th>Description</th>
+        <th>Prix</th>
+        <th>Localisation</th>
+        <th>Nombre de Places</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let offre of offres | paginate: { itemsPerPage: itemsPerPage, currentPage: pOffres }">
+        <td>{{ offre.id ?? 'N/A' }}</td>
+        <td>{{ offre.typeOffre }}</td>
+        <td>{{ offre.description }}</td>
+        <td>{{ offre.prix }}</td>
+        <td>{{ offre.Localisation }}</td>
+        <td>{{ offre.nombrePlaces }}</td>
+        <td>
+          <div class="action-buttons">
+            <button class="btn-edit" (click)="editOffreForm(offre)" [disabled]="!offre.id">
+              <i class="fas fa-edit"></i>
+              <span>Modifier</span>
+            </button>
+            <button class="btn-delete" (click)="deleteOffre(offre.id)" [disabled]="!offre.id">
+              <i class="fas fa-trash-alt"></i>
+              <span>Supprimer</span>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pagination-container">
+    <pagination-controls
+      (pageChange)="pOffres = $event"
+      previousLabel="Précédent"
+      nextLabel="Suivant"
+    ></pagination-controls>
+>>>>>>> f66f6dbf7e51f5605863b8a16a767699713241e8
   </div>
 </div>
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-</body>
 </html>

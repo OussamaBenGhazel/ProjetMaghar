@@ -53,6 +53,22 @@ public class OffrePartenaireService {
     }
 
 
+    public List<OffrePartenaire> filtrerOffres(String typeAssurance, Double prixMax, String localisation) {
+        List<OffrePartenaire> offres = offrePartenaireRepository.findByTypeOffre(typeAssurance);
+
+<<<<<<< HEAD
+=======
+        if (prixMax != null) {
+            offres = offres.stream().filter(o -> o.getPrix() <= prixMax).toList();
+        }
+
+        if (localisation != null && !localisation.isEmpty()) {
+            offres = offres.stream().filter(o -> o.getLocalisation().equalsIgnoreCase(localisation)).toList();
+        }
+
+        return offres;
+    }
+>>>>>>> f66f6dbf7e51f5605863b8a16a767699713241e8
 
 
 

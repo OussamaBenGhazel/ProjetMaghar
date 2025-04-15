@@ -35,4 +35,11 @@ export class OffrePartenaireService {
   deleteOffre(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> f66f6dbf7e51f5605863b8a16a767699713241e8
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <table class="table">
   <thead>
     <tr>
@@ -20,3 +21,405 @@
     </tr>
   </tbody>
 </table>
+=======
+<!-- Notification Popup -->
+<div *ngIf="showPopup" class="notification-popup">
+  <div class="popup-content">
+    {{ popupMessage }}
+    <button (click)="closePopup()" class="close-btn">&times;</button>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="container" [class.blurred]="showFormPartenaire || showFormOffre">
+
+  <!-- Header with Actions -->
+  <div class="header">
+    <h2>{{ showOffreList ? 'Liste des Offres' : 'Liste des Partenaires' }}</h2>
+    <div class="actions">
+      <button (click)="toggleOffreList()" class="btn action-btn">
+        <i class="fas fa-exchange-alt"></i>
+        {{ showOffreList ? 'Voir Partenaires' : 'Voir Offres' }}
+      </button>
+      <button
+        (click)="showOffreList ? toggleFormOffre() : toggleFormPartenaire()"
+        class="btn primary-btn"
+      >
+        <i class="fas fa-plus"></i>
+        Ajouter {{ showOffreList ? 'Offre' : 'Partenaire' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Partners Table -->
+  <div *ngIf="!showOffreList" class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Type</th>
+          <th>Adresse</th>
+          <th>Téléphone</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let partenaire of partenaires | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
+          <td>{{ partenaire.id }}</td>
+          <td>{{ partenaire.nom }}</td>
+          <td>{{ partenaire.type }}</td>
+          <td>{{ partenaire.adresse }}</td>
+          <td>{{ partenaire.telephone }}</td>
+          <td class="actions-cell">
+            <button (click)="editPartenaireForm(partenaire)" class="btn edit-btn">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button (click)="deletePartenaire(partenaire.id)" class="btn delete-btn">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="pagination-wrapper">
+      <pagination-controls
+        (pageChange)="p = $event"
+        previousLabel="Précédent"
+        nextLabel="Suivant"
+        screenReaderPaginationLabel="Pagination"
+        screenReaderPageLabel="Page"
+        screenReaderCurrentLabel="You're on page"
+      ></pagination-controls>
+    </div>
+  </div>
+
+  <!-- Offers Table -->
+  <div *ngIf="showOffreList" class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Prix</th>
+          <th>Localisation</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let offre of offres | paginate: { itemsPerPage: itemsPerPage, currentPage: pOffres }">
+          <td>{{ offre.id }}</td>
+          <td>{{ offre.typeOffre }}</td>
+          <td>{{ offre.description }}</td>
+          <td>{{ offre.prix }}</td>
+          <td>{{ offre.localisation }}</td>
+          <td class="actions-cell">
+            <button (click)="editOffreForm(offre)" class="btn edit-btn">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button (click)="deleteOffre(offre.id)" class="btn delete-btn">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="pagination-wrapper">
+      <pagination-controls
+        (pageChange)="pOffres = $event"
+        previousLabel="Précédent"
+        nextLabel="Suivant"
+      ></pagination-controls>
+    </div>
+  </div>
+</div>
+
+<!-- Partner Form Overlay -->
+<div *ngIf="showFormPartenaire" class="form-overlay">
+  <div class="form-modal">
+    <div class="modal-header">
+      <h3>{{ editPartenaire ? 'Modifier Partenaire' : 'Nouveau Partenaire' }}</h3>
+      <button (click)="toggleFormPartenaire()" class="close-btn">&times;</button>
+    </div>
+
+    <form (ngSubmit)="savePartenaire()" #partenaireForm="ngForm" class="form-content">
+      <div class="form-group">
+        <label for="nom">Nom</label>
+        <input
+          id="nom"
+          type="text"
+          [(ngModel)]="formPartenaire.nom"
+          name="nom"
+          required
+          minlength="3"
+          #nom="ngModel"
+        >
+        <div *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="error-msg">
+          <div *ngIf="nom.errors?.['required']">Le nom est requis</div>
+          <div *ngIf="nom.errors?.['minlength']">Minimum 3 caractères</div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="type">Type</label>
+          <input
+            id="type"
+            type="text"
+            [(ngModel)]="formPartenaire.type"
+            name="type"
+            required
+            #type="ngModel"
+          >
+          <div *ngIf="type.invalid && (type.dirty || type.touched)" class="error-msg">
+            Le type est requis
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="telephone">Téléphone</label>
+          <input
+            id="telephone"
+            type="tel"
+            [(ngModel)]="formPartenaire.telephone"
+            name="telephone"
+            required
+            pattern="[0-9]{8,10}"
+            #telephone="ngModel"
+          >
+          <div *ngIf="telephone.invalid && (telephone.dirty || telephone.touched)" class="error-msg">
+            <div *ngIf="telephone.errors?.['required']">Le téléphone est requis</div>
+            <div *ngIf="telephone.errors?.['pattern']">Format invalide (8-10 chiffres)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="adresse">Adresse</label>
+        <input
+          id="adresse"
+          type="text"
+          [(ngModel)]="formPartenaire.adresse"
+          name="adresse"
+          required
+          #adresse="ngModel"
+        >
+        <div *ngIf="adresse.invalid && (adresse.dirty || adresse.touched)" class="error-msg">
+          L'adresse est requise
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="latitude">Latitude</label>
+          <input
+            id="latitude"
+            type="number"
+            [(ngModel)]="formPartenaire.latitude"
+            name="latitude"
+            required
+            min="-90"
+            max="90"
+            step="0.000001"
+            #latitude="ngModel"
+          >
+          <div *ngIf="latitude.invalid && (latitude.dirty || latitude.touched)" class="error-msg">
+            <div *ngIf="latitude.errors?.['required']">La latitude est requise</div>
+            <div *ngIf="latitude.errors?.['min'] || latitude.errors?.['max']">Doit être entre -90 et 90</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="longitude">Longitude</label>
+          <input
+            id="longitude"
+            type="number"
+            [(ngModel)]="formPartenaire.longitude"
+            name="longitude"
+            required
+            min="-180"
+            max="180"
+            step="0.000001"
+            #longitude="ngModel"
+          >
+          <div *ngIf="longitude.invalid && (longitude.dirty || longitude.touched)" class="error-msg">
+            <div *ngIf="longitude.errors?.['required']">La longitude est requise</div>
+            <div *ngIf="longitude.errors?.['min'] || longitude.errors?.['max']">Doit être entre -180 et 180</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="btn primary-btn"
+          [disabled]="partenaireForm.invalid"
+        >
+          {{ editPartenaire ? 'Mettre à jour' : 'Enregistrer' }}
+        </button>
+        <button
+          type="button"
+          class="btn secondary-btn"
+          (click)="toggleFormPartenaire()"
+        >
+          Annuler
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Offer Form Overlay -->
+<div *ngIf="showFormOffre" class="form-overlay">
+  <div class="form-modal">
+    <div class="modal-header">
+      <h3>{{ editOffre ? 'Modifier Offre' : 'Nouvelle Offre' }}</h3>
+      <button (click)="toggleFormOffre()" class="close-btn">&times;</button>
+    </div>
+
+    <form (ngSubmit)="saveOffre()" #offreForm="ngForm" class="form-content">
+      <div class="form-group">
+        <label for="typeOffre">Type d'offre</label>
+        <select
+          id="typeOffre"
+          [(ngModel)]="formOffre.typeOffre"
+          name="typeOffre"
+          required
+          #typeOffre="ngModel"
+        >
+          <option value="">Sélectionner un type</option>
+          <option value="HOTEL">Assurance habitation</option>
+          <option value="automobile">Assurance automobile</option>
+          <option value="santé"> Assurance santé</option>
+          <option value="voyage"> Assurance voyage</option>
+          <option value="scolaire"> Assurance scolaire</option>
+
+
+        </select>
+        <div *ngIf="typeOffre.invalid && (typeOffre.dirty || typeOffre.touched)" class="error-msg">
+          Le type d'offre est requis
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          [(ngModel)]="formOffre.description"
+          name="description"
+          required
+          #description="ngModel"
+        ></textarea>
+        <div *ngIf="description.invalid && (description.dirty || description.touched)" class="error-msg">
+          La description est requise
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="prix">Prix (€)</label>
+          <input
+            id="prix"
+            type="number"
+            [(ngModel)]="formOffre.prix"
+            name="prix"
+            required
+            min="0"
+            #prix="ngModel"
+          >
+          <div *ngIf="prix.invalid && (prix.dirty || prix.touched)" class="error-msg">
+            <div *ngIf="prix.errors?.['required']">Le prix est requis</div>
+            <div *ngIf="prix.errors?.['min']">Doit être positif</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="nombrePlaces">Nombre de places</label>
+          <input
+            id="nombrePlaces"
+            type="number"
+            [(ngModel)]="formOffre.nombrePlaces"
+            name="nombrePlaces"
+            required
+            min="1"
+            #nombrePlaces="ngModel"
+          >
+          <div *ngIf="nombrePlaces.invalid && (nombrePlaces.dirty || nombrePlaces.touched)" class="error-msg">
+            <div *ngIf="nombrePlaces.errors?.['required']">Le nombre de places est requis</div>
+            <div *ngIf="nombrePlaces.errors?.['min']">Minimum 1 place</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="localisation">Localisation</label>
+          <input
+            id="localisation"
+            type="text"
+            [(ngModel)]="formOffre.localisation"
+            name="localisation"
+            required
+            #localisation="ngModel"
+          >
+          <div *ngIf="localisation.invalid && (localisation.dirty || localisation.touched)" class="error-msg">
+            La localisation est requise
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="dateFin">Date de fin</label>
+          <input
+            id="dateFin"
+            type="date"
+            [(ngModel)]="formOffre.dateFin"
+            name="dateFin"
+            required
+            #dateFin="ngModel"
+          >
+          <div *ngIf="dateFin.invalid && (dateFin.dirty || dateFin.touched)" class="error-msg">
+            La date de fin est requise
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="partenaire">Partenaire</label>
+        <select
+          id="partenaire"
+          [(ngModel)]="formOffre.partenaire"
+          name="partenaire"
+          required
+          #partenaire="ngModel"
+        >
+          <option value="">Sélectionner un partenaire</option>
+          <option *ngFor="let p of partenaires" [value]="p.id">{{ p.nom }}</option>
+        </select>
+        <div *ngIf="partenaire.invalid && (partenaire.dirty || partenaire.touched)" class="error-msg">
+          Le partenaire est requis
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="btn primary-btn"
+          [disabled]="offreForm.invalid"
+        >
+          {{ editOffre ? 'Mettre à jour' : 'Enregistrer' }}
+        </button>
+        <button
+          type="button"
+          class="btn secondary-btn"
+          (click)="toggleFormOffre()"
+        >
+          Annuler
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+>>>>>>> f66f6dbf7e51f5605863b8a16a767699713241e8

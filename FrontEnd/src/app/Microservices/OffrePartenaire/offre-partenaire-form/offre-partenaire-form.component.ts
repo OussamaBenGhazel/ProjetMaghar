@@ -9,10 +9,18 @@ import { PartenaireService } from 'src/app/services/Partenaire-Service/partenair
   styleUrls: ['./offre-partenaire-form.component.css']
 })
 export class OffrePartenaireFormComponent implements OnInit {
+<<<<<<< HEAD
   offre: any = { typeOffre: '', description: '', prix: 0, localisation: '', partenaire: null };
   partenaires: any[] = [];
   isEdit = false;
   @Output() offerAdded = new EventEmitter<any>(); // Événement pour notifier le Dashboard
+=======
+  offre: any = { typeOffre: '', description: '', prix: 0, localisation: '', partenaire: null, nombrePlaces: 0, dateFin: '' };
+  partenaires: any[] = [];
+  isEdit = false;
+  @Output() offerAdded = new EventEmitter<any>(); // Événement pour notifier le Dashboard
+  showForm: boolean = false; // Contrôle l'affichage du formulaire
+>>>>>>> f66f6dbf7e51f5605863b8a16a767699713241e8
 
   constructor(
     private offreService: OffrePartenaireService,
@@ -59,4 +67,12 @@ export class OffrePartenaireFormComponent implements OnInit {
       });
     }
   }
+<<<<<<< HEAD
+=======
+
+  // Méthode pour afficher ou masquer le formulaire
+  toggleForm(): void {
+    this.showForm = !this.showForm;
+  }
+>>>>>>> f66f6dbf7e51f5605863b8a16a767699713241e8
 }

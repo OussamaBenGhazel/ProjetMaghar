@@ -13,7 +13,11 @@
 }
 
 .offer-card {
+<<<<<<< HEAD
   background: var(--bg-light); /* Fond gris clair */
+=======
+  background: #fffffffd; /* Fond gris clair */
+>>>>>>> f66f6dbf7e51f5605863b8a16a767699713241e8
   border-radius: 15px;
   overflow: hidden;
   transition: all 0.3s ease-in-out;
@@ -21,7 +25,11 @@
   border: 2px solid transparent;
   width: 100%; /* Ajuste la largeur pour s’adapter au conteneur */
   max-width: 350px; /* Définit une taille maximale */
+<<<<<<< HEAD
   height: 400px; /* Augmente la hauteur de la carte */
+=======
+  height: 550px; /* Augmente la hauteur de la carte */
+>>>>>>> f66f6dbf7e51f5605863b8a16a767699713241e8
   display: flex;
   flex-direction: column;
   position: relative; /* Pour fixer le footer en bas */
@@ -30,7 +38,11 @@
 .offer-card:hover {
   transform: translateY(-4px);
   border-color: var(--primary-color);
+<<<<<<< HEAD
   box-shadow: 0px 10px 20px rgba(243, 156, 18, 0.25);
+=======
+  box-shadow: 0px 10px 20px rgba(3, 3, 3, 0.959);
+>>>>>>> f66f6dbf7e51f5605863b8a16a767699713241e8
 }
 
 .card-header {
@@ -159,6 +171,74 @@ h2.text-center::after {
 
 
 
+<<<<<<< HEAD
+=======
+
+/* Style pour le modal */
+.stats-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.stats-modal-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+.stats-modal-content {
+  background: white;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 1200px;
+  max-height: 90vh;
+  padding: 2rem;
+  position: relative;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+  z-index: 10;
+}
+
+/* Flou sur le contenu principal quand le modal est ouvert */
+body.stats-modal-open #background-container {
+  filter: blur(5px);
+  overflow: hidden;
+}
+
+
+
+.map-button {
+  margin-bottom: 30px; /* Ajuste la valeur selon tes besoins */
+}
+
+
+
+>>>>>>> f66f6dbf7e51f5605863b8a16a767699713241e8
 .animated-button {
   position: relative;
   display: flex;
@@ -246,3 +326,82 @@ h2.text-center::after {
   height: 220px;
   opacity: 1;
 }
+<<<<<<< HEAD
+=======
+
+/* Style pour les champs de recherche */
+.search-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.search-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border: 2px solid #e0e0e0;
+  border-radius: 30px;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 300px;
+}
+
+.search-input:hover {
+  border-color: #f39c12;
+  box-shadow: 0 0 8px rgba(243, 156, 18, 0.2);
+}
+
+.search-input input,
+.search-input select {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  font-size: 1rem;
+  color: #2d3436;
+  padding-left: 2rem;
+}
+
+.search-input input::placeholder {
+  color: #95a5a6;
+}
+
+.search-input select {
+  appearance: none;
+  cursor: pointer;
+}
+
+.search-input .icon {
+  position: absolute;
+  left: 1rem;
+  color: #95a5a6;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.search-input:hover .icon {
+  color: #f39c12;
+}
+
+/* Style pour la modale en plein écran */
+.full-screen-modal .mat-dialog-container {
+  padding: 0;
+  overflow: hidden;
+  border-radius: 0;
+  max-width: 100vw;
+  max-height: 100vh;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* Style pour la carte en plein écran */
+.full-screen-modal app-map-offres {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+>>>>>>> f66f6dbf7e51f5605863b8a16a767699713241e8

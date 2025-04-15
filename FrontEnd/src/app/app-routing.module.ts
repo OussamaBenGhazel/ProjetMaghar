@@ -8,6 +8,7 @@ import { PartenaireEditComponent } from './Microservices/Partenaires/partenaire-
 import { OffrePartenaireFormComponent } from './Microservices/OffrePartenaire/offre-partenaire-form/offre-partenaire-form.component';
 import { OffrePartenaireEditComponent } from './Microservices/OffrePartenaire/offre-partenaire-edit/offre-partenaire-edit.component';
 import { ListeOffreFrontComponent } from './Microservices/liste-offre-front/liste-offre-front.component';
+<<<<<<< HEAD
 import { AjouterOffreEmploiComponent } from './components/ajouter-offre-emploi/ajouter-offre-emploi.component';
 import { ListOffresEmploiComponent } from './components/liste-offres-emploi/liste-offres-emploi.component';
 import { NosOffresComponent } from './nos-offres/nos-offres.component';
@@ -16,6 +17,10 @@ import { CandidatureListComponent } from './candidature-list/candidature-list.co
 import { AddRendezvousComponent } from './components/add-rendezvous/add-rendezvous.component';
 import { CalendarRendezVousComponent } from './components/calendar-rendezvous/calendar-rendezvous.component';
 import { OffreDetailComponent } from './offre-detail/offre-detail.component';
+=======
+import { StatsComponent } from './stats/stats.component';
+import { AddassuranceComponent } from './Microservices/Assurances/ComponentsAdmin/addassurance/addassurance.component.spec';
+>>>>>>> f66f6dbf7e51f5605863b8a16a767699713241e8
 
 const routes: Routes = [
   {
@@ -24,6 +29,7 @@ const routes: Routes = [
       { path: 'partenaire-form', component: PartenaireFormComponent },
       { path: 'partenaire-list', component: PartenaireListComponent },
       { path: 'partenaire-edit/:id', component: PartenaireEditComponent },
+<<<<<<< HEAD
       { path: 'offre-partenaire-edit/:id', component: OffrePartenaireEditComponent },
       { path: 'recrutement', component: AjouterOffreEmploiComponent },
       { path: 'liste-offres-emploi', component: ListOffresEmploiComponent },
@@ -37,6 +43,29 @@ const routes: Routes = [
   { path: 'postuler/:id', component: PostulerComponent },
   { path: 'prendre-rendezvous', component: AddRendezvousComponent },
   { path: 'offre-detail/:id', component: OffreDetailComponent }
+=======
+      { path: 'offre-partenaire-edit/:id', component: OffrePartenaireEditComponent },  // Assurez-vous que cette ligne existe
+
+      { path: 'offre-partenaire-form', component: OffrePartenaireFormComponent },
+       // Cette ligne est importante
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+
+
+
+
+
+
+      { path: 'assurance-form', component: AddassuranceComponent },
+
+
+
+    ]
+
+  },
+  { path: 'NosOffres', component: ListeOffreFrontComponent },
+  { path: 'statistiques', component: StatsComponent }
+
+>>>>>>> f66f6dbf7e51f5605863b8a16a767699713241e8
 ];
 
 @NgModule({

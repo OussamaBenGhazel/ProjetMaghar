@@ -9,6 +9,7 @@ import { OffrePartenaireService } from 'src/app/services/OffrePartenaire-Service
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent {
+  
 
   partenaires: Partenaire[] = [];
   offres: any[] = [];

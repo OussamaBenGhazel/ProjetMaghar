@@ -14,6 +14,13 @@ public interface OffrePartenaireRepository extends JpaRepository<OffrePartenaire
 
     public List<OffrePartenaire> findAll();
 
+<<<<<<< HEAD
 
 
+=======
+    @Query("SELECT o FROM OffrePartenaire o WHERE o.typeOffre = :typeOffre " +
+            "AND o.partenaire.latitude = :latitude AND o.partenaire.longitude = :longitude")
+    List<OffrePartenaire> findByLocalisationAndType(String typeOffre, Double latitude, Double longitude);
+
+>>>>>>> f66f6dbf7e51f5605863b8a16a767699713241e8
 }

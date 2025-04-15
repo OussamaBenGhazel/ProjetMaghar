@@ -3,10 +3,12 @@ package tn.esprit.Microservice_Assurance.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.Microservice_Assurance.model.Assurance;
+import tn.esprit.Microservice_Assurance.model.TypeAssurance;
 import tn.esprit.Microservice_Assurance.repository.AssuranceRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -68,9 +70,14 @@ public class AssuranceServiceImpl implements AssuranceService {
         return assuranceRepository.findAll();
     }
 
-    @Override
     public Assurance getAssuranceById(Long id) {
-        return assuranceRepository.findById(id).get();
+        return assuranceRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Assurance with id " + id + " not found"));
+    }
+
+    @Override
+    public List<Assurance> getAssurancesByType(TypeAssurance type) {
+        return assuranceRepository.findByType(type);
 
     }
 }

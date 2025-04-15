@@ -94,6 +94,15 @@
 			<version>2.6.0</version>
 		</dependency>
 
+<<<<<<< HEAD
+=======
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+
+>>>>>>> f66f6dbf7e51f5605863b8a16a767699713241e8
 	</dependencies>
 
 	<build>
