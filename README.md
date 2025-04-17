@@ -1,82 +1,52 @@
-# Microservice Gestion des Partenaires
+# <img src="https://cdn-icons-png.flaticon.com/512/6132/6132221.png" width="30"/> Microservice Gestion des Partenaires
 
-## 📝 Description
-Microservice dédié à la gestion centralisée des partenaires (agents, courtiers, fournisseurs) et de leurs offres pour Redesign Assurance Maghrebia.  
-Intègre des fonctionnalités avancées de géolocalisation, suivi de performance et connectivité avec des API externes.
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.1-green.svg?logo=spring)
+![Angular](https://img.shields.io/badge/Angular-15-red.svg?logo=angular)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue.svg?logo=postgresql)
+![GitLab CI](https://img.shields.io/badge/GitLab_CI-CD-orange.svg?logo=gitlab)
 
----
-
-## 📑 Table des matières
-1. [Fonctionnalités](#-fonctionnalités)
-2. [Technologies](#-technologies)
-3. [Prérequis](#-prérequis)
-4. [Installation](#-installation)
-5. [Configuration](#-configuration)
-6. [API](#-api)
-7. [Tests](#-tests)
-8. [Déploiement](#-déploiement)
-9. [Contribution](#-contribution)
-10. [Licence](#-licence)
+> Plateforme de gestion des partenaires et offres pour Redesign Assurance Maghrebia  
+> **Stack** : Java 17 • Spring Boot • Angular • Keycloak
 
 ---
 
-## ✨ Fonctionnalités
+## 🌟 Fonctionnalités Principales
 
-### 🗃️ Modules CRUD
-| Module | Description |
-|--------|-------------|
-| **Partenaire** | Gestion complète des profils (coordonnées, agréments, zones d'action) |
-| **Offre Partenaire** | Cycle de vie des offres promotionnelles (création, validation, archivage) |
+### 🖥️ Frontend (Angular)
+- **Tableaux de bord** interactifs
+- **Cartographie** des partenaires (Leaflet/Google Maps)
+- **Workflow** de validation des offres
+- **Portail partenaire** en self-service
 
-### 🏆 Fonctionnalités Métiers
-- **Géolocalisation** : Filtrage avancé via Google Maps API
-- **Business Intelligence** : 
-  - Tableaux de bord performance (taux de conversion, CA)
-  - Alertes automatiques sur KPI critiques
-- **Workflow** :
-  - Validation multi-niveaux des offres
-  - Notifications automatisées (Gmail API)
+### ⚙️ Backend (Spring Boot)
+| Module          | Description                          | Technologie                |
+|-----------------|--------------------------------------|----------------------------|
+| **Partenaires** | CRUD + géolocalisation               | Spring Data JPA + PostGIS  |
+| **Offres**      | Gestion du cycle de vie              | Spring State Machine       |
+| **Reporting**   | Export PDF/Excel                     | Apache POI + JasperReports |
+| **API**         | Documentation Swagger                | SpringDoc OpenAPI          |
 
-### 🌐 API Externes
-| Service | Usage |
-|---------|-------|
-| Google Maps | Géolocalisation et calculs de distance |
-| Gmail API | Communication automatisée avec les partenaires |
+### 🔗 Intégrations
+- **Stripe** : Paiements en ligne
+- **Google Workspace** : Notifications email
+- **Keycloak** : SSO et gestion des rôles
 
 ---
 
-## 🛠 Technologies
+## 🚀 Démarrage Rapide
 
-**Backend**  
-[![Python](https://img.shields.io/badge/Python-3.9+-blue?logo=python)](https://python.org)
-[![Django](https://img.shields.io/badge/Django-4.0-green?logo=django)](https://djangoproject.com)
+### Prérequis
+- JDK 17+
+- Node 18+
+- Docker 24+
 
-**Base de données**  
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-13+-blue?logo=postgresql)](https://postgresql.org)
-
-**Sécurité**  
-[![JWT](https://img.shields.io/badge/JWT-Auth-orange)](https://jwt.io)
-[![OAuth2](https://img.shields.io/badge/OAuth2-2.0-blue)](https://oauth.net)
-
----
-
-## 📋 Prérequis
-- Docker 20.10+
-- Python 3.9+
-- Comptes API Google (Maps + Gmail)
-- Accès à une instance PostgreSQL
-
----
-
-## 🚀 Installation
 ```bash
-# Clone du repository
+# Backend
 git clone https://gitlab.com/redesign-assurance/ms-partners.git
-cd ms-partners
+cd ms-partners/backend
+mvn spring-boot:run -Dspring.profiles.active=dev
 
-# Configuration de l'environnement
-cp .env.example .env
-# → Remplir les variables nécessaires
-
-# Lancement des containers
-docker-compose up -d --build
+# Frontend (nouveau terminal)
+cd ../frontend
+npm install
+ng serve
