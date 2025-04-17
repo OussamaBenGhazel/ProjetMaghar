@@ -2,7 +2,6 @@
 
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.1-green.svg?logo=spring)
 ![Angular](https://img.shields.io/badge/Angular-15-red.svg?logo=angular)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue.svg?logo=postgresql)
 ![GitLab CI](https://img.shields.io/badge/GitLab_CI-CD-orange.svg?logo=gitlab)
 
 > Plateforme de gestion des partenaires et offres pour Redesign Assurance Maghrebia  
