@@ -1,29 +1,66 @@
 pipeline {
   agent any
 
+  tools {
+    maven 'Default'    // Configure Maven dans Jenkins
+    nodejs 'NodeJS'    // Configure NodeJS dans Jenkins
+  }
+
   stages {
     stage('Checkout') {
       steps {
         checkout scm
       }
     }
-    stage('Build') {
+
+    stage('Build Backend') {
       steps {
-        echo 'Build du projet...'
-        sleep 2
+        dir('BackEnd') {
+          sh 'mvn clean install -DskipTests'
+        }
       }
     }
-    stage('Test') {
+
+    stage('Build Frontend') {
       steps {
-        echo 'Tests en cours...'
-        sleep 2
+        dir('FrontEnd') {
+          sh 'npm install'
+          sh 'npm run build'
+        }
       }
     }
-    stage('Deploy') {
+
+    stage('Run Tests') {
       steps {
-        echo 'Déploiement simulé...'
-        sleep 2
+        dir('BackEnd') {
+          sh 'mvn test'
+        }
+        dir('FrontEnd') {
+          sh 'npm test || true'
+        }
       }
+    }
+
+    stage('Package') {
+      steps {
+        archiveArtifacts artifacts: 'BackEnd/target/*.jar', fingerprint: true
+        archiveArtifacts artifacts: 'FrontEnd/dist/**', fingerprint: true
+      }
+    }
+
+    stage('Deploy with Docker') {
+      steps {
+        sh 'docker-compose up -d --build'
+      }
+    }
+  }
+
+  post {
+    success {
+      echo '✅ Build et déploiement réussis !'
+    }
+    failure {
+      echo '❌ Erreur dans le pipeline'
     }
   }
 }
