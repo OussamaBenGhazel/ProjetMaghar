@@ -2,9 +2,10 @@ pipeline {
     agent any
 
     tools {
-        maven 'Default'   // Ton Maven configuré
-        nodejs 'NodeJS'  // Ton NodeJS configuré
-    }
+    jdk 'jdk17'
+    maven 'Default'
+    nodejs 'NodeJS'
+}
 
     stages {
         stage('Checkout') {
