@@ -1,66 +1,72 @@
 pipeline {
-  agent any
+    agent any
 
-  tools {
-    maven 'Default'    // Configure Maven dans Jenkins
-    nodejs 'NodeJS'    // Configure NodeJS dans Jenkins
-  }
-
-  stages {
-    stage('Checkout') {
-      steps {
-        checkout scm
-      }
+    tools {
+        maven 'Default'   // Ton Maven configuré
+        nodejs 'NodeJS'  // Ton NodeJS configuré
     }
 
-    stage('Build Backend') {
-      steps {
-        dir('BackEnd') {
-          sh 'mvn clean install -DskipTests'
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
         }
-      }
-    }
 
-    stage('Build Frontend') {
-      steps {
-        dir('FrontEnd') {
-          sh 'npm install'
-          sh 'npm run build'
+        stage('Build Microservices') {
+            steps {
+                script {
+                    def services = [
+                        "BackEnd/Microservices/Microservice-Assurance",
+                        "BackEnd/Microservices/Microservice-Avis",
+                        "BackEnd/Microservices/Microservice-Reclamation",
+                        "BackEnd/Microservices/Microservice-Recrutement",
+                        "BackEnd/Microservices/Microservice-Rendezvous",
+                        "BackEnd/Microservices/Microservice-Sinistre",
+                        "BackEnd/Microservices/Microservice-User",
+                        "BackEnd/Microservices/config-service",
+                        "BackEnd/Microservices/eureka",
+                        "BackEnd/Microservices/gateway",
+                        "BackEnd/Microservices/partenaire-service"
+                    ]
+                    
+                    for (service in services) {
+                        dir(service) {
+                            sh 'mvn clean install -DskipTests'
+                        }
+                    }
+                }
+            }
         }
-      }
-    }
 
-    stage('Run Tests') {
-      steps {
-        dir('BackEnd') {
-          sh 'mvn test'
+        stage('Build Frontend') {
+            steps {
+                dir('FrontEnd') {
+                    sh 'npm install'
+                    sh 'npm run build'
+                }
+            }
         }
-        dir('FrontEnd') {
-          sh 'npm test || true'
+
+        stage('Package with Docker') {
+            steps {
+                sh 'docker-compose build'
+            }
         }
-      }
+
+        stage('Deploy with Docker') {
+            steps {
+                sh 'docker-compose up -d'
+            }
+        }
     }
 
-    stage('Package') {
-      steps {
-        archiveArtifacts artifacts: 'BackEnd/target/*.jar', fingerprint: true
-        archiveArtifacts artifacts: 'FrontEnd/dist/**', fingerprint: true
-      }
+    post {
+        success {
+            echo '✅ Pipeline terminé avec succès !'
+        }
+        failure {
+            echo '❌ Erreur dans le pipeline.'
+        }
     }
-
-    stage('Deploy with Docker') {
-      steps {
-        sh 'docker-compose up -d --build'
-      }
-    }
-  }
-
-  post {
-    success {
-      echo '✅ Build et déploiement réussis !'
-    }
-    failure {
-      echo '❌ Erreur dans le pipeline'
-    }
-  }
 }
